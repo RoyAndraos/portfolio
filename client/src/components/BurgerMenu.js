@@ -1,11 +1,13 @@
 import styled from "styled-components";
-
+import { useContext } from "react";
+import ThemeContext from "./contexts/ColorTheme";
 const BurgerMenu = ({ toggleMenu, menuOpen }) => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Wrapper onClick={() => toggleMenu()}>
-      <BarTop menuopen={menuOpen.toString()} />
-      <BarMiddle menuopen={menuOpen.toString()} />
-      <BarBot menuopen={menuOpen.toString()} />
+    <Wrapper onClick={() => toggleMenu()} menuopen={menuOpen.toString()}>
+      <BarTop menuopen={menuOpen.toString()} theme={theme} />
+      <BarMiddle menuopen={menuOpen.toString()} theme={theme} />
+      <BarBot menuopen={menuOpen.toString()} theme={theme} />
     </Wrapper>
   );
 };
@@ -13,42 +15,52 @@ const BurgerMenu = ({ toggleMenu, menuOpen }) => {
 const Wrapper = styled.div`
   display: none;
   flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
-  height: 70%;
+  width: ${(props) => (props.menuopen === "true" ? "25px" : "30px")};
+  height: ${(props) => (props.menuopen === "true" ? "25px" : "22px")};
+  position: relative;
+  overflow: hidden;
   @media (max-width: 800px) {
     display: flex;
   }
 `;
 
 const BarTop = styled.div`
-  width: 25px;
+  width: 30px;
   height: 3px;
   background-color: #50196f;
-  margin: 3px 0;
   transition: 0.3s ease-in-out;
   transform: ${(props) =>
-    props.menuopen === "true" ? "rotate(45deg) translateY(12.5px)" : "none"};
-  position: relative;
-  left: ${(props) => (props.menuopen === "true" ? "7px" : "0")};
+    props.menuopen === "true"
+      ? "rotate(45deg) translateX(5.5px) translateY(9.5px)"
+      : "none"};
+  position: ${(props) => (props.menuopen === "true" ? "absolute" : "relative")};
+  ${({ theme }) => theme === "dark" && `background-color: #a742bc;`};
 `;
 const BarMiddle = styled.div`
-  width: 25px;
+  width: 30px;
   height: 3px;
-  background-color: ${(props) =>
-    props.menuopen === "true" ? "transparent" : "#50196f"};
-  margin: 3px 0;
+  display: ${(props) => (props.menuopen === "true" ? "none" : "block")};
   transition: 0.3s ease-in-out;
+  ${({ theme }) =>
+    theme === "dark"
+      ? `background-color: #a742bc;`
+      : `background-color: #50196f;`};
 `;
 const BarBot = styled.div`
-  width: 25px;
+  width: 30px;
   height: 3px;
   background-color: #50196f;
-  margin: 3px 0;
   transition: 0.3s ease-in-out;
   transform: ${(props) =>
-    props.menuopen === "true" ? "rotate(-45deg) translateY(-12.5px) " : "none"};
+    props.menuopen === "true"
+      ? "rotate(-45deg) translateX(-9.5px) translateY(5.5px)"
+      : "none"};
+  position: ${(props) => (props.menuopen === "true" ? "absolute" : "relative")};
+
   position: relative;
-  left: ${(props) => (props.menuopen === "true" ? "7px" : "0")};
+  ${({ theme }) => theme === "dark" && `background-color: #a742bc;`};
 `;
 
 export default BurgerMenu;

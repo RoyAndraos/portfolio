@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import gsap, { TimelineLite, Power2 } from "gsap";
 import { useEffect, useRef } from "react";
+import logo from "../assets/finalPortfolioReactIcon.png";
+import ThemeContext from "./contexts/ColorTheme";
+import { MdOutlineLightMode } from "react-icons/md";
 const Header = () => {
   const [selected, setSelected] = useState("");
-  let wrapper = useRef(null);
-  let element = useRef(null);
+  const [showLogo, setShowLogo] = useState(false);
   gsap.registerPlugin();
+  const location = useLocation();
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [isMobile, setIsMobile] = useState(false);
+  let wrapper = useRef(null);
+  let logoRef = useRef(null);
+  let element = useRef(null);
+
+  //useEffect to detect if the screen size is less than 1000px
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth <= 1000;
+      setIsMobile(newIsMobile);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMobile]);
+
   useEffect(() => {
     const tl = new TimelineLite();
     tl.to(wrapper, 0, { css: { visibility: "visible" } }).fromTo(
@@ -25,6 +48,65 @@ const Header = () => {
       }
     );
   }, []);
+  const animateLogo = () => {
+    gsap.registerPlugin();
+    const tl = new TimelineLite();
+    tl.fromTo(
+      logoRef,
+      {
+        opacity: 0,
+        rotate: 360, // Start rotation
+        x: -100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotate: 720, // End rotation
+        duration: 1.4,
+        ease: Power2.easeInOut,
+        delay: 2,
+      }
+    );
+    tl.fromTo(
+      logoRef,
+      {
+        rotate: 360, // Start rotation
+      },
+      {
+        rotate: 720, // End rotation
+        duration: 9,
+        ease: "none",
+        repeat: -1,
+      }
+    );
+  };
+
+  const stopAnimation = () => {
+    gsap.registerPlugin();
+    const tl = new TimelineLite();
+    tl.fromTo(
+      logoRef,
+      {
+        opacity: 1,
+      },
+      {
+        opacity: 0,
+        duration: 1,
+        ease: Power2.easeInOut,
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setShowLogo(true);
+      animateLogo();
+    } else {
+      stopAnimation();
+      setShowLogo(false);
+    }
+  }, [location]);
+
   const handleSelect = (e) => {
     e.preventDefault();
     if (e.target.innerText === "About") {
@@ -36,42 +118,96 @@ const Header = () => {
     }
   };
   return (
-    <Wrapper ref={(el) => (wrapper = el)}>
-      <StyledNavlink
-        to="/"
-        style={{ textDecoration: "none" }}
-        onClick={() => setSelected("")}
-      >
-        <Name ref={(el) => (element = el)}>Roy Andraos</Name>
+    <Wrapper ref={(el) => (wrapper = el)} theme={theme}>
+      <StyledNavlink to="/" showlogo={showLogo.toString()}>
+        <Logo
+          src={logo}
+          ref={(el) => (logoRef = el)}
+          onClick={() => setSelected("")}
+          showlogo={showLogo.toString()}
+        />
       </StyledNavlink>
+      <Name
+        ref={(el) => (element = el)}
+        theme={theme}
+        showlogo={(showLogo && isMobile).toString()}
+      >
+        {isMobile ? "Roy A." : "Roy Andraos "}
+      </Name>
+      <Toggle
+        onClick={() => {
+          if (theme === "light") {
+            setTheme("dark");
+          } else {
+            setTheme("light");
+          }
+        }}
+      >
+        <StyledMdOutlineLightMode theme={theme} />
+      </Toggle>
       <Navbar selected={selected} handleSelect={handleSelect} />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  align-content: center;
   height: 10vh;
-  width: 100vw;
+  width: 100%;
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.75);
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.7);
   visibility: hidden;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `background: black;
+  ;`};
+  z-index: 10;
 `;
 
-const Name = styled.h1`
+export const Name = styled.h1`
   font-size: clamp(25px, 3vw, 40px);
   margin: 0;
+  display: ${(props) => (props.showlogo === "true" ? "none" : "block")};
   color: #50196f;
   padding: 0;
   font-family: "Roboto", sans-serif;
+  text-align: center;
+  cursor: default;
+  width: 100%;
+  ${({ theme }) => theme === "dark" && `color: whitesmoke;`};
 `;
 const StyledNavlink = styled(NavLink)`
   height: 100%;
   position: relative;
-  display: flex;
+  display: ${(props) => (props.showlogo === "true" ? "flex" : "none")};
   justify-content: center;
   align-items: center;
+  cursor: ${(props) => (props.showlogo === "true" ? "pointer" : "default")};
+  @media (min-width: 800px) {
+    position: absolute;
+    left: 3vw;
+  }
+  z-index: 1;
+`;
+const Logo = styled.img`
+  height: 8vh;
+  width: 8vh;
+`;
+
+const Toggle = styled.button`
+  width: 100%;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+`;
+
+const StyledMdOutlineLightMode = styled(MdOutlineLightMode)`
+  color: #50196f;
+  font-size: 30px;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
 `;
 
 export default Header;

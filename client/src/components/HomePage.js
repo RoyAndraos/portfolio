@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import logo from "../assets/finalPortfolioReactIcon.png";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power2 } from "gsap";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
+import ThemeContext from "./contexts/ColorTheme";
 const HomePage = () => {
+  gsap.registerPlugin();
   let wrapper = useRef(null);
   let img = useRef(null);
   let gitLink = useRef(null);
   let linkedInLink = useRef(null);
   let otherTextAfterElement = useRef(null);
-  gsap.registerPlugin();
+  const { theme } = useContext(ThemeContext);
   useEffect(() => {
     const tl = new TimelineLite();
     tl.to(wrapper, 1, { css: { visibility: "visible" } })
@@ -67,17 +69,17 @@ const HomePage = () => {
       );
   }, []);
   return (
-    <Container>
+    <Container theme={theme}>
       <Wrapper>
         <ImageWrapper ref={(el) => (wrapper = el)}>
           <Logo src={logo} ref={(el) => (img = el)}></Logo>
         </ImageWrapper>
         <InfoWrapper>
           <TextWrapper>
-            <Heading>Front-end Developer</Heading>
+            <Heading theme={theme}>Full Stack Developer</Heading>
           </TextWrapper>
           <InfoTextWrapper>
-            <Info>
+            <Info theme={theme}>
               Making my way into the world of web development, blooming
               applications with React, and learning new technologies along the
               way.
@@ -88,49 +90,53 @@ const HomePage = () => {
       </Wrapper>
       <LinksWrapper>
         <a href="https://github.com/RoyAndraos" ref={(el) => (gitLink = el)}>
-          <Git />
+          <Git theme={theme} />
         </a>
         <a
           href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/"
           ref={(el) => (linkedInLink = el)}
         >
-          <LinkedIn />
+          <LinkedIn theme={theme} />
         </a>
       </LinksWrapper>
     </Container>
   );
 };
 
-const InfoTextWrapper = styled.div``;
+const InfoTextWrapper = styled.div`
+  height: fit-content;
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: 90%;
+  width: 100%;
   height: 89vh;
-  left: 50%;
-  top: 0vh;
-  transform: translateX(-50%);
+  position: relative;
+  top: 10vh;
   @media (max-width: 800px) {
     top: 0;
-    width: 90%;
   }
+  ${({ theme }) => theme === "dark" && `background: transparent`};
 `;
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 95%;
   height: 50vh;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   @media (max-width: 800px) {
     flex-direction: column;
-    height: 80vh;
+    height: 90vh;
+    top: 10vh;
   }
 `;
-const Logo = styled.img`
-  width: 80%;
+export const Logo = styled.img`
+  width: 70%;
   position: absolute;
   inset: 0;
   transform: scale(0.3) rotate(0);
@@ -145,13 +151,18 @@ const AfterEl = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 70%;
   border-radius: 20px;
   background: radial-gradient(
     circle at 52.1% -29.6%,
     rgb(144, 17, 105) 0%,
     rgb(51, 0, 131) 100.2%
   );
+  @media (max-width: 800px) {
+    height: 70%;
+    width: 70%;
+    left: 15%;
+  }
 `;
 const ImageWrapper = styled.div`
   position: relative;
@@ -186,6 +197,7 @@ const InfoWrapper = styled.div`
     width: 100%;
     height: 50%;
     text-align: center;
+    top: -10vh;
   }
 `;
 const Heading = styled.h1`
@@ -196,8 +208,9 @@ const Heading = styled.h1`
   @media (max-width: 800px) {
     margin: 0 auto;
   }
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
 `;
-const LinksWrapper = styled.div`
+export const LinksWrapper = styled.div`
   width: 20%;
   height: 10vh;
   bottom: 0;
@@ -207,29 +220,27 @@ const LinksWrapper = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 800px) {
-    width: 100%;
+    width: 100vw;
     height: 10vh;
-    bottom: 0;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    bottom: -10vh;
   }
 `;
 
-const Git = styled(BsGithub)`
+export const Git = styled(BsGithub)`
   font-size: 3rem;
   margin: 0 2rem;
   color: #50196f;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
 `;
-const LinkedIn = styled(BsLinkedin)`
+export const LinkedIn = styled(BsLinkedin)`
   font-size: 3rem;
   margin: 0 2rem;
   color: #50196f;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
 `;
 
 const Info = styled.p`
@@ -238,10 +249,15 @@ const Info = styled.p`
   margin-top: 3rem;
   width: 70%;
   font-family: "Roboto", sans-serif;
+  line-height: 1.8;
+  text-align: right;
   @media (max-width: 800px) {
     font-size: clamp(15px, 2vw, 30px);
     margin: 0 auto;
     width: 50%;
+    text-align: center;
   }
+  ${({ theme }) => theme === "dark" && `color: white;`};
 `;
+
 export default HomePage;
