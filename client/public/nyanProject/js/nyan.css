@@ -1,0 +1,65 @@
+/**********************************************************************************/
+#nyanBody{
+    background-image: url('/nyanProject/images/backBack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#app{
+    position: relative;
+    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(0, 0, 0, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(0, 0, 0, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px,
+    rgba(240, 46, 170, 0.4) 5px -5px, rgba(0, 0, 0, 0.3) 10px -10px, rgba(240, 46, 170, 0.2) 15px -15px, rgba(0, 0, 0, 0.1) 20px -20px, rgba(240, 46, 170, 0.05) 25px -25px,
+    rgba(0, 0, 0, 0.4) -5px -5px, rgba(240, 46, 170, 0.3) -10px -10px, rgba(0, 0, 0, 0.2) -15px -15px, rgba(240, 46, 170, 0.1) -20px -20px, rgba(240, 46, 170, 0.05) 25px -25px,
+    rgba(0, 0, 0, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(0, 0, 0, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px -25px,
+    rgba(0, 0, 0, 0.4) 5px 5px 5px 5px, rgba(0, 0, 0, 0.3) 10px 10px 10px 10px, rgba(0, 0, 0, 0.2) 15px 15px 15px 15px, rgba(0, 0, 0, 0.1) 20px 20px 20px 20px, rgba(0, 0, 0, 0.05) 25px 25px 25px 25px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#scoreBoard{
+    position :absolute;
+    top : 0;
+    right : 0;
+    width : 100px;
+    text-align : center;
+    color : #ff00a6;
+    font-size: 15px;
+    z-index: 999;
+}
+#level{
+    background-color: transparent;
+    color: #ff00a6;
+    position: absolute;
+    top: 0;
+    left: 42%;
+    font-size: 15px;
+    z-index: 999;
+}
+
+#youLostALife{
+    background-color: transparent;
+    color: whitesmoke;
+    position: absolute;
+    top: 30%;
+    font-size: 30px;
+    left: 23%;
+}
+#youLost{
+    background-color: transparent;
+    color: pink;
+    position: absolute;
+    top: 20%;
+    font-size: 100px;
+    left: 20px;
+    z-index: 500;
+    text-shadow: 2px 2px #ff00a6;
+    box-shadow: inset rgba(240, 46, 170, 0.4) -5px 5px, inset rgba(0, 0, 0, 0.3) -10px 10px, inset rgba(240, 46, 170, 0.2) -15px 15px, inset rgba(0, 0, 0, 0.1) -20px 20px, inset rgba(240, 46, 170, 0.05) -25px 25px,
+    inset rgba(240, 46, 170, 0.4) 5px -5px,inset rgba(0, 0, 0, 0.3) 10px -10px,inset rgba(240, 46, 170, 0.2) 15px -15px,inset rgba(0, 0, 0, 0.1) 20px -20px,inset rgba(240, 46, 170, 0.05) 25px -25px,
+    inset rgba(0, 0, 0, 0.4) -5px -5px,inset rgba(240, 46, 170, 0.3) -10px -10px,inset rgba(0, 0, 0, 0.2) -15px -15px,inset rgba(240, 46, 170, 0.1) -20px -20px,inset rgba(240, 46, 170, 0.05) 25px -25px,
+    inset rgba(0, 0, 0, 0.4) 5px 5px,inset rgba(240, 46, 170, 0.3) 10px 10px,inset rgba(0, 0, 0, 0.2) 15px 15px,inset rgba(240, 46, 170, 0.1) 20px 20px,inset rgba(240, 46, 170, 0.05) 25px -25px,
+    inset rgba(0, 0, 0, 0.4) 5px 5px 5px 5px,inset rgba(0, 0, 0, 0.3) 10px 10px 10px 10px,inset rgba(0, 0, 0, 0.2) 15px 15px 15px 15px,inset rgba(0, 0, 0, 0.1) 20px 20px 20px 20px,inset rgba(0, 0, 0, 0.05) 25px 25px 25px 25px;
+    border-radius: 50%;
+}

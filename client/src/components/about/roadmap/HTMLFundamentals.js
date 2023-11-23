@@ -31,6 +31,9 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 80%;
+  @media (min-width: 1000px) {
+    margin-top: 1.5%;
+  }
 `;
 
 export const Title = styled.h1`

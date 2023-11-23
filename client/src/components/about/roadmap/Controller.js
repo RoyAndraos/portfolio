@@ -17,7 +17,7 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
   };
 
   const handleRight = () => {
-    if (mapIndex === 10) {
+    if (mapIndex === 13) {
       return;
     } else {
       setMapIndex((prev) => prev + 1);
@@ -54,6 +54,9 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  @media (max-width: 768px) {
+    bottom: 3%;
+  }
 `;
 
 const StyledFaAngleLeft = styled(FaChevronCircleLeft)`
@@ -89,14 +92,14 @@ const StyledFaAngleRight = styled(FaChevronCircleRight)`
 `;
 
 const Left = styled.button`
-  width: 50%;
+  width: fit-content;
   border: none;
   background-color: transparent;
   font-size: 5rem;
 `;
 
 const Right = styled.button`
-  width: 50%;
+  width: fit-content;
   border: none;
   background-color: transparent;
   font-size: 5rem;

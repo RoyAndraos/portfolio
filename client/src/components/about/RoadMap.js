@@ -12,6 +12,7 @@ import EventListenersPartTwo from "./roadmap/EventListenersPartTwo";
 import OOP from "./roadmap/OOP";
 import ReactState from "./roadmap/ReactState";
 import HTMLFundamentals from "./roadmap/HTMLFundamentals";
+import NyanCat from "./roadmap/NyanCat";
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let roadmRef = useRef(null);
   let introRef = useRef(null);
@@ -26,6 +27,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let oopRef = useRef(null);
   let reactStateRef = useRef(null);
   let htmlRef = useRef(null);
+  let nyanCatRef = useRef(null);
   useEffect(() => {
     setRoadmapRef(roadmRef);
   });
@@ -35,7 +37,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // The target section is currently on the screen
-          setMapIndex(parseInt(entry.target.id.slice(-1)));
+          setMapIndex(parseInt(entry.target.id.split("-")[1]));
         }
       });
     };
@@ -59,6 +61,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     observer.observe(eventOneRef.current);
     observer.observe(eventTwoRef.current);
     observer.observe(oopRef.current);
+    observer.observe(nyanCatRef.current);
     observer.observe(reactStateRef.current);
 
     return () => {
@@ -78,6 +81,8 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     oopRef,
     reactStateRef,
     setMapIndex,
+    htmlRef,
+    nyanCatRef,
   ]);
   return (
     <Wrapper ref={roadmRef}>
@@ -92,6 +97,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       <EventListeners eventOneRef={eventOneRef} />
       <EventListenersPartTwo eventTwoRef={eventTwoRef} />
       <OOP oopRef={oopRef} />
+      <NyanCat nyanCatRef={nyanCatRef} />
       <ReactState reactStateRef={reactStateRef} />
     </Wrapper>
   );

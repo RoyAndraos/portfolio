@@ -8,6 +8,7 @@ import bg from "./assets/BG1.jpg";
 import { useContext } from "react";
 import ThemeContext from "./components/contexts/ColorTheme";
 import "./scroll.css";
+import NyanCat from "./components/about/roadmap/NyanCat";
 const App = () => {
   const { theme } = useContext(ThemeContext);
   return (
@@ -28,6 +29,14 @@ const App = () => {
           element={
             <TransitionComponent>
               <About />
+            </TransitionComponent>
+          }
+        />
+        <Route
+          path="/nyan-pizza"
+          element={
+            <TransitionComponent>
+              <NyanCat />
             </TransitionComponent>
           }
         />
