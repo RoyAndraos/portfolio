@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked, Info } from "./HTMLFundamentals";
 import "../../../assets/frogRace.css";
 import finishLine from "../../../assets/finshline.jpg";
 import styled from "styled-components";
@@ -16,6 +16,7 @@ const TheDomPartTwo = ({ domTwoRef }) => {
   const [result, setResult] = useState(null);
   const tippyRef = useRef(null);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showGame, setShowGame] = useState(false);
   const handleOpenInstriuctions = () => {
     gsap.registerPlugin();
     const tl = new TimelineLite();
@@ -23,8 +24,8 @@ const TheDomPartTwo = ({ domTwoRef }) => {
       setShowInstructions(false);
       tl.to(tippyRef.current, {
         opacity: 0,
-        zIndex: -1,
         duration: 0.2,
+        zIndex: -1,
         ease: Power4.easeOut,
       });
     } else {
@@ -169,69 +170,147 @@ const TheDomPartTwo = ({ domTwoRef }) => {
   const startGame = () => {
     setGameStarted(true);
   };
-  return (
-    <Wrapper id="section-7" ref={domTwoRef} style={{ top: "5vh" }}>
-      <Title theme={theme}>The DOM 2, Frog Race Time!</Title>
-      <Container>
-        <TopWrapper>
-          <Instructions theme={theme}>
-            {!gameStarted ? "Place your bet!" : "Good Luck!"}
-          </Instructions>
-          {!gameStarted && (
-            <Start
-              onClick={() => {
-                startGame();
-              }}
-              disabled={bet === null}
-            >
-              Start Race
-            </Start>
-          )}
-          {gameStarted && <Start onClick={() => reset()}>Reset</Start>}
+  const playGame = () => {
+    gsap.registerPlugin(TimelineLite);
 
-          <div
-            style={{ marginLeft: "20px" }}
-            onClick={() => {
-              handleOpenInstriuctions();
-            }}
-          >
-            <MoreInfo theme={theme} />
-          </div>
-        </TopWrapper>
-        {racers && (
-          <Bets>
-            {bet === null ? (
-              racers.map((racer) => (
-                <Racer
-                  key={racer.number}
-                  style={{ background: racer.color }}
-                  onClick={() => setBet(racer)}
-                >
-                  {racer.name + " " + racer.number}
-                </Racer>
-              ))
-            ) : (
-              <Racer
-                key={bet.name}
+    const tl = new TimelineLite({
+      onComplete: () => {
+        setShowGame(!showGame);
+        gsap.to(domTwoRef.current, {
+          opacity: 1,
+          duration: 0.2,
+          ease: Power4.easeIn,
+        });
+      },
+    });
+
+    tl.to(domTwoRef.current, {
+      opacity: 0,
+      duration: 0.2,
+      ease: Power4.easeOut,
+    });
+  };
+  return (
+    <Wrapper id="section-7" ref={domTwoRef}>
+      <Title
+        theme={theme}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          width: "90%",
+          transform: "translateX(35%)",
+        }}
+      >
+        The DOM 2, Frog Race Time!{" "}
+        <Play
+          onClick={() => {
+            playGame();
+          }}
+        >
+          {showGame ? "Back To Instructions" : "Play Frog Race"}
+        </Play>
+      </Title>
+      {showGame ? (
+        <Container>
+          <TopWrapper>
+            <Instructions theme={theme}>
+              {!gameStarted ? "Place your bet!" : "Good Luck!"}
+            </Instructions>
+            {!gameStarted && (
+              <Start
                 onClick={() => {
-                  if (gameStarted) return;
-                  setBet(null);
+                  startGame();
                 }}
+                disabled={bet === null}
               >
-                {bet.name + " " + bet.number}
-              </Racer>
+                Start
+              </Start>
             )}
-          </Bets>
-        )}
-        <div className="place-takers">
-          <span id="place-taker-2"></span>
-          <span id="place-taker-1"></span>
-          <span id="place-taker-3"></span>
-        </div>
-        <div>
-          <StyledTippy ref={tippyRef}>
-            Click on one of the frogs to place your bet, then start the game and
-            watch (or cheer, no shame in that). <br />
+            {gameStarted && <Start onClick={() => reset()}>Reset</Start>}
+
+            <MoreInfo
+              theme={theme}
+              onClick={() => {
+                handleOpenInstriuctions();
+              }}
+            />
+          </TopWrapper>
+          {racers && (
+            <Bets>
+              {bet === null ? (
+                racers.map((racer) => (
+                  <Racer
+                    key={racer.number}
+                    style={{ background: racer.color }}
+                    onClick={() => setBet(racer)}
+                  >
+                    {racer.name + " " + racer.number}
+                  </Racer>
+                ))
+              ) : (
+                <Racer
+                  key={bet.name}
+                  onClick={() => {
+                    if (gameStarted) return;
+                    setBet(null);
+                  }}
+                >
+                  {bet.name + " " + bet.number}
+                </Racer>
+              )}
+            </Bets>
+          )}
+          <div className="place-takers">
+            <span id="place-taker-2"></span>
+            <span id="place-taker-1"></span>
+            <span id="place-taker-3"></span>
+          </div>
+          <div>
+            <StyledTippy ref={tippyRef}>
+              Click on one of the frog names to place your bet, then start the
+              game and watch (or cheer, no shame in that). <br />
+            </StyledTippy>
+            <ol id="track" className="track">
+              <li id="lane-1">
+                <span className="laneNumber">1</span>
+                <span id="lane-name-1"></span>
+                <span id="lane-number-1"></span>
+                <img
+                  className="finishLine"
+                  alt="Checkered Finish Line"
+                  src={finishLine}
+                ></img>
+              </li>
+              <li id="lane-2">
+                <span className="laneNumber">2</span>
+                <span id="lane-name-2"></span>
+                <span id="lane-number-2"></span>
+                <img
+                  className="finishLine"
+                  alt="Checkered Finish Line"
+                  src={finishLine}
+                ></img>
+              </li>
+              <li id="lane-3">
+                <span className="laneNumber">3</span>
+
+                <span id="lane-name-3"></span>
+                <span id="lane-number-3"></span>
+
+                <img
+                  className="finishLine"
+                  alt="Checkered Finish Line"
+                  src={finishLine}
+                ></img>
+              </li>
+            </ol>
+          </div>
+          {result && <Results>{result}</Results>}
+        </Container>
+      ) : (
+        <>
+          <Info style={{ padding: "3%" }}>
             Code Instructions: <br />
             1-Take the given array of frogs and randomly select 3 of the 5
             objects given. <br />
@@ -241,49 +320,14 @@ const TheDomPartTwo = ({ domTwoRef }) => {
             3-Make the frogs race: random hopLengths and random intervals(frog
             might take up to 4 seconds to decide to jump again... frogs...).{" "}
             <br />
-          </StyledTippy>
-          <ol id="track" className="track">
-            <li id="lane-1">
-              <span>1</span>
-              <span id="lane-name-1"></span>
-              <span id="lane-number-1"></span>
-              <img
-                className="finishLine"
-                alt="Checkered Finish Line"
-                src={finishLine}
-              ></img>
-            </li>
-            <li id="lane-2">
-              <span>2</span>
-              <span id="lane-name-2"></span>
-              <span id="lane-number-2"></span>
-              <img
-                className="finishLine"
-                alt="Checkered Finish Line"
-                src={finishLine}
-              ></img>
-            </li>
-            <li id="lane-3">
-              <span>3</span>
-
-              <span id="lane-name-3"></span>
-              <span id="lane-number-3"></span>
-
-              <img
-                className="finishLine"
-                alt="Checkered Finish Line"
-                src={finishLine}
-              ></img>
-            </li>
-          </ol>
-        </div>
-        {result && <Results>{result}</Results>}
-      </Container>
-      <Acheivement theme={theme}>
-        <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />
-        Gambling addiction.
-      </Acheivement>
+          </Info>
+          <Acheivement theme={theme}>
+            <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
+            <br />
+            Gambling addiction.
+          </Acheivement>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -291,16 +335,14 @@ const TheDomPartTwo = ({ domTwoRef }) => {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 85%;
   font-size: 1.5rem;
   border-top: 3px solid #50196f;
-  border-right: 3px solid #50196f;
-  border-top-right-radius: 20px;
   color: black;
   line-height: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   ${({ theme }) => theme === "dark" && `color: white;`};
@@ -309,7 +351,7 @@ const Container = styled.div`
     border: 3px solid #50196f;
     border-radius: 20px;
     margin-bottom: 10%;
-    width: 85%;
+    width: 100%;
   }
 `;
 const Start = styled.button`
@@ -323,6 +365,9 @@ const Start = styled.button`
   &:disabled {
     background-color: grey;
     cursor: not-allowed;
+  }
+  @media (max-width: 1000px) {
+    padding: 2%;
   }
 `;
 const Bets = styled.div`
@@ -346,20 +391,34 @@ const Racer = styled.div`
   cursor: pointer;
 `;
 const Instructions = styled.p`
+  width: 30%;
   font-size: 1.4rem;
   font-weight: bolder;
-  margin: 1%;
-  padding: 1%;
-  text-align: center;
   ${({ theme }) => theme === "dark" && `color: white;`};
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const TopWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 50vw;
+  background-color: darkgreen;
+  border-radius: 10px;
+  color: white;
   margin-top: 20px;
+  height: 8vh;
+  @media (max-width: 1000px) {
+    margin: 0;
+    width: 100%;
+    border-radius: 16px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    align-items: center;
+    height: 6vh;
+  }
 `;
 
 const Results = styled.div`
@@ -376,7 +435,8 @@ const Results = styled.div`
   z-index: 100;
 `;
 const MoreInfo = styled(FaQuestionCircle)`
-  font-size: 3.5rem;
+  font-size: 3rem;
+  width: 30%;
   color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: 0.2s ease-in-out;
@@ -384,6 +444,9 @@ const MoreInfo = styled(FaQuestionCircle)`
     color: grey;
   }
   ${({ theme }) => theme === "dark" && `color: rgba(255,255,255,0.4);`};
+  @media (max-width: 1000px) {
+    font-size: 2.5rem;
+  }
 `;
 const StyledTippy = styled.p`
   background-color: darkgrey;
@@ -392,13 +455,14 @@ const StyledTippy = styled.p`
   font-size: 1.3rem;
   font-family: "Roboto", sans-serif;
   position: absolute;
-  width: 70%;
-  top: 15%;
-  left: 15%;
-  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 8vh;
+  height: 10vh;
+  width: calc(50vw - 100px);
+  left: 50%;
+  transform: translateX(-50%);
   padding: 20px 50px 20px 50px;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
@@ -407,6 +471,38 @@ const StyledTippy = styled.p`
     width: 90%;
     padding: 30px 30px;
     top: 60%;
+  }
+`;
+
+const Acheivement = styled.p`
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0;
+  padding: 3%;
+  border-left: 3px solid #50196f;
+  border-top: 3px solid #50196f;
+  border-top-left-radius: 20px;
+  ${({ theme }) => theme === "dark" && `color: white;`};
+  font-weight: 700;
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
+export const Play = styled.button`
+  background-color: #50196f;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
+  @media (max-width: 1000px) {
+    padding: 2%;
   }
 `;
 export default TheDomPartTwo;

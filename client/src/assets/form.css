@@ -4,12 +4,7 @@
     justify-content: center;
     background-color: #f2f2f2;
 }
-.wrapper div{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    
-}
+
 .labelInputWrapper{
     display: flex;
     align-items: baseline;
@@ -19,57 +14,56 @@
     margin-left: 10px;
     width: 100%;
 }
-form{
+.form{
     position: relative;
-    width: 80%;
     padding: 24px;
     padding-top: 7%;
+    margin-top: 30px;
     background-color: aliceblue;
-    top:5%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    height: 80%;
     border-radius: 16px;
-    z-index: 10;
     }
-input{
+.textInput{
     border: 1px darkgray solid;
     border-radius: 3px;
     margin: 5px;
     position: relative;
     right: 0;
     padding: 5px 10px;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
-input:focus{
+.textInput:focus{
     box-shadow: 0px 0px 1px 1px rgb(0, 157, 255);
     outline: none;
 }
-label{
+.label{
     text-align: right;
     padding-right: 10px;
     color: black;
+    font-size: 1.2rem;
+}
+.submitClearTermsWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-content: center;
+    align-items: center;
 }
 #terms{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 0px;
     background-color:#f2f2f2 ;
     border-radius: 5px;
-    font-size: 1rem;
-    height: 35px;
+    font-size: 1.2rem;
     width: 100%;
-}
-a:focus{
-    font-weight: 900;
-    outline: none;
+    border: 1px darkgray solid;
 }
 .checkboxLabel{
-  position: relative;
   padding-left: 10px;
   cursor: pointer;
   padding-top: 2px;
@@ -80,11 +74,11 @@ footer{
 }
 #clear{
     background-color: hsl(333deg, 100%, 44%);
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 #submit{
     background-color: hsl(256deg, 100%, 44%);
-    font-size: 1rem;
+    font-size:1.2rem;
     cursor: pointer;
 }
 #clear:hover{
@@ -97,6 +91,7 @@ footer{
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 1.2rem;
 }
 #submit:hover{
     cursor: pointer;
@@ -108,9 +103,10 @@ footer{
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 1.2rem;
 }
 #form-title{
-    font-size: 2rem;
+    font-size: clamp(1rem, 1.6rem, 2rem);
     font-weight: 900;
     position: absolute;
     color: black;
@@ -121,16 +117,31 @@ footer{
 
 #checkboxInput{
     position: relative;
-    right: 0;
-    margin-right: 0px;
-    margin-left: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding: 0px;
     width: 20px;
     height: 20px;
     border-radius: 3px;
     border: 1px darkgray solid;
     background-color: #fff;
     cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .form{
+        height:100%;
+        top:0;
+        display: flex;
+        flex-direction: column;
+    }
+    .label{
+        display: none;
+    }
+    .submitClearTermsWrapper{
+        width: 100%;
+    }
+    #form-title{
+        top:-3%;
+        text-decoration: none;
+        font-size: 20px;
+    }
+   
 }

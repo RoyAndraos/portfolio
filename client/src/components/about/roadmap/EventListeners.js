@@ -1,4 +1,4 @@
-import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked, Info } from "./HTMLFundamentals";
 import { useEffect, useState, useCallback, useRef } from "react";
 import "../../../assets/eventListeners.css";
 import styled from "styled-components";
@@ -6,12 +6,14 @@ import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { FaQuestionCircle } from "react-icons/fa";
 import gsap, { TimelineLite, Power4 } from "gsap";
+import { Play } from "./TheDomPartTwo";
 const EventListeners = ({ eventOneRef }) => {
   const { theme } = useContext(ThemeContext);
   const [count, setCount] = useState(0);
   const [gameState, setGameState] = useState("not started");
   const [showInstructions, setShowInstructions] = useState(false);
   const instructionRef = useRef(null);
+  const [showGame, setShowGame] = useState(false);
   const handleOpenInstriuctions = () => {
     gsap.registerPlugin();
     const tl = new TimelineLite();
@@ -19,8 +21,8 @@ const EventListeners = ({ eventOneRef }) => {
       setShowInstructions(false);
       tl.to(instructionRef.current, {
         opacity: 0,
-        zIndex: -1,
         duration: 0.2,
+        zIndex: -1,
         ease: Power4.easeOut,
       });
     } else {
@@ -113,21 +115,50 @@ const EventListeners = ({ eventOneRef }) => {
         }
       });
   }, [gameState, clickEffect]);
+  const playGame = () => {
+    gsap.registerPlugin(TimelineLite);
 
+    const tl = new TimelineLite({
+      onComplete: () => {
+        setShowGame(!showGame);
+        gsap.to(eventOneRef.current, {
+          opacity: 1,
+          duration: 0.2,
+          ease: Power4.easeIn,
+        });
+      },
+    });
+
+    tl.to(eventOneRef.current, {
+      opacity: 0,
+      duration: 0.2,
+      ease: Power4.easeOut,
+    });
+  };
   return (
     <Wrapper id="section-8" ref={eventOneRef}>
-      <Title theme={theme}>Event Listeners 1, Aim Game!</Title>
-      <Container>
+      <Title
+        theme={theme}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          width: "90%",
+          transform: "translateX(35%)",
+        }}
+      >
+        Event Listeners 1, Aim Game!{" "}
+        <Play onClick={() => playGame()}>
+          {showGame ? "Back To Instructions" : "Play Aim Game"}
+        </Play>
+      </Title>
+      {showGame ? (
         <GameWrapper>
           <StyledInstructions ref={instructionRef}>
             Game rules: <br />
-            click on all the red buttons before the timer runs out!
+            Click start, but be ready because once you do, random red buttons
+            will spawn! click on all them before the timer runs out!
             <br />
-            Coding Instructions: <br />
-            Make use of the addEventListener() method to make an aim game, where
-            the user has to click on all the buttons created (random number of
-            buttons positioned randomly on the game board), before the timer
-            runs out.
           </StyledInstructions>
           <div className="header" id="header">
             <span id="timer"></span>
@@ -139,7 +170,6 @@ const EventListeners = ({ eventOneRef }) => {
               {gameState === "not started" ? "Start" : "Restart"}
             </button>
             <div
-              style={{ marginLeft: "20px" }}
               onClick={() => {
                 handleOpenInstriuctions();
               }}
@@ -150,43 +180,30 @@ const EventListeners = ({ eventOneRef }) => {
           <div id="main" className="game-board"></div>
           <div id="announcement"></div>
         </GameWrapper>
-      </Container>
-      <Acheivement style={{ top: "10%", position: "relative" }} theme={theme}>
-        <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now use event listeners.
-      </Acheivement>
+      ) : (
+        <>
+          <Info theme={theme}>
+            Code Instructions: <br />
+            Make use of the addEventListener() method to make an aim game, where
+            the user has to click on all the buttons created (random number of
+            buttons positioned randomly on the game board), before the timer
+            runs out.
+          </Info>
+          <Acheivement theme={theme}>
+            <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
+            <br />I can now use event listeners.
+          </Acheivement>
+        </>
+      )}
     </Wrapper>
   );
 };
 
 const GameWrapper = styled.div`
-  width: 80%;
-  height: 80%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-`;
-
-export const Container = styled.div`
-  position: relative;
   width: 100%;
-  height: 100%;
-  font-size: 1.5rem;
-  border-top: 3px solid #50196f;
-  border-right: 3px solid #50196f;
-  border-top-right-radius: 20px;
-  color: black;
-  line-height: 2;
-
-  ${({ theme }) => theme === "dark" && `color: white;`};
-  @media (max-width: 1000px) {
-    font-size: 1.2rem;
-    border: 3px solid #50196f;
-    border-radius: 20px;
-    margin-bottom: 10%;
-    width: 85%;
-  }
+  height: 85%;
+  position: relative;
+  z-index: 30;
 `;
 const MoreInfo = styled(FaQuestionCircle)`
   font-size: 3.5rem;
@@ -212,17 +229,36 @@ const StyledInstructions = styled.div`
   width: 80%;
   padding: 2% 10%;
   top: 20%;
-  height: 100%;
+  height: 80%;
   display: flex;
   justify-content: center;
-  align-items: center;
   transition: opacity 0.2s ease-in-out;
+  line-height: 3;
+  text-align: center;
+  font-size: 1.5rem;
   opacity: 0;
   z-index: -1;
   @media (max-width: 1000px) {
     font-size: 1rem;
     height: fit-content;
     padding: 10% 10%;
+  }
+`;
+
+const Acheivement = styled.p`
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0;
+  margin-top: 3%;
+  padding: 3% 3%;
+  border-left: 3px solid #50196f;
+  border-top: 3px solid #50196f;
+  border-top-left-radius: 20px;
+  ${({ theme }) => theme === "dark" && `color: white;`};
+  font-weight: 700;
+  @media (max-width: 1000px) {
+    display: none;
   }
 `;
 export default EventListeners;

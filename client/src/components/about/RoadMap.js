@@ -10,9 +10,12 @@ import TheDomPartTwo from "./roadmap/TheDomPartTwo";
 import EventListeners from "./roadmap/EventListeners";
 import EventListenersPartTwo from "./roadmap/EventListenersPartTwo";
 import OOP from "./roadmap/OOP";
-import ReactState from "./roadmap/ReactState";
+import ReactIntro from "./roadmap/ReactIntro";
 import HTMLFundamentals from "./roadmap/HTMLFundamentals";
 import NyanCat from "./roadmap/NyanCat";
+import ReactStateOne from "./roadmap/ReactStateOne";
+import ReactStateTwo from "./roadmap/ReactStateTwo";
+import ReactEffects from "./roadmap/ReactEffects";
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let roadmRef = useRef(null);
   let introRef = useRef(null);
@@ -25,9 +28,12 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let eventOneRef = useRef(null);
   let eventTwoRef = useRef(null);
   let oopRef = useRef(null);
-  let reactStateRef = useRef(null);
+  let reactIntroRef = useRef(null);
   let htmlRef = useRef(null);
   let nyanCatRef = useRef(null);
+  let reactStateOneRef = useRef(null);
+  let reactStateTwoRef = useRef(null);
+  let reactEffectsRef = useRef(null);
   useEffect(() => {
     setRoadmapRef(roadmRef);
   });
@@ -62,7 +68,10 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     observer.observe(eventTwoRef.current);
     observer.observe(oopRef.current);
     observer.observe(nyanCatRef.current);
-    observer.observe(reactStateRef.current);
+    observer.observe(reactIntroRef.current);
+    observer.observe(reactStateOneRef.current);
+    observer.observe(reactStateTwoRef.current);
+    observer.observe(reactEffectsRef.current);
 
     return () => {
       // Cleanup the observer when the component is unmounted
@@ -79,10 +88,11 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     eventOneRef,
     eventTwoRef,
     oopRef,
-    reactStateRef,
+    reactIntroRef,
     setMapIndex,
     htmlRef,
     nyanCatRef,
+    reactStateOneRef,
   ]);
   return (
     <Wrapper ref={roadmRef}>
@@ -98,7 +108,10 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       <EventListenersPartTwo eventTwoRef={eventTwoRef} />
       <OOP oopRef={oopRef} />
       <NyanCat nyanCatRef={nyanCatRef} />
-      <ReactState reactStateRef={reactStateRef} />
+      <ReactIntro reactIntroRef={reactIntroRef} />
+      <ReactStateOne reactStateOneRef={reactStateOneRef} />
+      <ReactStateTwo reactStateTwoRef={reactStateTwoRef} />
+      <ReactEffects reactEffectsRef={reactEffectsRef} />
     </Wrapper>
   );
 };
@@ -110,11 +123,12 @@ const Wrapper = styled.div`
   grid-auto-flow: column;
   grid-auto-columns: 100%;
   overflow-x: scroll;
+  overflow-y: hidden;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer/Edge */
   &::-webkit-scrollbar {
-    width: 6px; /* Set the width of the scrollbar */
+    width: 0px; /* Set the width of the scrollbar */
   }
   &::-webkit-scrollbar-thumb {
     background-color: transparent; /* Set the color of the thumb */

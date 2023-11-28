@@ -2,6 +2,11 @@
 .track {
   list-style-type: none;
   padding: 0;
+  @media (max-width: 768px) {
+    transform: rotate(-90deg);
+    position: relative;
+    top:25%;
+  }
 }
 .track li {
   background: green;
@@ -10,7 +15,6 @@
   height: 80px;
   position: relative;
   width: 50vw;
-  border-right:  double antiquewhite;
   box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .track li:last-child {
@@ -26,24 +30,19 @@
   border-color: antiquewhite;
 }
 
-li span:first-child{
+.laneNumber:first-child{
   display: flex;
   align-items: center;
-  position: absolute;
-  text-align: center;
+  position: relative;
   left: -27px;
-  height: 80px;
   outline-style: double;
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color:brown;
-  border-radius: 10px;
   color:antiquewhite;
   width: 25px;
   font-size: 20px;
   font-weight: 900;
-  outline-color: antiquewhite;
-  border-top-left-radius: 5px;
-  box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .frog {
   border-radius: 50%;
@@ -161,22 +160,3 @@ li span:first-child{
   top: 30px;
 }
 
-h2{
-  position: relative;
-  text-align: center;
-  top: 10%;
-  outline-style: double;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color:brown;
-  border-radius: 10px;
-  color:antiquewhite;
-  font-size: 20px;
-  font-weight: 900;
-  outline-color: antiquewhite;
-  border-top-left-radius: 5px;
-  box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  width: 30%;
-  padding: 10px;
-  transition: all ease-in 300ms;
-  margin: 0 auto;
-}

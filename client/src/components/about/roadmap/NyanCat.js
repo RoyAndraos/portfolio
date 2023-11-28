@@ -17,15 +17,12 @@ const NyanCat = ({ nyanCatRef }) => {
   };
 
   return (
-    <Wrapper ref={nyanCatRef}>
+    <Wrapper ref={nyanCatRef} id="section-11">
       <Title theme={theme}>First Project, It's Raining Pineapples!</Title>
       <Info theme={theme} style={{ position: "relative" }}>
-        This was my first project, I used everything i have learned so far.
-        <br />
-        I used OOP to create the game, and used the DOM to manipulate the
-        elements.
-        <br />
-        Click the button to go play the game!
+        This was my first project, I used everything i have learned so far. I
+        used OOP to create the game, and used the DOM to manipulate the
+        elements. Click the button to go play the game!
         <StyledButton theme={theme} onClick={openGameUrl}>
           Play Game
         </StyledButton>
@@ -42,12 +39,26 @@ const StyledButton = styled.button`
   position: absolute;
   bottom: 0;
   background-color: #50196f;
+  height: 50px;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px;
-  font-size: 1.2rem;
+  bottom: -10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
   ${({ theme }) => theme === "dark" && `background-color: #9c1bb7;`};
+  @media (max-width: 1000px) {
+    right: 1%;
+    transform: translateX(0) translateY(-60%);
+    border-radius: 20px;
+  }
 `;
 
 export default NyanCat;

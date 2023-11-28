@@ -17,7 +17,7 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
   };
 
   const handleRight = () => {
-    if (mapIndex === 13) {
+    if (mapIndex === 15) {
       return;
     } else {
       setMapIndex((prev) => prev + 1);
@@ -27,6 +27,7 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
 
   const scrollToMapIndex = (index) => {
     const scrollAmount = roadmapRef.current.offsetWidth * index;
+    console.log(scrollAmount);
     gsap.to(roadmapRef.current, {
       scrollLeft: scrollAmount,
       duration: 0.5,

@@ -23,16 +23,15 @@ const HTMLFundamentals = ({ htmlRef }) => {
 };
 
 export const Wrapper = styled.div`
-  width: 80%;
+  width: 100%;
   position: relative;
-  left: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80%;
-  @media (min-width: 1000px) {
-    margin-top: 1.5%;
+  height: 100%;
+  @media (max-width: 1000px) {
+    height: 70%;
   }
 `;
 
@@ -59,6 +58,7 @@ export const Info = styled.p`
   border-top-right-radius: 20px;
   color: black;
   line-height: 2;
+  width: 80%;
   ${({ theme }) => theme === "dark" && `color: white;`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;
