@@ -23,7 +23,7 @@ const HTMLFundamentals = ({ htmlRef }) => {
 };
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -74,7 +74,7 @@ export const Acheivement = styled.p`
   color: black;
   margin: 0;
   margin-top: 3%;
-  padding: 3% 3%;
+  padding: 1.5% 1.5%;
   border-left: 3px solid #50196f;
   border-top: 3px solid #50196f;
   border-top-left-radius: 20px;

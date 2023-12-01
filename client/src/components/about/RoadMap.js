@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Introduction from "./roadmap/Introduction";
 import JSFundamentalsPartOne from "./roadmap/JSFundamentalsPartOne";
 import JSFundamentalsPartTwo from "./roadmap/JSFundamentalsPartTwo";
@@ -16,7 +16,12 @@ import NyanCat from "./roadmap/NyanCat";
 import ReactStateOne from "./roadmap/ReactStateOne";
 import ReactStateTwo from "./roadmap/ReactStateTwo";
 import ReactEffects from "./roadmap/ReactEffects";
+import ReactFetch from "./roadmap/ReactFetch";
+import ReactContext from "./roadmap/ReactContext";
+import ReactReducer from "./roadmap/ReactReducer";
+import TwitterClone from "./roadmap/TwitterClone";
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
+  const [enableScrollY, setEnableScrollY] = useState(false);
   let roadmRef = useRef(null);
   let introRef = useRef(null);
   let jsOneRef = useRef(null);
@@ -34,6 +39,11 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let reactStateOneRef = useRef(null);
   let reactStateTwoRef = useRef(null);
   let reactEffectsRef = useRef(null);
+  let reactFetchRef = useRef(null);
+  let reactContextRef = useRef(null);
+  let reactReducerRef = useRef(null);
+  let twitterCloneRef = useRef(null);
+
   useEffect(() => {
     setRoadmapRef(roadmRef);
   });
@@ -72,6 +82,10 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     observer.observe(reactStateOneRef.current);
     observer.observe(reactStateTwoRef.current);
     observer.observe(reactEffectsRef.current);
+    observer.observe(reactFetchRef.current);
+    observer.observe(reactContextRef.current);
+    observer.observe(reactReducerRef.current);
+    observer.observe(twitterCloneRef.current);
 
     return () => {
       // Cleanup the observer when the component is unmounted
@@ -93,9 +107,14 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     htmlRef,
     nyanCatRef,
     reactStateOneRef,
+    reactStateTwoRef,
+    reactEffectsRef,
+    reactFetchRef,
+    reactContextRef,
   ]);
+  console.log(enableScrollY);
   return (
-    <Wrapper ref={roadmRef}>
+    <Wrapper ref={roadmRef} enablescrolly={enableScrollY.toString()}>
       <Introduction introRef={introRef} />
       <HTMLFundamentals htmlRef={htmlRef} />
       <JSFundamentalsPartOne jsOneRef={jsOneRef} />
@@ -112,6 +131,13 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       <ReactStateOne reactStateOneRef={reactStateOneRef} />
       <ReactStateTwo reactStateTwoRef={reactStateTwoRef} />
       <ReactEffects reactEffectsRef={reactEffectsRef} />
+      <ReactFetch reactFetchRef={reactFetchRef} />
+      <ReactContext reactContextRef={reactContextRef} />
+      <ReactReducer reactReducerRef={reactReducerRef} />
+      <TwitterClone
+        twitterCloneRef={twitterCloneRef}
+        setEnableScrollY={setEnableScrollY}
+      />
     </Wrapper>
   );
 };
@@ -123,7 +149,8 @@ const Wrapper = styled.div`
   grid-auto-flow: column;
   grid-auto-columns: 100%;
   overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-y: ${(props) =>
+    props.enablescrolly === "true" ? "scroll" : "hidden"};
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer/Edge */

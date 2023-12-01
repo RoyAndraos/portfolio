@@ -7,8 +7,7 @@ import {
   Acheivement,
   Info,
 } from "./HTMLFundamentals";
-import gsap, { TimelineLite, Power4 } from "gsap";
-
+import { animateToShowProject } from "../../../helpers.js";
 import styled from "styled-components";
 import { data } from "./reactState2/data.js";
 import Typeahead from "./reactState2/Typeahead.js";
@@ -18,24 +17,7 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
   const [suggestion, setSuggestion] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
   const showSearch = () => {
-    gsap.registerPlugin(TimelineLite);
-
-    const tl = new TimelineLite({
-      onComplete: () => {
-        setShowSearchBar(!showSearchBar);
-        gsap.to(reactStateTwoRef.current, {
-          opacity: 1,
-          duration: 0.2,
-          ease: Power4.easeIn,
-        });
-      },
-    });
-
-    tl.to(reactStateTwoRef.current, {
-      opacity: 0,
-      duration: 0.2,
-      ease: Power4.easeOut,
-    });
+    animateToShowProject(setShowSearchBar, showSearchBar, reactStateTwoRef);
   };
   return (
     <Wrapper ref={reactStateTwoRef} id="section-14">
@@ -74,7 +56,7 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
         <>
           {" "}
           <Info theme={theme}>
-            <Unlocked theme={theme}>Code Info</Unlocked>
+            <Unlocked theme={theme}>Code Info:</Unlocked>
             <br />
             In this workshop, I was given a data file with a list of book
             objects. I had to create a search engine that would filter the books

@@ -75,11 +75,13 @@ footer{
 #clear{
     background-color: hsl(333deg, 100%, 44%);
     font-size: 1.2rem;
+    z-index: 999;
 }
 #submit{
     background-color: hsl(256deg, 100%, 44%);
     font-size:1.2rem;
     cursor: pointer;
+    z-index: 999;
 }
 #clear:hover{
     cursor: pointer;

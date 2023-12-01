@@ -8,6 +8,7 @@ import { selectRandomFrogs, frogStable } from "../../../helpers";
 import { FaQuestionCircle } from "react-icons/fa";
 import gsap from "gsap";
 import { TimelineLite, Power4 } from "gsap/gsap-core";
+import { animateToShowProject } from "../../../helpers";
 const TheDomPartTwo = ({ domTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   const [gameStarted, setGameStarted] = useState(false);
@@ -171,24 +172,7 @@ const TheDomPartTwo = ({ domTwoRef }) => {
     setGameStarted(true);
   };
   const playGame = () => {
-    gsap.registerPlugin(TimelineLite);
-
-    const tl = new TimelineLite({
-      onComplete: () => {
-        setShowGame(!showGame);
-        gsap.to(domTwoRef.current, {
-          opacity: 1,
-          duration: 0.2,
-          ease: Power4.easeIn,
-        });
-      },
-    });
-
-    tl.to(domTwoRef.current, {
-      opacity: 0,
-      duration: 0.2,
-      ease: Power4.easeOut,
-    });
+    animateToShowProject(setShowGame, showGame, domTwoRef);
   };
   return (
     <Wrapper id="section-7" ref={domTwoRef}>
@@ -311,7 +295,7 @@ const TheDomPartTwo = ({ domTwoRef }) => {
       ) : (
         <>
           <Info style={{ padding: "3%" }}>
-            Code Instructions: <br />
+            <Unlocked>Code Info:</Unlocked> <br />
             1-Take the given array of frogs and randomly select 3 of the 5
             objects given. <br />
             2-Place the selected frogs in their lanes, styling the lane with the

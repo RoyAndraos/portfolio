@@ -7,6 +7,8 @@ import ThemeContext from "../../contexts/ColorTheme";
 import { FaQuestionCircle } from "react-icons/fa";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Play } from "./TheDomPartTwo";
+import { animateToShowProject } from "../../../helpers";
+
 const EventListeners = ({ eventOneRef }) => {
   const { theme } = useContext(ThemeContext);
   const [count, setCount] = useState(0);
@@ -114,26 +116,9 @@ const EventListeners = ({ eventOneRef }) => {
           }, 6000);
         }
       });
-  }, [gameState, clickEffect]);
+  }, [gameState, clickEffect, showGame]);
   const playGame = () => {
-    gsap.registerPlugin(TimelineLite);
-
-    const tl = new TimelineLite({
-      onComplete: () => {
-        setShowGame(!showGame);
-        gsap.to(eventOneRef.current, {
-          opacity: 1,
-          duration: 0.2,
-          ease: Power4.easeIn,
-        });
-      },
-    });
-
-    tl.to(eventOneRef.current, {
-      opacity: 0,
-      duration: 0.2,
-      ease: Power4.easeOut,
-    });
+    animateToShowProject(setShowGame, showGame, eventOneRef);
   };
   return (
     <Wrapper id="section-8" ref={eventOneRef}>
@@ -183,7 +168,7 @@ const EventListeners = ({ eventOneRef }) => {
       ) : (
         <>
           <Info theme={theme}>
-            Code Instructions: <br />
+            <Unlocked theme={theme}>Code Info:</Unlocked> <br />
             Make use of the addEventListener() method to make an aim game, where
             the user has to click on all the buttons created (random number of
             buttons positioned randomly on the game board), before the timer
@@ -200,7 +185,7 @@ const EventListeners = ({ eventOneRef }) => {
 };
 
 const GameWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   height: 85%;
   position: relative;
   z-index: 30;

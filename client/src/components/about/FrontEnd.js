@@ -20,28 +20,16 @@ const FrontEnd = () => {
         Router DOM
       </StyledListItem>
       <StyledListItem ref={(el) => (listItem.current[2] = el)}>
-        Css Transition Group
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
         Styled Components
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
         React Hooks
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
-        React Icons
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[6] = el)}>
-        React Big Calendar
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[7] = el)}>
-        React Datepicker
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[8] = el)}>
-        React Tippy
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[9] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
         React Cookies
+      </StyledListItem>
+      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
+        Other react libraries
       </StyledListItem>
     </Wrapper>
   );

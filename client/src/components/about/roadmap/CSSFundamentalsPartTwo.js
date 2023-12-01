@@ -13,7 +13,7 @@ const CSSFundamentalPartTwo = ({ cssTwoRef }) => {
     <Wrapper id="section-5" ref={cssTwoRef}>
       <Title theme={theme}>CSS Fundamentals 2</Title>
       <Info theme={theme}>
-        The nightmare of some developers, the box model. I learned about the
+        The nightmare of developers, the box model. I learned about the
         different properties that make up the box model, such as margin, border,
         padding, and content. With that, I also learned about flexbox, and
         styled my first navigation bar.

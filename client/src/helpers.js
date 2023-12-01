@@ -1,3 +1,4 @@
+import gsap, { TimelineLite, Power4 } from "gsap";
 export const animateAboutSection = (
   tl,
   wrapperRef,
@@ -81,3 +82,24 @@ export const frogStable = [
     number: "8",
   },
 ];
+
+export const animateToShowProject = (setState, state, compRef) => {
+  gsap.registerPlugin(TimelineLite);
+
+  const tl = new TimelineLite({
+    onComplete: () => {
+      setState(!state);
+      gsap.to(compRef.current, {
+        opacity: 1,
+        duration: 0.2,
+        ease: Power4.easeIn,
+      });
+    },
+  });
+
+  tl.to(compRef.current, {
+    opacity: 0,
+    duration: 0.2,
+    ease: Power4.easeOut,
+  });
+};

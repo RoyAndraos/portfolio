@@ -9,6 +9,7 @@ import { useContext } from "react";
 import ThemeContext from "./components/contexts/ColorTheme";
 import "./scroll.css";
 import NyanCat from "./components/about/roadmap/NyanCat";
+
 const App = () => {
   const { theme } = useContext(ThemeContext);
   return (

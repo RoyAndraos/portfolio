@@ -3,8 +3,8 @@ import "../../../assets/form.css";
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import ThemeContext from "../../contexts/ColorTheme";
-import gsap, { TimelineLite, Power4 } from "gsap";
 import { Play } from "./TheDomPartTwo";
+import { animateToShowProject } from "../../../helpers";
 const EventListenersPartTwo = ({ eventTwoRef }) => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -236,26 +236,9 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
         password.value = "";
         confirmPass.value = "";
       });
-  }, []);
+  }, [showForm]);
   const tryForm = () => {
-    gsap.registerPlugin(TimelineLite);
-
-    const tl = new TimelineLite({
-      onComplete: () => {
-        setShowForm(!showForm);
-        gsap.to(eventTwoRef.current, {
-          opacity: 1,
-          duration: 0.2,
-          ease: Power4.easeIn,
-        });
-      },
-    });
-
-    tl.to(eventTwoRef.current, {
-      opacity: 0,
-      duration: 0.2,
-      ease: Power4.easeOut,
-    });
+    animateToShowProject(setShowForm, showForm, eventTwoRef);
   };
   return (
     <Wrapper id="section-9" ref={eventTwoRef}>
@@ -386,7 +369,7 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
       ) : (
         <>
           <Info theme={theme} style={{ padding: "3%" }}>
-            Code Instructions: <br />
+            <Unlocked theme={theme}>Code Info:</Unlocked> <br />
             Make use of the addEventListener() method to make a form validation.
             <br />
             1- Make sure all fields are filled out. <br />
