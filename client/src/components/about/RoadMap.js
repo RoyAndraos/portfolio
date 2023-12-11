@@ -20,6 +20,12 @@ import ReactFetch from "./roadmap/ReactFetch";
 import ReactContext from "./roadmap/ReactContext";
 import ReactReducer from "./roadmap/ReactReducer";
 import TwitterClone from "./roadmap/TwitterClone";
+import NodeIntro from "./roadmap/NodeIntro";
+import NodeUrlParams from "./roadmap/NodeUrlParams";
+import NodePostMethod from "./roadmap/NodePostMethod";
+import NodePromises from "./roadmap/NodePromises";
+import NodeAsynAwait from "./roadmap/NodeAsynAwait";
+import NodeRest from "./roadmap/NodeRest";
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   const [enableScrollY, setEnableScrollY] = useState(false);
   let roadmRef = useRef(null);
@@ -43,7 +49,12 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let reactContextRef = useRef(null);
   let reactReducerRef = useRef(null);
   let twitterCloneRef = useRef(null);
-
+  let nodeIntroRef = useRef(null);
+  let nodeUrlParamsRef = useRef(null);
+  let nodePostMethodRef = useRef(null);
+  let nodePromisesRef = useRef(null);
+  let nodeAsynAwaitRef = useRef(null);
+  let nodeRestRef = useRef(null);
   useEffect(() => {
     setRoadmapRef(roadmRef);
   });
@@ -86,7 +97,12 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     observer.observe(reactContextRef.current);
     observer.observe(reactReducerRef.current);
     observer.observe(twitterCloneRef.current);
-
+    observer.observe(nodeIntroRef.current);
+    observer.observe(nodeUrlParamsRef.current);
+    observer.observe(nodePostMethodRef.current);
+    observer.observe(nodePromisesRef.current);
+    observer.observe(nodeAsynAwaitRef.current);
+    observer.observe(nodeRestRef.current);
     return () => {
       // Cleanup the observer when the component is unmounted
       observer.disconnect();
@@ -111,8 +127,14 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     reactEffectsRef,
     reactFetchRef,
     reactContextRef,
+    reactReducerRef,
+    twitterCloneRef,
+    nodeIntroRef,
+    nodeUrlParamsRef,
+    nodePostMethodRef,
+    nodeRestRef,
+    nodePromisesRef,
   ]);
-  console.log(enableScrollY);
   return (
     <Wrapper ref={roadmRef} enablescrolly={enableScrollY.toString()}>
       <Introduction introRef={introRef} />
@@ -138,6 +160,15 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
         twitterCloneRef={twitterCloneRef}
         setEnableScrollY={setEnableScrollY}
       />
+      <NodeIntro nodeIntroRef={nodeIntroRef} />
+      <NodeUrlParams
+        nodeUrlParamsRef={nodeUrlParamsRef}
+        setEnableScrollY={setEnableScrollY}
+      />
+      <NodePostMethod nodePostMethodRef={nodePostMethodRef} />
+      <NodePromises nodePromisesRef={nodePromisesRef} />
+      <NodeAsynAwait nodeAsynAwaitRef={nodeAsynAwaitRef} />
+      <NodeRest nodeRestRef={nodeRestRef} />
     </Wrapper>
   );
 };

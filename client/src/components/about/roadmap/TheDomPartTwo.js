@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Wrapper, Title, Unlocked, Info } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked } from "./HTMLFundamentals";
 import "../../../assets/frogRace.css";
 import finishLine from "../../../assets/finshline.jpg";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import gsap from "gsap";
 import { TimelineLite, Power4 } from "gsap/gsap-core";
 import { animateToShowProject } from "../../../helpers";
+import { InfoWrapper } from "./ReactFetch";
 const TheDomPartTwo = ({ domTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   const [gameStarted, setGameStarted] = useState(false);
@@ -294,17 +295,24 @@ const TheDomPartTwo = ({ domTwoRef }) => {
         </Container>
       ) : (
         <>
-          <Info style={{ padding: "3%" }}>
-            <Unlocked>Code Info:</Unlocked> <br />
-            1-Take the given array of frogs and randomly select 3 of the 5
-            objects given. <br />
-            2-Place the selected frogs in their lanes, styling the lane with the
-            object's properties (color: frogColor, number: frogNumber and name).
-            <br />
-            3-Make the frogs race: random hopLengths and random intervals(frog
-            might take up to 4 seconds to decide to jump again... frogs...).{" "}
-            <br />
-          </Info>
+          <InfoWrapper>
+            <Unlocked>Code Info:</Unlocked>
+            <ul>
+              <li>
+                Take the given array of frogs and randomly select 3 of the 5
+                objects given
+              </li>
+              <li>
+                Place the selected frogs in their lanes, styling the lane with
+                the object's properties (color: frogColor, number: frogNumber
+                and name)
+              </li>
+              <li>
+                Make the frogs race: random hopLengths and random intervals(frog
+                might take up to 4 seconds to decide to jump again... frogs...)
+              </li>
+            </ul>
+          </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />

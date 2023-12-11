@@ -89,20 +89,27 @@ const ReactReducer = ({ reactReducerRef }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "55%" }}>
+              <ContentWrapper style={{ width: "70%" }}>
                 <Unlocked
                   theme={theme}
                   style={{ fontWeight: "bold", fontSize: "1.5rem" }}
                 >
                   Code Instructions
                 </Unlocked>
-                <br />
-                1- Fetch the seats data from the server, and style the grid to
-                replicate Screenshots. <br />
-                2- Create a reducer and context for the seats data (actions:
-                recieveDataFromServer). <br />
-                3- Create a reducer and context for the booking data(actions:
-                startBookingProcess, cancelBookingProcess). <br />
+                <ul>
+                  <li>
+                    Fetch the seats data from the server, and style the grid to
+                    replicate Screenshots
+                  </li>
+                  <li>
+                    Create a reducer and context for the seats data (actions:
+                    recieveDataFromServer)
+                  </li>
+                  <li>
+                    Create a reducer and context for the booking data(actions:
+                    startBookingProcess, cancelBookingProcess)
+                  </li>
+                </ul>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -114,13 +121,12 @@ const ReactReducer = ({ reactReducerRef }) => {
                 >
                   Given
                 </Unlocked>
-                <br />
-                1- Seats Data. <br />
-                2- API documentation.
-                <br />
-                3- Initial UI, which is a table of seats.
-                <br />
-                4- Screenshots.
+                <ul>
+                  <li>Seats Data </li>
+                  <li> API documentation</li>
+                  <li>Initial UI, which is a table of seats</li>
+                  <li>Screenshots</li>
+                </ul>
               </ContentWrapper>
             </div>
             <Unlocked theme={theme} style={{ fontSize: "1.3rem" }}>

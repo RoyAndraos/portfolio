@@ -2,8 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { FiBookmark, FiBell, FiHome, FiUser } from "react-icons/fi";
 import { COLORS } from "./constants";
+import { animateToShowProject } from "../../../../helpers";
 
-const SideBar = ({ setRoute, setProfileId }) => {
+const SideBar = ({
+  setRoute,
+  setProfileId,
+  handleShowProj,
+  setShowProj,
+  showProj,
+  twitterCloneRef,
+}) => {
   return (
     <Wrapper>
       <svg
@@ -61,6 +69,13 @@ const SideBar = ({ setRoute, setProfileId }) => {
       <NavItem onClick={() => setRoute("/Bookmarks")}>
         <FiBookmark style={{ paddingRight: "2vw", fontSize: "19px" }} />
         Bookmarks
+      </NavItem>
+      <NavItem
+        onClick={() => {
+          animateToShowProject(setShowProj, showProj, twitterCloneRef);
+        }}
+      >
+        Back To Portfolio
       </NavItem>
     </Wrapper>
   );

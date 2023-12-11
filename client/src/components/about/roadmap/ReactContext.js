@@ -68,6 +68,29 @@ const ReactContext = ({ reactContextRef }) => {
                 width: "100%",
               }}
             >
+              <ContentWrapper style={{ width: "70%" }}>
+                <Unlocked
+                  theme={theme}
+                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                >
+                  Instructions
+                </Unlocked>
+                <ul>
+                  <li>Create the UserContext file</li>
+                  <li>
+                    Create the SignIn Logic (user inputs their name, which is
+                    then sent to the server)
+                  </li>
+                  <li>
+                    When a user is signed in, make sure they cant sign in again
+                  </li>
+                  <li>
+                    Create the homepage with all the users images, then if a
+                    user is signed in, show who they are friends with (banner)
+                  </li>
+                  <li>Create the profile page (dynamic route)</li>
+                </ul>
+              </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
                   theme={theme}
@@ -75,30 +98,14 @@ const ReactContext = ({ reactContextRef }) => {
                 >
                   Given
                 </Unlocked>
-                <br />
-                1- array of users (objects) on the server side in a data.js
-                file.
-                <br />
-                2- Endpoints and API docs.
-                <br />
-                3- Screenshots of a working app.
-              </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Instructions
-                </Unlocked>
-                <br />
-                1- Create the UserContext file. <br />
-                2- Create the SignIn Logic (user inputs their name, which is
-                then sent to the server). <br />
-                3- When a user is signed in, make sure they cant sign in again.{" "}
-                <br />
-                4- Create the homepage with all the users images, then if a user
-                is signed in, show who they are friends with (banner). <br />
-                5- Create the profile page (dynamic route).
+                <ul>
+                  <li>
+                    array of users (objects) on the server side in a data.js
+                    file
+                  </li>
+                  <li>Endpoints and API docs</li>
+                  <li>Screenshots of a working app</li>
+                </ul>
               </ContentWrapper>
             </div>
           </InfoWrapper>

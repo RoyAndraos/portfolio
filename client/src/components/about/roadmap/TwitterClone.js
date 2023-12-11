@@ -1,7 +1,7 @@
-import { Title, Unlocked, Wrapper } from "./HTMLFundamentals";
+import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { animateToShowProject } from "../../../helpers";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Children, useContext, useState, useEffect } from "react";
+import { Children, useContext, useState } from "react";
 import { Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { UserTwitterProvider } from "./twitterClone/UserContextTwitter";
@@ -9,34 +9,7 @@ import AppTwitterClone from "./twitterClone/AppTwitterClone";
 const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
-  useEffect(() => {
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // The TwitterClone section is currently on the screen
-          setEnableScrollY(true);
-        } else {
-          // The TwitterClone section is not on the screen
-          setEnableScrollY(false);
-        }
-      });
-    };
 
-    const options = {
-      root: null,
-      threshold: 0.5, // Adjust this threshold based on your needs
-    };
-
-    const observer = new IntersectionObserver(observerCallback, options);
-
-    // Observe the TwitterClone section
-    observer.observe(twitterCloneRef.current);
-
-    return () => {
-      // Cleanup the observer when the component is unmounted
-      observer.disconnect();
-    };
-  }, [twitterCloneRef, setEnableScrollY]);
   const handleShowProj = () => {
     animateToShowProject(setShowProj, showProj, twitterCloneRef);
   };
@@ -44,7 +17,15 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
     <Wrapper id="section-19" ref={twitterCloneRef}>
       {showProj ? (
         <UserTwitterProvider>
-          <AppTwitterClone>{Children}</AppTwitterClone>
+          <AppTwitterClone
+            setEnableScrollY={setEnableScrollY}
+            handleShowProj={handleShowProj}
+            setShowProj={setShowProj}
+            showProj={showProj}
+            twitterCloneRef={twitterCloneRef}
+          >
+            {Children}
+          </AppTwitterClone>
         </UserTwitterProvider>
       ) : (
         <>
@@ -93,13 +74,14 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
                 >
                   Code Instructions
                 </Unlocked>
-                <br />
-                <div>
-                  1- Be able to view: a homefeed, a profile page and a single
-                  tweet.
-                </div>
-                2- Be able to post a new tweet. <br />
-                3- Be able to like a tweet.
+                <ul>
+                  <li>
+                    Be able to view: a homefeed, a profile page and a single
+                    tweet.
+                  </li>
+                  <li>Be able to post a new tweet. </li>
+                  <li>Be able to like a tweet.</li>
+                </ul>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -111,15 +93,19 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
                 >
                   Given
                 </Unlocked>
-                <br />
-                1- Some users' data.
-                <br />
-                2- API documentation.
-                <br />
-                3- Screenshots.
+                <ul>
+                  <li>Some users' data</li>
+                  <li>API documentation</li>
+                  <li>Screenshots</li>
+                </ul>
               </ContentWrapper>
             </div>
           </InfoWrapper>
+          <Acheivement theme={theme}>
+            <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
+            <br />
+            Twitter Who?
+          </Acheivement>
         </>
       )}
     </Wrapper>

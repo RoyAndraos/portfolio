@@ -1,16 +1,11 @@
 import { useState } from "react";
 import Game from "./reactEffects/Game";
-import {
-  Acheivement,
-  Title,
-  Unlocked,
-  Wrapper,
-  Info,
-} from "./HTMLFundamentals";
+import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { Play } from "./TheDomPartTwo";
 import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { animateToShowProject } from "../../../helpers";
+import { InfoWrapper } from "./ReactFetch";
 const ReactEffects = ({ reactEffectsRef }) => {
   const [showGame, setShowGame] = useState(false);
   const { theme } = useContext(ThemeContext);
@@ -69,24 +64,29 @@ const ReactEffects = ({ reactEffectsRef }) => {
               Play The Cookie Game
             </Play>
           </Title>
-          <Info theme={theme} style={{ padding: "2%" }}>
+          <InfoWrapper theme={theme} style={{ padding: "2%" }}>
             {/* USESTATE, USEEFFECT, USEREF AND EVENTLISTENERS TO CREATE AN IDLE COOKIE GAME. */}
             <Unlocked theme={theme}>Code Info:</Unlocked>
-            <br />
             Given an array of objects representing purchasable items, each of
             which gives a number of cookies per second, and an svg of a cookie{" "}
-            <br />
-            1- display the cookie and add a click event to it (+1 cookie) <br />
-            2- display and make the items clickable and subtract their price
-            from the total number of cookies owned
-            <br />
-            3- make use of the given use-interval.js file to add the cookies per
-            second of each item to the total number of cookies owned
-            <br />
+            <ul>
+              <li>
+                display the cookie and add a click event to it (+1 cookie)
+              </li>
+              <li>
+                display and make the items clickable and subtract their price
+                from the total number of cookies owned
+              </li>
+              <li>
+                {" "}
+                make use of the given use-interval.js file to add the cookies
+                per second of each item to the total number of cookies owned
+              </li>
+            </ul>
             <Unlocked theme={theme}>
               Side Quest: Only use styled-components (no css files)
             </Unlocked>
-          </Info>
+          </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />

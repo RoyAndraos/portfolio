@@ -65,6 +65,7 @@ const TweetDetails = ({ tweetId, setRoute, setProfileId }) => {
 const Wrapper = styled.div`
   position: relative;
   left: 20vw;
+  width: 80vw;
   height: 100vh;
 `;
 
@@ -86,7 +87,8 @@ const Avatar = styled.img`
 `;
 
 const LinkToProfile = styled.button`
-  text-decoration: none;
+  border: none;
+  background-color: transparent;
   color: black;
   z-index: 1;
   &:hover {
@@ -108,7 +110,7 @@ const ContentStatus = styled.p`
 `;
 
 const ContentImage = styled.img`
-  width: 90%;
+  height: 55vh;
   border-radius: 20px;
   margin: 0 0 1vh 0;
 `;

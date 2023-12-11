@@ -7,15 +7,31 @@ import ProfileTwitter from "./ProfileTwitter";
 import SideBar from "./SideBar";
 import styled from "styled-components";
 import NotFoundPage from "./NotFoundPage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const AppTwitterClone = () => {
+const AppTwitterClone = ({
+  setEnableScrollY,
+  setShowProj,
+  showProj,
+  twitterCloneRef,
+  handleShowProj,
+}) => {
   const [route, setRoute] = useState("/");
   const [tweetId, setTweetId] = useState(null);
   const [profileId, setProfileId] = useState(null);
+  useEffect(() => {
+    setEnableScrollY(true);
+  });
   return (
     <Wrapper>
-      <SideBar setRoute={setRoute} setProfileId={setProfileId} />
+      <SideBar
+        setRoute={setRoute}
+        setProfileId={setProfileId}
+        handleShowProj={handleShowProj}
+        setShowProj={setShowProj}
+        showProj={showProj}
+        twitterCloneRef={twitterCloneRef}
+      />
       {route === "/" && (
         <HomePage
           setRoute={setRoute}
@@ -33,7 +49,7 @@ const AppTwitterClone = () => {
         />
       )}
       {route === "/Profile" && <ProfileTwitter profileId={profileId} />}
-      {route === "/404" && <NotFoundPage />}
+      {route === "/404" && <NotFoundPage setRoute={setRoute} />}
     </Wrapper>
   );
 };

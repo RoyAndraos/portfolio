@@ -15,7 +15,7 @@ const SectionBar = ({ props, setRoute }) => {
         {types.map((type) => (
           <Button
             key={type}
-            active={active === type}
+            active={active === type ? "true" : "false"}
             onClick={() => setActive(type)}
           >
             {type}
@@ -62,7 +62,7 @@ const Button = styled.button`
     cursor: pointer;
   }
   ${({ active }) =>
-    active &&
+    active === "true" &&
     `
     font-weight: 700;
     color: ${COLORS.primary};

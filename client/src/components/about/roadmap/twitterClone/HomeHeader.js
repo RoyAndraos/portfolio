@@ -28,7 +28,6 @@ const HomeHeader = ({ props }) => {
       window.alert("too many characters!");
     }
   };
-
   if (status !== "idle" || !currentUser) {
     return <Loader />;
   } else {

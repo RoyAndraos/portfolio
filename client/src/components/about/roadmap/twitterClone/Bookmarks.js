@@ -1,10 +1,12 @@
-import React from "react";
+import { Wrapper, NotDone } from "./Notification";
 
 const Bookmarks = () => {
   return (
-    <div style={{ left: "20vw", position: "relative", height: "100vh" }}>
-      Bookmarks
-    </div>
+    <Wrapper>
+      <NotDone>
+        This part of the app is not yet implemented (stretch goal).
+      </NotDone>
+    </Wrapper>
   );
 };
 

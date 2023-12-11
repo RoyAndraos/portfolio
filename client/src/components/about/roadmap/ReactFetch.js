@@ -82,6 +82,26 @@ const ReactFetch = ({ reactFetchRef }) => {
                 width: "100%",
               }}
             >
+              <ContentWrapper style={{ width: "70%" }}>
+                <Unlocked
+                  theme={theme}
+                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                >
+                  Instructions: <br />
+                </Unlocked>
+                <ul>
+                  <li>Fetch the data from the server</li>
+                  <li>Display the menu items on the screen</li>
+                  <li>
+                    Use react-router-dom to create a route for each menu item
+                  </li>
+                  <li>Add a "Buy Item" button each menu item</li>
+                  <li>
+                    When the button is clicked, the user should be redirected to
+                    a confirmation page
+                  </li>
+                </ul>
+              </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
                   theme={theme}
@@ -89,24 +109,12 @@ const ReactFetch = ({ reactFetchRef }) => {
                 >
                   Given: <br />
                 </Unlocked>
-                1- Menu (array of objects) on the server side in a data.js file.{" "}
-                <br />
-                2- Endpoints and API docs.
-              </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Instructions: <br />
-                </Unlocked>
-                1- Fetch the data from the server. <br />
-                2- Display the menu items on the screen. <br />
-                3- Use react-router-dom to create a route for each menu item.{" "}
-                <br />
-                4- Add a "Buy Item" button each menu item. <br />
-                5- When the button is clicked, the user should be redirected to
-                a confirmation page.
+                <ul>
+                  <li>
+                    Menu (array of objects) on the server side in a data.js file
+                  </li>
+                  <li>Endpoints and API docs</li>
+                </ul>
               </ContentWrapper>
             </div>
           </InfoWrapper>

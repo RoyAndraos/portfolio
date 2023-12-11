@@ -1,10 +1,11 @@
-import { Wrapper, Title, Unlocked, Info } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked } from "./HTMLFundamentals";
 import "../../../assets/form.css";
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import ThemeContext from "../../contexts/ColorTheme";
 import { Play } from "./TheDomPartTwo";
 import { animateToShowProject } from "../../../helpers";
+import { InfoWrapper } from "./ReactFetch";
 const EventListenersPartTwo = ({ eventTwoRef }) => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -368,16 +369,22 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
         </Container>
       ) : (
         <>
-          <Info theme={theme} style={{ padding: "3%" }}>
+          <InfoWrapper theme={theme} style={{ padding: "3%" }}>
             <Unlocked theme={theme}>Code Info:</Unlocked> <br />
             Make use of the addEventListener() method to make a form validation.
-            <br />
-            1- Make sure all fields are filled out. <br />
-            2- Make sure the password is at least 10 characters long and that
-            the passwords match. <br />
-            4- Make sure the user agrees to the terms of service(stretch: If the
-            password is too short, suggest a password.).
-          </Info>
+            <ul>
+              <li>Make sure all fields are filled out</li>
+              <li>
+                Make sure the password is at least 10 characters long and that
+                the passwords match
+              </li>
+              <li>
+                {" "}
+                Make sure the user agrees to the terms of service(stretch: If
+                the password is too short, suggest a password)
+              </li>
+            </ul>
+          </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />I can now validate forms.
