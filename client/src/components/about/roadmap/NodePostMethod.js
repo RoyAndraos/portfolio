@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Wrapper, Acheivement, Unlocked, Title } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { animateToShowProject } from "../../../helpers";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { InfoWrapper } from "./ReactFetch";
 import AppPost from "./nodePost/components/AppPost";
 const NodePostMethod = ({ nodePostMethodRef }) => {
@@ -81,7 +81,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
                 width: "100%",
               }}
             >
-              <ul style={{ fontSize: "1.2rem" }}>
+              <List style={{ fontSize: "1.2rem" }} theme={theme}>
                 <li>
                   <ul>
                     Validate that the user has not yet placed an order (because
@@ -99,7 +99,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
                   Validate that the data received is valid as much as is
                   possible.
                   <br />
-                  <Unlocked>
+                  <Unlocked theme={theme}>
                     Is the email, an email? Does it include @? (No need to go
                     crazy here. Just a cursory evaluation.)
                   </Unlocked>
@@ -110,7 +110,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
                 </li>
                 <li>Validate that the item selected is actually in stock.</li>
                 <li>Validate that the item size was selected.</li>
-              </ul>
+              </List>
             </div>
           </InfoWrapper>
           <Acheivement theme={theme}>

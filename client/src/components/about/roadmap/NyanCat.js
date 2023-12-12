@@ -7,7 +7,7 @@ import {
 } from "./HTMLFundamentals";
 import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import styled from "styled-components";
+import { Play } from "./TheDomPartTwo";
 const NyanCat = ({ nyanCatRef }) => {
   const { theme } = useContext(ThemeContext);
   const openGameUrl = () => {
@@ -29,9 +29,9 @@ const NyanCat = ({ nyanCatRef }) => {
         }}
       >
         First Project, It's Raining Pineapples!{" "}
-        <StyledButton theme={theme} onClick={openGameUrl}>
+        <Play theme={theme} onClick={openGameUrl}>
           Play Game
-        </StyledButton>
+        </Play>
       </Title>
       <Info theme={theme} style={{ position: "relative" }}>
         This was my first project, I used everything i have learned so far. I
@@ -45,21 +45,5 @@ const NyanCat = ({ nyanCatRef }) => {
     </Wrapper>
   );
 };
-
-const StyledButton = styled.button`
-  bottom: 0;
-  background-color: #50196f;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  &:hover {
-    opacity: 0.7;
-  }
-  ${({ theme }) => theme === "dark" && `background-color: #9c1bb7;`};
-`;
 
 export default NyanCat;

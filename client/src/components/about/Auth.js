@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Wrapper, StyledListItem } from "./FrontEnd";
 import { animateAboutSection } from "../../helpers";
+import { Title } from "./Skills";
 const Auth = () => {
   let wrapper = useRef(null);
   let listItem = useRef([]);
@@ -13,6 +14,9 @@ const Auth = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
+      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>
+        Authentication
+      </Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>
         JSON Web Token
       </StyledListItem>

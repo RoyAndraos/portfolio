@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { animateToShowProject } from "../../../helpers";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import AppAsyncAwait from "./nodeAsyncAwait/AppAsyncAwait";
@@ -88,7 +88,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
                   Backend (get() methods):
                 </Unlocked>
                 <br />
-                <ul>
+                <List theme={theme}>
                   <li>
                     build the getDadJoke function using
                     "https://icanhazdadjoke.com/"
@@ -102,7 +102,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
                     build a getGeekJoke using the same uri of the getPun
                     fucntion
                   </li>
-                </ul>
+                </List>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -111,10 +111,12 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
                 >
                   Front-End (stretch goal)
                 </Unlocked>
-                <li>
-                  Build the front-end to display the jokes that we get from the
-                  backend
-                </li>
+                <List theme={theme}>
+                  <li>
+                    Build the front-end to display the jokes that we get from
+                    the backend
+                  </li>
+                </List>
               </ContentWrapper>
             </div>
           </InfoWrapper>

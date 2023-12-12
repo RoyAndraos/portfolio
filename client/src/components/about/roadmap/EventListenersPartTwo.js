@@ -1,4 +1,4 @@
-import { Wrapper, Title, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked, Acheivement } from "./HTMLFundamentals";
 import "../../../assets/form.css";
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
@@ -416,20 +416,5 @@ const Container = styled.div`
     width: 85%;
   }
 `;
-const Acheivement = styled.p`
-  line-height: 1.5;
-  font-size: 1.5rem;
-  color: black;
-  margin: 0;
-  margin-top: 3%;
-  padding: 3% 3%;
-  border-left: 3px solid #50196f;
-  border-top: 3px solid #50196f;
-  border-top-left-radius: 20px;
-  ${({ theme }) => theme === "dark" && `color: white;`};
-  font-weight: 700;
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`;
+
 export default EventListenersPartTwo;

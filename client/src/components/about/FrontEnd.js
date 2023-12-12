@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect, useRef } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { animateAboutSection } from "../../helpers";
+import { Title } from "./Skills";
 const FrontEnd = () => {
   let wrapper = useRef(null);
   let listItem = useRef([]);
@@ -13,6 +14,7 @@ const FrontEnd = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
+      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>Font End</Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>
         React.js
       </StyledListItem>
@@ -64,7 +66,7 @@ export const StyledListItem = styled.div`
   font-weight: 600;
   margin-left: 2rem;
   margin-right: 2rem;
-  color: rgba(120, 120, 120, 1);
+  color: black;
   @media (max-width: 1000px) {
     text-align: center;
     margin-left: 0;

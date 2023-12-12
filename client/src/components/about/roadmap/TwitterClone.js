@@ -2,7 +2,7 @@ import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { animateToShowProject } from "../../../helpers";
 import ThemeContext from "../../contexts/ColorTheme";
 import { Children, useContext, useState } from "react";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { UserTwitterProvider } from "./twitterClone/UserContextTwitter";
 import AppTwitterClone from "./twitterClone/AppTwitterClone";
@@ -74,14 +74,14 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
                 >
                   Code Instructions
                 </Unlocked>
-                <ul>
+                <List theme={theme}>
                   <li>
                     Be able to view: a homefeed, a profile page and a single
                     tweet.
                   </li>
                   <li>Be able to post a new tweet. </li>
                   <li>Be able to like a tweet.</li>
-                </ul>
+                </List>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -93,11 +93,11 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
                 >
                   Given
                 </Unlocked>
-                <ul>
+                <List theme={theme}>
                   <li>Some users' data</li>
                   <li>API documentation</li>
                   <li>Screenshots</li>
-                </ul>
+                </List>
               </ContentWrapper>
             </div>
           </InfoWrapper>

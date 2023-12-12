@@ -3,7 +3,7 @@ import ThemeContext from "../../contexts/ColorTheme";
 import { Acheivement, Wrapper } from "./HTMLFundamentals";
 import AppHangman from "./nodeRest/AppHangman";
 import { animateToShowProject } from "../../../helpers";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { Title, Unlocked } from "./HTMLFundamentals";
 const NodeRest = ({ nodeRestRef }) => {
@@ -84,8 +84,11 @@ const NodeRest = ({ nodeRestRef }) => {
               }}
             >
               <ContentWrapper style={{ width: "100%" }}>
-                <ul>
-                  <Unlocked style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                <List theme={theme}>
+                  <Unlocked
+                    style={{ fontWeight: "bold", fontStyle: "italic" }}
+                    theme={theme}
+                  >
                     Given a clients (exercise 1) and a words (exercise 2) array,
                     create a RESTful API:
                   </Unlocked>
@@ -117,7 +120,7 @@ const NodeRest = ({ nodeRestRef }) => {
                     GET "/hangman/guess/:id/:letter" This will return the
                     appropriate status code
                   </li>
-                </ul>
+                </List>
               </ContentWrapper>
             </div>
           </InfoWrapper>

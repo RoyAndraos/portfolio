@@ -59,7 +59,7 @@ export const Info = styled.p`
   color: black;
   line-height: 2;
   width: 80%;
-  ${({ theme }) => theme === "dark" && `color: white;`};
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;
     border: 3px solid #50196f;
@@ -78,7 +78,7 @@ export const Acheivement = styled.p`
   border-left: 3px solid #50196f;
   border-top: 3px solid #50196f;
   border-top-left-radius: 20px;
-  ${({ theme }) => theme === "dark" && `color: white;`};
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   font-weight: 700;
   @media (max-width: 1000px) {
     border: 3px solid #50196f;
@@ -91,6 +91,7 @@ export const Acheivement = styled.p`
 
 export const Unlocked = styled.span`
   color: #50196f;
+  font-weight: 700;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
 `;
 export default HTMLFundamentals;

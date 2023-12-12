@@ -23,7 +23,7 @@ const guess = (req, res) => {
   )[0].word;
 
   const rersult = word.split("").map((element) => {
-    if (letter === element) {
+    if (letter === element.toLowerCase()) {
       return true;
     } else {
       return false;

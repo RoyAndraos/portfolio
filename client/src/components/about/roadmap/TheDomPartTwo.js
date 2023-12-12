@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Wrapper, Title, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Title, Unlocked, Acheivement } from "./HTMLFundamentals";
 import "../../../assets/frogRace.css";
 import finishLine from "../../../assets/finshline.jpg";
 import styled from "styled-components";
@@ -295,9 +295,9 @@ const TheDomPartTwo = ({ domTwoRef }) => {
         </Container>
       ) : (
         <>
-          <InfoWrapper>
-            <Unlocked>Code Info:</Unlocked>
-            <ul>
+          <InfoWrapper theme={theme}>
+            <Unlocked theme={theme}>Code Info:</Unlocked>
+            <List theme={theme}>
               <li>
                 Take the given array of frogs and randomly select 3 of the 5
                 objects given
@@ -311,7 +311,7 @@ const TheDomPartTwo = ({ domTwoRef }) => {
                 Make the frogs race: random hopLengths and random intervals(frog
                 might take up to 4 seconds to decide to jump again... frogs...)
               </li>
-            </ul>
+            </List>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
@@ -466,21 +466,6 @@ const StyledTippy = styled.p`
   }
 `;
 
-const Acheivement = styled.p`
-  line-height: 1.5;
-  font-size: 1.5rem;
-  color: black;
-  margin: 0;
-  padding: 3%;
-  border-left: 3px solid #50196f;
-  border-top: 3px solid #50196f;
-  border-top-left-radius: 20px;
-  ${({ theme }) => theme === "dark" && `color: white;`};
-  font-weight: 700;
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`;
 export const Play = styled.button`
   background-color: #50196f;
   border: none;
@@ -497,4 +482,8 @@ export const Play = styled.button`
     padding: 2%;
   }
 `;
+export const List = styled.ul`
+  ${({ theme }) => theme === "dark" && `color: white;`};
+`;
+
 export default TheDomPartTwo;

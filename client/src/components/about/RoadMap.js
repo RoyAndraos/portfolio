@@ -26,6 +26,9 @@ import NodePostMethod from "./roadmap/NodePostMethod";
 import NodePromises from "./roadmap/NodePromises";
 import NodeAsynAwait from "./roadmap/NodeAsynAwait";
 import NodeRest from "./roadmap/NodeRest";
+import MongoP1 from "./roadmap/MongoP1";
+import MongoP2 from "./roadmap/MongoP2";
+
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   const [enableScrollY, setEnableScrollY] = useState(false);
   let roadmRef = useRef(null);
@@ -55,6 +58,8 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let nodePromisesRef = useRef(null);
   let nodeAsynAwaitRef = useRef(null);
   let nodeRestRef = useRef(null);
+  let mongoP1Ref = useRef(null);
+  let mongoP2Ref = useRef(null);
   useEffect(() => {
     setRoadmapRef(roadmRef);
   });
@@ -103,6 +108,8 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     observer.observe(nodePromisesRef.current);
     observer.observe(nodeAsynAwaitRef.current);
     observer.observe(nodeRestRef.current);
+    observer.observe(mongoP1Ref.current);
+    observer.observe(mongoP2Ref.current);
     return () => {
       // Cleanup the observer when the component is unmounted
       observer.disconnect();
@@ -134,6 +141,8 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     nodePostMethodRef,
     nodeRestRef,
     nodePromisesRef,
+    nodeAsynAwaitRef,
+    mongoP1Ref,
   ]);
   return (
     <Wrapper ref={roadmRef} enablescrolly={enableScrollY.toString()}>
@@ -169,6 +178,8 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       <NodePromises nodePromisesRef={nodePromisesRef} />
       <NodeAsynAwait nodeAsynAwaitRef={nodeAsynAwaitRef} />
       <NodeRest nodeRestRef={nodeRestRef} />
+      <MongoP1 mongoP1Ref={mongoP1Ref} />
+      <MongoP2 mongoP2Ref={mongoP2Ref} />
     </Wrapper>
   );
 };

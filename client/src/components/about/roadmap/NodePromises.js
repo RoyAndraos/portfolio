@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
+import { List } from "./TheDomPartTwo";
 const NodePromises = ({ nodePromisesRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
@@ -17,7 +18,7 @@ const NodePromises = ({ nodePromisesRef }) => {
           }}
         >
           <ContentWrapper style={{ width: "28%", wordWrap: "break-word" }}>
-            <ul>
+            <List theme={theme}>
               <Unlocked
                 theme={theme}
                 style={{ fontWeight: "bold", fontSize: "1.5rem" }}
@@ -33,7 +34,7 @@ const NodePromises = ({ nodePromisesRef }) => {
                 Use the same API and the same technique but add a language
                 parameter{" "}
               </li>
-            </ul>
+            </List>
           </ContentWrapper>
           <ContentWrapper style={{ width: "70%" }}>
             {" "}
@@ -60,9 +61,9 @@ const NodePromises = ({ nodePromisesRef }) => {
                 given the position
               </li>
               <li>
-                <Unlocked>Put all of it together!</Unlocked> <br /> The function
-                should accept an address and return the distance of the ISS from
-                that address
+                <Unlocked theme={theme}>Put all of it together!</Unlocked>{" "}
+                <br /> The function should accept an address and return the
+                distance of the ISS from that address
               </li>
             </ul>
           </ContentWrapper>

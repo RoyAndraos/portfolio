@@ -146,7 +146,7 @@ export const InfoWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  ${({ theme }) => theme === "dark" && `color: white;`};
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;
     border: 3px solid #50196f;

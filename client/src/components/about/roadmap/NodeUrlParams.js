@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { animateToShowProject } from "../../../helpers";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import AppUrlParams from "./nodeUrlParams/AppUrlParams";
 const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
@@ -88,8 +88,8 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
                 >
                   Backend (get() methods):
                 </Unlocked>
-                <br />
-                <ul>
+
+                <List theme={theme}>
                   <li>Top 50 artists ("/top50").</li>
                   <li>Specific song ("/top50/song/:songId")</li>
                   <li>Specific artist's songs ("/top50/artist/:artistName")</li>
@@ -98,9 +98,11 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
                   </li>
                   <li>
                     Top 50 artists ("/top50/artist"){" "}
-                    <Unlocked>HINT: new Set(), filters out duplicates</Unlocked>
+                    <Unlocked theme={theme}>
+                      HINT: new Set(), filters out duplicates
+                    </Unlocked>
                   </li>
-                </ul>
+                </List>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -109,9 +111,11 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
                 >
                   Front-End (stretch goal)
                 </Unlocked>
-                <li>
-                  Make a page for every one of the endpoints that you built!
-                </li>
+                <List theme={theme}>
+                  <li>
+                    Make a page for every one of the endpoints that you built!
+                  </li>
+                </List>
               </ContentWrapper>
             </div>
           </InfoWrapper>

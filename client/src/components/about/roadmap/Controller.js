@@ -17,7 +17,7 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
   };
 
   const handleRight = () => {
-    if (mapIndex === 25) {
+    if (mapIndex === 27) {
       return;
     } else {
       setMapIndex((prev) => prev + 1);

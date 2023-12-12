@@ -2,7 +2,7 @@ import { Unlocked, Title, Wrapper, Acheivement } from "./HTMLFundamentals";
 import { animateToShowProject } from "../../../helpers";
 import ThemeContext from "../../contexts/ColorTheme";
 import { useCallback, useContext, useEffect, useState, useRef } from "react";
-import { Play } from "./TheDomPartTwo";
+import { List, Play } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import "./nodeInto/_chat-app.css";
 import styled from "styled-components";
@@ -163,14 +163,14 @@ const NodeIntro = ({ nodeIntroRef }) => {
                 >
                   Code Instructions
                 </Unlocked>
-                <ul>
+                <List theme={theme}>
                   Build the get() method
                   <li>
                     the method should respond with the user's message plus a
                     Bzzt at the beginning.
                   </li>
                   <li>Make a setTimeout to make the chat realistic</li>
-                </ul>
+                </List>
               </ContentWrapper>
               <ContentWrapper>
                 <Unlocked
@@ -179,10 +179,10 @@ const NodeIntro = ({ nodeIntroRef }) => {
                 >
                   Given
                 </Unlocked>
-                <br />
-                1- Html form
-                <br />
-                2- Css file
+                <List theme={theme}>
+                  <li>Html form </li>
+                  <li>Css file</li>{" "}
+                </List>
               </ContentWrapper>
             </div>
             <Unlocked

@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage";
 import TransitionComponent from "./components/TransitionComponent";
 import About from "./components/About";
 import bg from "./assets/BG1.jpg";
+import bgLight from "./assets/5243451.jpg";
 import { useContext } from "react";
 import ThemeContext from "./components/contexts/ColorTheme";
 import "./scroll.css";
@@ -16,6 +17,7 @@ const App = () => {
     <Wrapper>
       <Header />
       <BgImage src={bg} theme={theme} />
+      <BGImageLight src={bgLight} theme={theme} />
       <Routes>
         <Route
           path="/"
@@ -57,5 +59,14 @@ const BgImage = styled.img`
   z-index: -1;
 `;
 const Wrapper = styled.div``;
-
+const BGImageLight = styled.img`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  filter: brightness(1.2);
+  object-fit: cover;
+  ${({ theme }) => theme === "dark" && `display: none;`};
+`;
 export default App;
