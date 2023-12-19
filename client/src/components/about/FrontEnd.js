@@ -14,24 +14,24 @@ const FrontEnd = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
-      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>Font End</Title>
+      <Title style={{ margin: "0 auto", marginBottom: "10vh" }}>React.js</Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>
-        React.js
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[1] = el)}>
         Router DOM
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[1] = el)}>
         Styled Components
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[2] = el)}>
         React Hooks
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
         React Cookies
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
         Other react libraries
+      </StyledListItem>
+      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
+        Socket.io-client
       </StyledListItem>
     </Wrapper>
   );
@@ -61,7 +61,7 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledListItem = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.2em;
   margin-bottom: 2rem;
   font-weight: 600;
   margin-left: 2rem;

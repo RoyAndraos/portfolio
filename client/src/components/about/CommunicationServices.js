@@ -14,7 +14,7 @@ const CommunicationServices = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
-      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>
+      <Title style={{ margin: "0 auto", marginBottom: "10vh" }}>
         Communication
       </Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>

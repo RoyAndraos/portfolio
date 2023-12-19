@@ -14,7 +14,9 @@ const AnimationUI = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
-      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>Animation</Title>
+      <Title style={{ margin: "0 auto", marginBottom: "10vh" }}>
+        Animation
+      </Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>
         GSAP (GreenSock Animation Platform)
       </StyledListItem>

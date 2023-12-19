@@ -91,7 +91,7 @@ const Skills = () => {
           selectComponent(0);
         }}
       >
-        <Title isselected={isSelected[0]}>Front End</Title>
+        <Title isselected={isSelected[0]}>React.js</Title>
 
         {isSelected[0] === "true" && <FrontEnd />}
       </ComponentWrapper>
@@ -103,7 +103,7 @@ const Skills = () => {
           selectComponent(1);
         }}
       >
-        <Title isselected={isSelected[1]}>Back End</Title>
+        <Title isselected={isSelected[1]}>Node.js</Title>
         {isSelected[1] === "true" && <BackEnd />}
       </ComponentWrapper>
 

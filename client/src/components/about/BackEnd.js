@@ -14,26 +14,23 @@ const BackEnd = () => {
   }, []);
   return (
     <Wrapper ref={(el) => (wrapper = el)}>
-      <Title style={{ margin: "0 auto", marginBottom: "3vh" }}>Back End</Title>
+      <Title style={{ margin: "0 auto", marginBottom: "10vh" }}>Node.js</Title>
       <StyledListItem ref={(el) => (listItem.current[0] = el)}>
-        Node.js
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[1] = el)}>
         Express.js
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[1] = el)}>
         MongoDB
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[2] = el)}>
         Http requests
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
         RESTful API
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
-        Socket.io / Socket.io-client
+      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+        Socket.io
       </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[6] = el)}>
+      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
         UUID
       </StyledListItem>
     </Wrapper>

@@ -113,24 +113,26 @@ const Header = () => {
       setSelected("About");
     } else if (e.target.innerText === "Projects") {
       setSelected("Projects");
-    } else {
+    } else if (e.target.innerText === "Resume") {
       setSelected("Resume");
+    } else if (e.target.innerText === "Roadmap") {
+      setSelected("Roadmap");
     }
   };
   return (
     <Wrapper ref={(el) => (wrapper = el)} theme={theme}>
-      <StyledNavlink to="/" showlogo={showLogo.toString()}>
+      <StyledNavlink to="/" $showlogo={showLogo.toString()}>
         <Logo
           src={logo}
           ref={(el) => (logoRef = el)}
           onClick={() => setSelected("")}
-          showlogo={showLogo.toString()}
+          $showlogo={showLogo.toString()}
         />
       </StyledNavlink>
       <Name
         ref={(el) => (element = el)}
         theme={theme}
-        showlogo={(showLogo && isMobile).toString()}
+        $showlogo={(showLogo && isMobile).toString()}
       >
         {isMobile ? "Roy A." : "Roy Andraos "}
       </Name>
@@ -170,7 +172,7 @@ const Wrapper = styled.div`
 export const Name = styled.h1`
   font-size: clamp(25px, 3vw, 40px);
   margin: 0;
-  display: ${(props) => (props.showlogo === "true" ? "none" : "block")};
+  display: ${(props) => (props.$showlogo === "true" ? "none" : "block")};
   color: #50196f;
   padding: 0;
   font-family: "Roboto", sans-serif;
@@ -182,10 +184,10 @@ export const Name = styled.h1`
 const StyledNavlink = styled(NavLink)`
   height: 100%;
   position: relative;
-  display: ${(props) => (props.showlogo === "true" ? "flex" : "none")};
+  display: ${(props) => (props.$showlogo === "true" ? "flex" : "none")};
   justify-content: center;
   align-items: center;
-  cursor: ${(props) => (props.showlogo === "true" ? "pointer" : "default")};
+  cursor: ${(props) => (props.$showlogo === "true" ? "pointer" : "default")};
   @media (min-width: 800px) {
     position: absolute;
     left: 3vw;

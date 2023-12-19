@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   position: fixed;
   display: flex;
   width: 100%;
-  bottom: 10%;
+  bottom: 5%;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;

@@ -13,6 +13,7 @@ const Navbar = ({ selected, handleSelect }) => {
   let navElOne = useRef(null);
   let navElTwo = useRef(null);
   let navElThree = useRef(null);
+  let navElFour = useRef(null);
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
@@ -45,6 +46,19 @@ const Navbar = ({ selected, handleSelect }) => {
         }
       )
       .fromTo(
+        navElFour,
+        {
+          opacity: 0,
+          y: -50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          delay: -0.2,
+        }
+      )
+      .fromTo(
         navElThree,
         {
           opacity: 0,
@@ -64,11 +78,11 @@ const Navbar = ({ selected, handleSelect }) => {
   return (
     <Container ref={(el) => (wrapper = el)} theme={theme}>
       <BurgerMenu toggleMenu={toggleMenu} menuOpen={menuOpen} />
-      <Wrapper isopen={menuOpen.toString()}>
+      <Wrapper $isopen={menuOpen.toString()}>
         <StyledNavlink
           ref={(el) => (navElOne = el)}
           isselected={"About" === selected ? "true" : "false"}
-          isopen={menuOpen.toString()}
+          $isopen={menuOpen.toString()}
           theme={theme}
           onClick={(e) => {
             handleSelect(e);
@@ -82,7 +96,7 @@ const Navbar = ({ selected, handleSelect }) => {
           theme={theme}
           ref={(el) => (navElTwo = el)}
           isselected={"Projects" === selected ? "true" : "false"}
-          isopen={menuOpen.toString()}
+          $isopen={menuOpen.toString()}
           onClick={(e) => {
             handleSelect(e);
             setMenuOpen(false);
@@ -91,10 +105,23 @@ const Navbar = ({ selected, handleSelect }) => {
           Projects
         </StyledNavlink>
         <StyledNavlink
+          theme={theme}
+          ref={(el) => (navElFour = el)}
+          isselected={"Roadmap" === selected ? "true" : "false"}
+          $isopen={menuOpen.toString()}
+          onClick={(e) => {
+            handleSelect(e);
+            setMenuOpen(false);
+            navigate("/roadmap");
+          }}
+        >
+          Roadmap
+        </StyledNavlink>
+        <StyledNavlink
           ref={(el) => (navElThree = el)}
           to={pdf}
           target="_blank"
-          isopen={menuOpen.toString()}
+          $isopen={menuOpen.toString()}
           theme={theme}
         >
           Resume
@@ -119,7 +146,7 @@ const Wrapper = styled.div`
   font-family: sans-serif;
   width: 100%;
   @media (max-width: 800px) {
-    display: ${(props) => (props.isopen === "true" ? "flex" : "none")};
+    display: ${(props) => (props.$isopen === "true" ? "flex" : "none")};
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -134,7 +161,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledNavlink = styled(Link)`
-  color: ${(props) => (props.isopen === "true" ? "whitesmoke" : "black")};
+  color: ${(props) => (props.$isopen === "true" ? "whitesmoke" : "black")};
   font-weight: bold;
   font-size: 1.2rem;
   transition: 0.1s ease-in-out;

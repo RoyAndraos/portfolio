@@ -31,6 +31,7 @@ import MongoP2 from "./roadmap/MongoP2";
 
 const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   const [enableScrollY, setEnableScrollY] = useState(false);
+
   let roadmRef = useRef(null);
   let introRef = useRef(null);
   let jsOneRef = useRef(null);
@@ -62,7 +63,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   let mongoP2Ref = useRef(null);
   useEffect(() => {
     setRoadmapRef(roadmRef);
-  });
+  }, [roadmRef, setRoadmapRef]);
 
   useEffect(() => {
     const observerCallback = (entries) => {
@@ -185,7 +186,10 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
 };
 
 const Wrapper = styled.div`
-  height: 100%;
+  font-family: "Roboto", sans-serif;
+  height: 89vh;
+  width: 100vw;
+  top: 10vh;
   position: relative;
   display: grid;
   grid-auto-flow: column;
