@@ -11,6 +11,20 @@ export const animateAboutSection = (tl, wrapperRef, listArray, Power4) => {
       duration: 1,
     }
   );
+  tl.staggerFromTo(
+    listArray,
+    0.5,
+    {
+      opacity: 0,
+      y: -50,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      ease: Power4.easeOut,
+    },
+    0.1
+  );
 };
 
 export const selectRandomFrogs = (frogStable) => {
@@ -77,6 +91,94 @@ export const animateToShowProject = (setState, state, compRef) => {
   tl.to(compRef.current, {
     opacity: 0,
     duration: 0.2,
+    ease: Power4.easeOut,
+  });
+};
+
+export const animateButton = (lineLeft, lineRight, lineTop, buttonRef) => {
+  gsap.registerPlugin();
+  const tl = new TimelineLite();
+  tl.to(lineLeft, {
+    left: "60px",
+    duration: 0.2,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineRight, {
+    right: "60px",
+    duration: 0.2,
+    ease: Power4.easeOut,
+    delay: -0.2,
+  });
+  tl.to(lineTop, {
+    top: "15px",
+    duration: 0.2,
+    delay: -0.2,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineLeft, {
+    opacity: 0,
+    duration: 0.1,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineRight, {
+    opacity: 0,
+    duration: 0.1,
+    ease: Power4.easeOut,
+    delay: -0.1,
+  });
+  tl.to(lineTop, {
+    opacity: 0,
+    duration: 0.1,
+    delay: -0.1,
+    ease: Power4.easeOut,
+  });
+  tl.to(buttonRef, {
+    scale: 1.05,
+    duration: 0.1,
+    ease: Power4.easeOut,
+  });
+};
+
+export const unanimateButton = (lineLeft, lineRight, lineTop, buttonRef) => {
+  gsap.registerPlugin();
+  const tl = new TimelineLite();
+  tl.to(buttonRef, {
+    scale: 1,
+    duration: 0.1,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineLeft, {
+    opacity: 1,
+    duration: 0.1,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineRight, {
+    opacity: 1,
+    duration: 0.1,
+    ease: Power4.easeOut,
+    delay: -0.1,
+  });
+  tl.to(lineTop, {
+    opacity: 1,
+    duration: 0.1,
+    delay: -0.1,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineLeft, {
+    left: "-60px",
+    duration: 0.2,
+    ease: Power4.easeOut,
+  });
+  tl.to(lineRight, {
+    right: "-60px",
+    duration: 0.2,
+    ease: Power4.easeOut,
+    delay: -0.2,
+  });
+  tl.to(lineTop, {
+    top: "-30px",
+    duration: 0.2,
+    delay: -0.2,
     ease: Power4.easeOut,
   });
 };

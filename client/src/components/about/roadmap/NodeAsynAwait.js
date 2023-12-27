@@ -1,13 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { animateToShowProject } from "../../../helpers";
-import { List, Play } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  unanimateButton,
+  animateButton,
+} from "../../../helpers";
+import { List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import AppAsyncAwait from "./nodeAsyncAwait/AppAsyncAwait";
 const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
   const { theme } = useContext(ThemeContext);
   const [showProj, setShowProj] = useState(false);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   return (
     <Wrapper id="section-24" ref={nodeAsynAwaitRef}>
       {showProj ? (
@@ -44,6 +52,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -54,14 +63,25 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
           >
             Node.js Async Await
             <Play
+              ref={(el) => (buttonRef = el)}
+              theme={theme}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 animateToShowProject(setShowProj, showProj, nodeAsynAwaitRef);
               }}
             >
               Try The Joke App
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
-          <InfoWrapper theme={{ theme }}>
+          <InfoWrapper theme={theme}>
             <Unlocked
               theme={theme}
               style={{

@@ -12,7 +12,9 @@ const ReactIntro = ({ reactIntroRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-12" ref={reactIntroRef}>
-      <Title theme={theme}>Introduction To React</Title>
+      <Title theme={theme} $showgame={"false"}>
+        Introduction To React
+      </Title>
       <Info theme={theme}>
         In this chapter, I learned about React, and how to use it to create
         components. I learned how to use props to pass data from parent to

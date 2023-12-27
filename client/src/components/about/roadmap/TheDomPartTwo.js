@@ -8,8 +8,13 @@ import { selectRandomFrogs, frogStable } from "../../../helpers";
 import { FaQuestionCircle } from "react-icons/fa";
 import gsap from "gsap";
 import { TimelineLite, Power4 } from "gsap/gsap-core";
-import { animateToShowProject } from "../../../helpers";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
+
 const TheDomPartTwo = ({ domTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   const [gameStarted, setGameStarted] = useState(false);
@@ -19,6 +24,11 @@ const TheDomPartTwo = ({ domTwoRef }) => {
   const tippyRef = useRef(null);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showGame, setShowGame] = useState(false);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let lineTop = useRef(null);
+  let buttonRef = useRef(null);
+
   const handleOpenInstriuctions = () => {
     gsap.registerPlugin();
     const tl = new TimelineLite();
@@ -179,6 +189,7 @@ const TheDomPartTwo = ({ domTwoRef }) => {
     <Wrapper id="section-7" ref={domTwoRef}>
       <Title
         theme={theme}
+        $showgame={showGame.toString()}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -189,11 +200,22 @@ const TheDomPartTwo = ({ domTwoRef }) => {
       >
         The DOM 2, Frog Race Time!{" "}
         <Play
+          theme={theme}
+          ref={(el) => (buttonRef = el)}
+          onMouseEnter={() => {
+            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+          onMouseLeave={() => {
+            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
           onClick={() => {
             playGame();
           }}
         >
           {showGame ? "Back To Instructions" : "Play Frog Race"}
+          <Line ref={(el) => (lineTop = el)} theme={theme} />
+          <Line ref={(el) => (lineLeft = el)} theme={theme} />
+          <Line ref={(el) => (lineRight = el)} theme={theme} />
         </Play>
       </Title>
       {showGame ? (
@@ -336,6 +358,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  top: 5%;
 
   ${({ theme }) => theme === "dark" && `color: white;`};
   @media (max-width: 1000px) {
@@ -467,23 +490,47 @@ const StyledTippy = styled.p`
 `;
 
 export const Play = styled.button`
-  background-color: #50196f;
-  border: none;
-  color: white;
-  padding: 10px;
+  background-color: transparent;
+  position: relative;
+  color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};
+  font-weight: 700;
   font-size: 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
+  border: ${(props) =>
+    props.theme === "light" ? "2px solid black" : "2px solid #a742bc"};
+  padding: 1% 1.5%;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   transition: 0.2s ease-in-out;
-  &:hover {
-    opacity: 0.7;
-  }
-  @media (max-width: 1000px) {
-    padding: 2%;
-  }
+  cursor: pointer;
+  border-radius: 10px;
 `;
 export const List = styled.ul`
   ${({ theme }) => theme === "dark" && `color: white;`};
+`;
+
+export const Line = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  background-color: ${(props) =>
+    props.theme === "light" ? "#50196f" : "#a742bc"};
+  border-radius: 10px;
+  z-index: 100;
+  transition: 0.2s ease-in-out;
+  &:nth-child(1) {
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
+  &:nth-child(2) {
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &:nth-child(3) {
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;
 
 export default TheDomPartTwo;

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import ThemeContext from "../../contexts/ColorTheme";
@@ -6,7 +6,20 @@ import gsap from "gsap";
 
 const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
   const { theme } = useContext(ThemeContext);
-
+  let leftRef = useRef(null);
+  let rightRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      leftRef,
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 1, ease: "power2.inOut", delay: 1.2 }
+    );
+    gsap.fromTo(
+      rightRef,
+      { opacity: 0, x: 50 },
+      { opacity: 1, x: 0, duration: 1, ease: "power2.inOut", delay: 1.2 }
+    );
+  }, []);
   const handleLeft = () => {
     if (mapIndex === 0) {
       return;
@@ -36,10 +49,10 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
 
   return (
     <Wrapper>
-      <Left onClick={handleLeft}>
+      <Left onClick={handleLeft} ref={(el) => (leftRef = el)}>
         <StyledFaAngleLeft theme={theme} />
       </Left>
-      <Right onClick={handleRight}>
+      <Right onClick={handleRight} ref={(el) => (rightRef = el)}>
         <StyledFaAngleRight theme={theme} />
       </Right>
     </Wrapper>
@@ -54,6 +67,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  z-index: 8;
   @media (max-width: 768px) {
     bottom: 3%;
   }

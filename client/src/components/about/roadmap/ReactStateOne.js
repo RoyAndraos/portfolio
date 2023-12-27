@@ -13,7 +13,9 @@ const ReactStateOne = ({ reactStateOneRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper ref={reactStateOneRef} id="section-13">
-      <Title theme={theme}>React State 1</Title>
+      <Title theme={theme} $showgame={"false"}>
+        React State 1
+      </Title>
       <Info theme={theme}>
         In this chapter, I practiced using state to make my components dynamic.
         I had to fill in the blanks and build functions (that handle state) that

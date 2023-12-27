@@ -147,7 +147,30 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
   ]);
   return (
     <Wrapper ref={roadmRef} enablescrolly={enableScrollY.toString()}>
-      <Introduction introRef={introRef} />
+      <Introduction
+        introRef={introRef}
+        htmlRef={htmlRef}
+        jsOneRef={jsOneRef}
+        cssOneRef={cssOneRef}
+        domOneRef={domOneRef}
+        eventOneRef={eventOneRef}
+        oopRef={oopRef}
+        nyanCatRef={nyanCatRef}
+        reactIntroRef={reactIntroRef}
+        reactStateOneRef={reactStateOneRef}
+        reactEffectsRef={reactEffectsRef}
+        reactFetchRef={reactFetchRef}
+        reactContextRef={reactContextRef}
+        reactReducerRef={reactReducerRef}
+        twitterCloneRef={twitterCloneRef}
+        nodeIntroRef={nodeIntroRef}
+        nodeUrlParamsRef={nodeUrlParamsRef}
+        nodePostMethodRef={nodePostMethodRef}
+        nodePromisesRef={nodePromisesRef}
+        nodeAsynAwaitRef={nodeAsynAwaitRef}
+        nodeRestRef={nodeRestRef}
+        mongoP1Ref={mongoP1Ref}
+      />
       <HTMLFundamentals htmlRef={htmlRef} />
       <JSFundamentalsPartOne jsOneRef={jsOneRef} />
       <JSFundamentalsPartTwo jsTwoRef={jsTwoRef} />

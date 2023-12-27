@@ -12,8 +12,12 @@ import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { FaQuestionCircle } from "react-icons/fa";
 import gsap, { TimelineLite, Power4 } from "gsap";
-import { Play } from "./TheDomPartTwo";
-import { animateToShowProject } from "../../../helpers";
+import { Play, Line } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 
 const EventListeners = ({ eventOneRef }) => {
   const { theme } = useContext(ThemeContext);
@@ -22,6 +26,10 @@ const EventListeners = ({ eventOneRef }) => {
   const [showInstructions, setShowInstructions] = useState(false);
   const instructionRef = useRef(null);
   const [showGame, setShowGame] = useState(false);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const handleOpenInstriuctions = () => {
     gsap.registerPlugin();
     const tl = new TimelineLite();
@@ -130,6 +138,7 @@ const EventListeners = ({ eventOneRef }) => {
     <Wrapper id="section-8" ref={eventOneRef}>
       <Title
         theme={theme}
+        $showgame={showGame.toString()}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -139,8 +148,21 @@ const EventListeners = ({ eventOneRef }) => {
         }}
       >
         Event Listeners 1, Aim Game!{" "}
-        <Play onClick={() => playGame()}>
+        <Play
+          onClick={() => playGame()}
+          ref={(el) => (buttonRef = el)}
+          theme={theme}
+          onMouseEnter={() => {
+            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+          onMouseLeave={() => {
+            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+        >
           {showGame ? "Back To Instructions" : "Play Aim Game"}
+          <Line ref={(el) => (lineTop = el)} theme={theme} />
+          <Line ref={(el) => (lineLeft = el)} theme={theme} />
+          <Line ref={(el) => (lineRight = el)} theme={theme} />
         </Play>
       </Title>
       {showGame ? (
@@ -194,7 +216,8 @@ const GameWrapper = styled.div`
   width: 90%;
   height: 85%;
   position: relative;
-  z-index: 30;
+  top: 5%;
+  z-index: 10;
 `;
 const MoreInfo = styled(FaQuestionCircle)`
   font-size: 3.5rem;

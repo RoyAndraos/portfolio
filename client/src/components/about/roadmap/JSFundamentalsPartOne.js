@@ -11,7 +11,9 @@ const JSFundamentalPartOne = ({ jsOneRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-2" ref={jsOneRef}>
-      <Title theme={theme}>Javascript Fundamentals 1</Title>
+      <Title theme={theme} $showgame={"false"}>
+        Javascript Fundamentals 1
+      </Title>
       <Info theme={theme}>
         I learned about the existance of methods that make developers' life
         simpler, such as .split(), .length, .replace(), Math.ex(), toString()

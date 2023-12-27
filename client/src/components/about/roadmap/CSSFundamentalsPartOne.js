@@ -11,7 +11,9 @@ const CSSFundamentalPartOne = ({ cssOneRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-4" ref={cssOneRef}>
-      <Title theme={theme}>CSS Fundamentals 1</Title>
+      <Title theme={theme} $showgame={"false"}>
+        CSS Fundamentals 1
+      </Title>
       <Info theme={theme}>
         I learned about the different ways to select elements in CSS, such as
         selecting by tag name, class name, id, attribute, and some basic CSS

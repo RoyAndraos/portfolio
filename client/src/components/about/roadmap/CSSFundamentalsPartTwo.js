@@ -11,7 +11,9 @@ const CSSFundamentalPartTwo = ({ cssTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-5" ref={cssTwoRef}>
-      <Title theme={theme}>CSS Fundamentals 2</Title>
+      <Title theme={theme} $showgame={"false"}>
+        CSS Fundamentals 2
+      </Title>
       <Info theme={theme}>
         The nightmare of developers, the box model. I learned about the
         different properties that make up the box model, such as margin, border,

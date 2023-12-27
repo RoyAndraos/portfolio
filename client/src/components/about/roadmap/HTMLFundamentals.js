@@ -5,7 +5,9 @@ const HTMLFundamentals = ({ htmlRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper ref={htmlRef} id="section-1">
-      <Title theme={theme}>HTML Fundamentals</Title>
+      <Title theme={theme} $showgame={"false"}>
+        HTML Fundamentals
+      </Title>
       <Info theme={theme}>
         I learned how to use the right html tag for different use cases.
         <br />I had to use{" "}
@@ -44,6 +46,7 @@ export const Title = styled.h1`
   position: relative;
   left: -35%;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
   @media (max-width: 1000px) {
     left: 0;
     margin-bottom: 10%;

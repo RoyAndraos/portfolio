@@ -1,13 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Wrapper, Acheivement, Unlocked, Title } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
-import { animateToShowProject } from "../../../helpers";
-import { List, Play } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  unanimateButton,
+  animateButton,
+} from "../../../helpers";
+import { List, Play, Line } from "./TheDomPartTwo";
 import { InfoWrapper } from "./ReactFetch";
 import AppPost from "./nodePost/components/AppPost";
 const NodePostMethod = ({ nodePostMethodRef }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   return (
     <Wrapper id="section-22" ref={nodePostMethodRef}>
       {showProj ? (
@@ -29,7 +37,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
               height: "10vh",
             }}
           >
-            React Effects{" "}
+            Node Post{" "}
             <Play
               style={{ marginLeft: "30px" }}
               onClick={() => {
@@ -45,6 +53,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -55,14 +64,25 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
           >
             Node.js Post Method
             <Play
+              ref={(el) => (buttonRef = el)}
+              theme={theme}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 animateToShowProject(setShowProj, showProj, nodePostMethodRef);
               }}
             >
               Try The Form
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
-          <InfoWrapper theme={{ theme }}>
+          <InfoWrapper theme={theme}>
             <Unlocked
               theme={theme}
               style={{
@@ -113,7 +133,7 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
               </List>
             </div>
           </InfoWrapper>
-          <Acheivement theme={theme}>
+          <Acheivement theme={theme} style={{ marginTop: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br /> I can now validate then post data to a server!
           </Acheivement>

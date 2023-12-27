@@ -1,50 +1,70 @@
 import React from "react";
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { animateAboutSection } from "../../helpers";
-import { Title } from "./Skills";
+import ThemeContext from "../contexts/ColorTheme";
 const FrontEnd = () => {
   let wrapper = useRef(null);
   let listItem = useRef([]);
+  let titleRef = useRef(null);
+  const { theme } = useContext(ThemeContext);
   gsap.registerPlugin();
   useEffect(() => {
     const tl = new TimelineLite();
     animateAboutSection(tl, wrapper, listItem.current, Power4, 2);
+    gsap.fromTo(
+      titleRef,
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1, ease: Power4.easeOut, delay: 0.5 }
+    );
   }, []);
   return (
-    <Wrapper ref={(el) => (wrapper = el)}>
-      <Title style={{ margin: "0 auto", marginBottom: "10vh" }}>React.js</Title>
-      <StyledListItem ref={(el) => (listItem.current[0] = el)}>
-        Router DOM
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[1] = el)}>
-        Styled Components
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[2] = el)}>
-        React Hooks
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[3] = el)}>
-        React Cookies
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[4] = el)}>
-        Other react libraries
-      </StyledListItem>
-      <StyledListItem ref={(el) => (listItem.current[5] = el)}>
-        Socket.io-client
-      </StyledListItem>
-    </Wrapper>
+    <Container>
+      <Title ref={(el) => (titleRef = el)} theme={theme}>
+        Front End
+      </Title>
+      <Wrapper ref={(el) => (wrapper = el)}>
+        <StyledListItem ref={(el) => (listItem.current[0] = el)}>
+          HTML
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[1] = el)}>
+          CSS
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+          React
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+          Javascript
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+          Styled Components
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[5] = el)}>
+          Redux
+        </StyledListItem>
+      </Wrapper>
+    </Container>
   );
 };
 
+export const Container = styled.div`
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Wrapper = styled.div`
-  height: 70%;
-  padding-bottom: 10vh;
+  height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  overflow: scroll;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: hidden;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer/Edge */
@@ -62,10 +82,8 @@ export const Wrapper = styled.div`
 
 export const StyledListItem = styled.div`
   font-size: 1.2em;
-  margin-bottom: 2rem;
   font-weight: 600;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  text-align: center;
   color: black;
   @media (max-width: 1000px) {
     text-align: center;
@@ -73,11 +91,13 @@ export const StyledListItem = styled.div`
     margin-right: 0;
     width: 40%;
   }
-  @media (max-width: 1000px) {
-    text-align: center;
-    margin-left: 0;
-    margin-right: 0;
-    width: 40%;
-  }
+`;
+
+export const Title = styled.div`
+  text-align: center;
+  font-size: 2rem;
+  color: #50196f;
+  font-weight: 700;
+  width: 100%;
 `;
 export default FrontEnd;

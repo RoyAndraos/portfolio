@@ -8,8 +8,10 @@ const MongoP1 = ({ mongoP1Ref }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-26" ref={mongoP1Ref}>
-      <Title theme={theme}>MongoDB Part 1</Title>
-      <InfoWrapper theme={{ theme }}>
+      <Title theme={theme} $showgame={"false"}>
+        MongoDB Part 1
+      </Title>
+      <InfoWrapper theme={theme}>
         <Unlocked
           theme={theme}
           style={{

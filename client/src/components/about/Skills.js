@@ -6,6 +6,7 @@ import BackEnd from "./BackEnd";
 import AnimationUI from "./AnimationUI";
 import Auth from "./Auth";
 import CommunicationServices from "./CommunicationServices";
+import Other from "./Other";
 
 const Skills = () => {
   const [isSelected, setIsSelected] = useState([
@@ -14,9 +15,10 @@ const Skills = () => {
     "false",
     "false",
     "false",
+    "false",
   ]);
   useEffect(() => {
-    ["true", "false", "false", "false", "false"].forEach((item, i) => {
+    ["true", "false", "false", "false", "false", "false"].forEach((item, i) => {
       if (item === "false") {
         if (wrapper.current[i]) {
           gsap.fromTo(
@@ -85,59 +87,69 @@ const Skills = () => {
   return (
     <SkillsWrapper>
       <ComponentWrapper
-        isselected={isSelected[0]}
+        $isselected={isSelected[0]}
         ref={(el) => (wrapper.current[0] = el)}
         onClick={() => {
           selectComponent(0);
         }}
       >
-        <Title isselected={isSelected[0]}>React.js</Title>
+        <Title $isselected={isSelected[0]}>Front End</Title>
 
         {isSelected[0] === "true" && <FrontEnd />}
       </ComponentWrapper>
 
       <ComponentWrapper
-        isselected={isSelected[1]}
+        $isselected={isSelected[1]}
         ref={(el) => (wrapper.current[1] = el)}
         onClick={() => {
           selectComponent(1);
         }}
       >
-        <Title isselected={isSelected[1]}>Node.js</Title>
+        <Title $isselected={isSelected[1]}>Back End</Title>
         {isSelected[1] === "true" && <BackEnd />}
       </ComponentWrapper>
 
       <ComponentWrapper
-        isselected={isSelected[2]}
+        $isselected={isSelected[2]}
         ref={(el) => (wrapper.current[2] = el)}
         onClick={() => {
           selectComponent(2);
         }}
       >
-        <Title isselected={isSelected[2]}>Animation</Title>
+        <Title $isselected={isSelected[2]}>Animation</Title>
         {isSelected[2] === "true" && <AnimationUI />}
       </ComponentWrapper>
 
       <ComponentWrapper
-        isselected={isSelected[3]}
+        $isselected={isSelected[3]}
         ref={(el) => (wrapper.current[3] = el)}
         onClick={() => {
           selectComponent(3);
         }}
       >
-        <Title isselected={isSelected[3]}>Authentication</Title>
+        <Title $isselected={isSelected[3]}>Authentication</Title>
         {isSelected[3] === "true" && <Auth />}
       </ComponentWrapper>
 
       <ComponentWrapper
-        isselected={isSelected[4]}
+        $isselected={isSelected[4]}
         ref={(el) => (wrapper.current[4] = el)}
         onClick={() => {
           selectComponent(4);
         }}
       >
-        <Title isselected={isSelected[4]}>Communication</Title>
+        <Title $isselected={isSelected[4]}>Communication</Title>
         {isSelected[4] === "true" && <CommunicationServices />}
+      </ComponentWrapper>
+      <ComponentWrapper
+        $isselected={isSelected[5]}
+        ref={(el) => (wrapper.current[5] = el)}
+        onClick={() => {
+          selectComponent(5);
+        }}
+      >
+        <Title $isselected={isSelected[5]}>Other</Title>
+        {isSelected[5] === "true" && <Other />}
       </ComponentWrapper>
     </SkillsWrapper>
   );
@@ -147,20 +159,22 @@ const ComponentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-  width: ${(props) => (props.isselected === "true" ? "40%" : "10%")};
+  width: ${(props) => (props.$isselected === "true" ? "40%" : "10%")};
   border: 2px solid #50196f;
-  height: 70%;
-  margin: 3vh 0 5vh 0;
+  height: 60vh;
   padding-top: 2vh;
   border-radius: 20px;
-  background: white;
-  overflow: scroll;
+  background-color: ${(props) =>
+    props.theme === "light"
+      ? "rgba(255, 255, 255, 0.7)"
+      : "rgba(255,255,255,0.9)"};
   overscroll-behavior: contain;
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   transition: width 0.5s ease-in-out;
+  font-size: 1.3rem;
   cursor: pointer;
   &::-webkit-scrollbar {
     display: none;
@@ -172,7 +186,8 @@ const SkillsWrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 45%;
+  width: 50%;
+  height: 100%;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -182,6 +197,9 @@ export const Title = styled.p`
   font-size: 2rem;
   color: #50196f;
   font-weight: 700;
+  white-space: nowrap;
+  position: relative;
+  top: 40%;
 `;
 
 export default Skills;

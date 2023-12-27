@@ -75,7 +75,7 @@ const Wrapper = styled.div`
     0 15px 35px rgba(71, 69, 123, 0.24);
   width: 340px;
   padding-bottom: 14px;
-  z-index: 999;
+  z-index: 1000;
 `;
 
 export default AppPost;

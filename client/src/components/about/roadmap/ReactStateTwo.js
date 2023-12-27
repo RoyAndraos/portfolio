@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
   Wrapper,
@@ -7,15 +7,23 @@ import {
   Acheivement,
   Info,
 } from "./HTMLFundamentals";
-import { animateToShowProject } from "../../../helpers.js";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers.js";
 import styled from "styled-components";
 import { data } from "./reactState2/data.js";
 import Typeahead from "./reactState2/Typeahead.js";
-import { Play } from "./TheDomPartTwo.js";
+import { Play, Line } from "./TheDomPartTwo.js";
 const ReactStateTwo = ({ reactStateTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   const [suggestion, setSuggestion] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const showSearch = () => {
     animateToShowProject(setShowSearchBar, showSearchBar, reactStateTwoRef);
   };
@@ -29,19 +37,31 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
           width: "90%",
           transform: "translateX(35%)",
         }}
+        $showgame={showSearchBar.toString()}
         theme={theme}
       >
         React State 2, My First Search Engine!
         <Play
+          ref={(el) => (buttonRef = el)}
+          theme={theme}
           onClick={() => {
             showSearch();
           }}
+          onMouseEnter={() => {
+            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+          onMouseLeave={() => {
+            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
         >
+          <Line ref={(el) => (lineTop = el)} theme={theme} />
+          <Line ref={(el) => (lineLeft = el)} theme={theme} />
+          <Line ref={(el) => (lineRight = el)} theme={theme} />
           {showSearchBar ? "Back To Instructions" : "Try The Search Engine"}
         </Play>
       </Title>
       {showSearchBar ? (
-        <InfoWrapper theme={theme}>
+        <InfoWrapper theme={theme} style={{ top: "5%" }}>
           <Typeahead
             setSuggestion={setSuggestion}
             categories={data.categories}
@@ -54,7 +74,6 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
         </InfoWrapper>
       ) : (
         <>
-          {" "}
           <Info theme={theme}>
             <Unlocked theme={theme}>Code Info:</Unlocked>
             <br />

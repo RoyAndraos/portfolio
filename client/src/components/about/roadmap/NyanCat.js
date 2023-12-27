@@ -5,11 +5,16 @@ import {
   Acheivement,
   Unlocked,
 } from "./HTMLFundamentals";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Play } from "./TheDomPartTwo";
+import { Line, Play } from "./TheDomPartTwo";
+import { animateButton, unanimateButton } from "../../../helpers";
 const NyanCat = ({ nyanCatRef }) => {
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const openGameUrl = () => {
     // Replace "/game/index.html" with the actual path to your game's HTML file
     const gameUrl = process.env.PUBLIC_URL + "/indexForNyan.html";
@@ -20,6 +25,7 @@ const NyanCat = ({ nyanCatRef }) => {
     <Wrapper ref={nyanCatRef} id="section-11">
       <Title
         theme={theme}
+        $showgame={"false"}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -29,8 +35,21 @@ const NyanCat = ({ nyanCatRef }) => {
         }}
       >
         First Project, It's Raining Pineapples!{" "}
-        <Play theme={theme} onClick={openGameUrl}>
+        <Play
+          theme={theme}
+          onClick={openGameUrl}
+          ref={(el) => (buttonRef = el)}
+          onMouseLeave={() => {
+            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+          onMouseEnter={() => {
+            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+        >
           Play Game
+          <Line ref={(el) => (lineTop = el)} theme={theme} />
+          <Line ref={(el) => (lineLeft = el)} theme={theme} />
+          <Line ref={(el) => (lineRight = el)} theme={theme} />
         </Play>
       </Title>
       <Info theme={theme} style={{ position: "relative" }}>

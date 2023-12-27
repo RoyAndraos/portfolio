@@ -1,14 +1,22 @@
-import { useState, useContext, Children } from "react";
+import { useState, useContext, Children, useRef } from "react";
 import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { UserReactContextProvider } from "./reactContext/UserContextReactContext";
 import AppReactContext from "./reactContext/AppReactContext";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Play } from "./TheDomPartTwo";
-import { animateToShowProject } from "../../../helpers";
+import { Play, Line } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 const ReactContext = ({ reactContextRef }) => {
   const [showFaceSpace, setShowFaceSpace] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const tryFaceSpace = () => {
     animateToShowProject(setShowFaceSpace, showFaceSpace, reactContextRef);
   };
@@ -36,6 +44,7 @@ const ReactContext = ({ reactContextRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -46,11 +55,22 @@ const ReactContext = ({ reactContextRef }) => {
           >
             React Context
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 tryFaceSpace();
               }}
             >
               Try Facespace
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
           <InfoWrapper theme={theme}>

@@ -12,7 +12,9 @@ const OOP = ({ oopRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-10" ref={oopRef}>
-      <Title theme={theme}>Object Oriented Programming</Title>
+      <Title theme={theme} $showgame={"false"}>
+        Object Oriented Programming
+      </Title>
       <Info theme={theme}>
         In this chapter (that consisted of 2 major exercises, Books and Cats), I
         got hands-on experience with OOP concepts. I created classes for Cats

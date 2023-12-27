@@ -1,13 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
-import { animateToShowProject } from "../../../helpers";
-import { List, Play } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  unanimateButton,
+  animateButton,
+} from "../../../helpers";
+import { List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import AppUrlParams from "./nodeUrlParams/AppUrlParams";
 const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   return (
     <Wrapper id="section-21" ref={nodeUrlParamsRef}>
       {showProj ? (
@@ -20,7 +28,7 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
               alignItems: "center",
               position: "absolute",
               top: "0",
-              left: "70%",
+              left: "0",
               width: "30%",
               zIndex: "999",
               color: "#a742bc",
@@ -45,6 +53,7 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -55,14 +64,25 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
           >
             Node.js URL Params
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 animateToShowProject(setShowProj, showProj, nodeUrlParamsRef);
               }}
             >
               Try The Artist App
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
-          <InfoWrapper theme={{ theme }}>
+          <InfoWrapper theme={theme}>
             <Unlocked
               theme={theme}
               style={{

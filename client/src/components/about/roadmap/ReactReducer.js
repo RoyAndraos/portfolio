@@ -1,15 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
-import { Play } from "./TheDomPartTwo";
+import { Play, Line } from "./TheDomPartTwo";
 import { SeatProvider } from "./reactReducer/components/SeatContext";
 import { BookingProvider } from "./reactReducer/components/BookingContext";
 import AppReactReducer from "./reactReducer/components/AppReactReducer";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { animateToShowProject } from "../../../helpers";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 const ReactReducer = ({ reactReducerRef }) => {
   const [showReducer, setShowReducer] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const handleShowReducer = () => {
     animateToShowProject(setShowReducer, showReducer, reactReducerRef);
   };
@@ -53,6 +61,7 @@ const ReactReducer = ({ reactReducerRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -63,11 +72,22 @@ const ReactReducer = ({ reactReducerRef }) => {
           >
             React Reducer
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 handleShowReducer();
               }}
             >
               Try The Seat Booker
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
           <InfoWrapper theme={theme}>

@@ -11,7 +11,9 @@ const JSFundamentalPartTwo = ({ jsTwoRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-3" ref={jsTwoRef}>
-      <Title theme={theme}>Javascript Fundamentals 2</Title>
+      <Title theme={theme} $showgame={"false"}>
+        Javascript Fundamentals 2
+      </Title>
       <Info theme={theme}>
         I learned about the array methods built into javascript, such as
         .filter(), .map(), .reduce(), .sort(), .find(), .concat() and more.

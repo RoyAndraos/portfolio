@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Game from "./reactEffects/Game";
 import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
-import { Play } from "./TheDomPartTwo";
+import { Play, Line } from "./TheDomPartTwo";
 import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { animateToShowProject } from "../../../helpers";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
 const ReactEffects = ({ reactEffectsRef }) => {
   const [showGame, setShowGame] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const playGame = () => {
     animateToShowProject(setShowGame, showGame, reactEffectsRef);
   };
@@ -47,6 +55,7 @@ const ReactEffects = ({ reactEffectsRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -57,11 +66,22 @@ const ReactEffects = ({ reactEffectsRef }) => {
           >
             React Effects{" "}
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
               onClick={() => {
                 playGame();
               }}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
             >
               Play The Cookie Game
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
           <InfoWrapper theme={theme} style={{ padding: "2%" }}>

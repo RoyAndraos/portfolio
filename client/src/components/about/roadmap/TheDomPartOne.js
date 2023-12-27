@@ -11,7 +11,9 @@ const TheDomPartOne = ({ domOneRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-6" ref={domOneRef}>
-      <Title theme={theme}>The DOM 1</Title>
+      <Title theme={theme} $showgame={"false"}>
+        The DOM 1
+      </Title>
       <Info theme={theme}>
         I learned about the Document Object Model (document.createElement(),
         element.appendChild(childElement), etc...), and how to use it to

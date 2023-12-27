@@ -1,19 +1,16 @@
-import React from "react";
 import { useEffect, useRef } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Wrapper, StyledListItem } from "./FrontEnd";
 import { animateAboutSection } from "../../helpers";
-import { Title } from "./FrontEnd";
-import { Container } from "./FrontEnd";
-const AnimationUI = () => {
+import { Title, Container } from "./FrontEnd";
+const Other = () => {
   let wrapper = useRef(null);
   let listItem = useRef([]);
   let titleRef = useRef(null);
-
   gsap.registerPlugin();
   useEffect(() => {
     const tl = new TimelineLite();
-    animateAboutSection(tl, wrapper, listItem.current, Power4, 2.9);
+    animateAboutSection(tl, wrapper, listItem.current, Power4, 2.3);
     gsap.fromTo(
       titleRef,
       { opacity: 0, y: -50 },
@@ -22,17 +19,23 @@ const AnimationUI = () => {
   }, []);
   return (
     <Container>
-      <Title ref={(el) => (titleRef = el)}>Animation</Title>
+      <Title ref={(el) => (titleRef = el)}>Other</Title>
       <Wrapper ref={(el) => (wrapper = el)}>
         <StyledListItem ref={(el) => (listItem.current[0] = el)}>
-          GSAP (GreenSock Animation Platform)
+          Github
         </StyledListItem>
         <StyledListItem ref={(el) => (listItem.current[1] = el)}>
-          Keyframes (Styled Components)
+          Netlify
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+          Render
+        </StyledListItem>
+        <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+          VS Code
         </StyledListItem>
       </Wrapper>
     </Container>
   );
 };
 
-export default AnimationUI;
+export default Other;

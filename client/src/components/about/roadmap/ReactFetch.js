@@ -1,13 +1,21 @@
 import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import styled from "styled-components";
 import AppFetch from "./reactFetch/AppFetch";
-import { Play } from "./TheDomPartTwo";
-import { animateToShowProject } from "../../../helpers";
+import { Play, Line } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 const ReactFetch = ({ reactFetchRef }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   const handleShowMenu = () => {
     animateToShowProject(setShowMenu, showMenu, reactFetchRef);
   };
@@ -50,6 +58,7 @@ const ReactFetch = ({ reactFetchRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -60,11 +69,22 @@ const ReactFetch = ({ reactFetchRef }) => {
           >
             React Fetch
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 handleShowMenu();
               }}
             >
               Order Some Pizza
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
           <InfoWrapper theme={theme}>
@@ -136,8 +156,10 @@ export const InfoWrapper = styled.div`
   font-size: 1.5rem;
   padding: 1rem;
   margin: 0;
-  border-top: 3px solid #50196f;
-  border-right: 3px solid #50196f;
+  border-top: ${(props) =>
+    props.theme === "dark" ? `3px solid #a742bc` : `3px solid #50196f`};
+  border-right: ${(props) =>
+    props.theme === "dark" ? `3px solid #a742bc` : `3px solid #50196f`};
   border-top-right-radius: 20px;
   color: black;
   line-height: 2;

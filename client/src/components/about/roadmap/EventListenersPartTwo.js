@@ -1,16 +1,23 @@
 import { Wrapper, Title, Unlocked, Acheivement } from "./HTMLFundamentals";
 import "../../../assets/form.css";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import styled from "styled-components";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Play } from "./TheDomPartTwo";
-import { animateToShowProject } from "../../../helpers";
+import { Play, Line } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  animateButton,
+  unanimateButton,
+} from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
 const EventListenersPartTwo = ({ eventTwoRef }) => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const { theme } = useContext(ThemeContext);
-
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
   useEffect(() => {
     //submit n clear buttons for event listeners
     const submit = document.getElementById("submit");
@@ -245,6 +252,7 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
     <Wrapper id="section-9" ref={eventTwoRef}>
       <Title
         theme={theme}
+        $showgame={showForm.toString()}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -255,11 +263,22 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
       >
         Event Listeners 2, Form Validation{" "}
         <Play
+          theme={theme}
+          ref={(el) => (buttonRef = el)}
+          onMouseEnter={() => {
+            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
+          onMouseLeave={() => {
+            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+          }}
           onClick={() => {
             tryForm();
           }}
         >
           {showForm ? "Back To Instructions" : "Try The Form"}
+          <Line ref={(el) => (lineTop = el)} theme={theme} />
+          <Line ref={(el) => (lineLeft = el)} theme={theme} />
+          <Line ref={(el) => (lineRight = el)} theme={theme} />
         </Play>
       </Title>
       {showForm ? (
@@ -406,7 +425,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
+  top: 5%;
   ${({ theme }) => theme === "dark" && `color: white;`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;

@@ -10,7 +10,6 @@ import { MdOutlineLightMode } from "react-icons/md";
 const Header = () => {
   const [selected, setSelected] = useState("");
   const [showLogo, setShowLogo] = useState(false);
-  gsap.registerPlugin();
   const location = useLocation();
   const { theme, setTheme } = useContext(ThemeContext);
   const [isMobile, setIsMobile] = useState(false);
@@ -48,6 +47,7 @@ const Header = () => {
       }
     );
   }, []);
+
   const animateLogo = () => {
     gsap.registerPlugin();
     const tl = new TimelineLite();
@@ -162,10 +162,7 @@ const Wrapper = styled.div`
   position: fixed;
   background-color: rgba(255, 255, 255, 0.7);
   visibility: hidden;
-  ${({ theme }) =>
-    theme === "dark" &&
-    `background: black;
-  ;`};
+  ${({ theme }) => theme === "dark" && `background: rgba(0, 0, 0, 0.6)`};
   z-index: 10;
 `;
 

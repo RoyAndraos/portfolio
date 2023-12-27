@@ -1,14 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import { Acheivement, Wrapper } from "./HTMLFundamentals";
 import AppHangman from "./nodeRest/AppHangman";
-import { animateToShowProject } from "../../../helpers";
-import { List, Play } from "./TheDomPartTwo";
+import {
+  animateToShowProject,
+  unanimateButton,
+  animateButton,
+} from "../../../helpers";
+import { List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { Title, Unlocked } from "./HTMLFundamentals";
 const NodeRest = ({ nodeRestRef }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
+
   return (
     <Wrapper id="section-25" ref={nodeRestRef}>
       {showProj ? (
@@ -47,6 +56,7 @@ const NodeRest = ({ nodeRestRef }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -57,14 +67,25 @@ const NodeRest = ({ nodeRestRef }) => {
           >
             Node.js REST
             <Play
+              ref={(el) => (buttonRef = el)}
+              theme={theme}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 animateToShowProject(setShowProj, showProj, nodeRestRef);
               }}
             >
               Try The Hangman Game
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
-          <InfoWrapper theme={{ theme }}>
+          <InfoWrapper theme={theme}>
             <Unlocked
               theme={theme}
               style={{
@@ -124,7 +145,7 @@ const NodeRest = ({ nodeRestRef }) => {
               </ContentWrapper>
             </div>
           </InfoWrapper>
-          <Acheivement theme={theme}>
+          <Acheivement theme={theme} style={{ marginTop: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br /> GET, POST and DELETE are now my best friends!
           </Acheivement>

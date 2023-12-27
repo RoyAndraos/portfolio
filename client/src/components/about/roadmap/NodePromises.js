@@ -7,7 +7,9 @@ const NodePromises = ({ nodePromisesRef }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-23" ref={nodePromisesRef}>
-      <Title theme={theme}>Node.js Promises</Title>
+      <Title theme={theme} $showgame={"false"}>
+        Node.js Promises
+      </Title>
       <InfoWrapper theme={theme} style={{ width: "90%", padding: "0.5rem" }}>
         <div
           style={{

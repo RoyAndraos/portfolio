@@ -1,14 +1,22 @@
 import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
-import { animateToShowProject } from "../../../helpers";
+import {
+  animateToShowProject,
+  unanimateButton,
+  animateButton,
+} from "../../../helpers";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Children, useContext, useState } from "react";
-import { List, Play } from "./TheDomPartTwo";
+import { Children, useContext, useRef, useState } from "react";
+import { List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { UserTwitterProvider } from "./twitterClone/UserContextTwitter";
 import AppTwitterClone from "./twitterClone/AppTwitterClone";
 const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
+  let lineTop = useRef(null);
+  let lineLeft = useRef(null);
+  let lineRight = useRef(null);
+  let buttonRef = useRef(null);
 
   const handleShowProj = () => {
     animateToShowProject(setShowProj, showProj, twitterCloneRef);
@@ -31,6 +39,7 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
         <>
           <Title
             theme={theme}
+            $showgame={"false"}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -41,14 +50,25 @@ const TwitterClone = ({ twitterCloneRef, setEnableScrollY }) => {
           >
             Twitter Clone Project
             <Play
+              theme={theme}
+              ref={(el) => (buttonRef = el)}
+              onMouseEnter={() => {
+                animateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
+              onMouseLeave={() => {
+                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+              }}
               onClick={() => {
                 handleShowProj();
               }}
             >
               Try My Twitter Clone
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
             </Play>
           </Title>
-          <InfoWrapper theme={{ theme }}>
+          <InfoWrapper theme={theme}>
             <Unlocked
               theme={theme}
               style={{
