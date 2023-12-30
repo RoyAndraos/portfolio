@@ -162,8 +162,8 @@ const Wrapper = styled.div`
   position: fixed;
   background-color: rgba(255, 255, 255, 0.7);
   visibility: hidden;
+  z-index: 100;
   ${({ theme }) => theme === "dark" && `background: rgba(0, 0, 0, 0.6)`};
-  z-index: 10;
 `;
 
 export const Name = styled.h1`
@@ -189,11 +189,11 @@ const StyledNavlink = styled(NavLink)`
     position: absolute;
     left: 3vw;
   }
-  z-index: 1;
 `;
 const Logo = styled.img`
   height: 8vh;
   width: 8vh;
+  z-index: 100;
 `;
 
 const Toggle = styled.button`

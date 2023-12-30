@@ -99,6 +99,7 @@ const Navbar = ({ selected, handleSelect }) => {
           $isopen={menuOpen.toString()}
           onClick={(e) => {
             handleSelect(e);
+            navigate("/projects");
             setMenuOpen(false);
           }}
         >

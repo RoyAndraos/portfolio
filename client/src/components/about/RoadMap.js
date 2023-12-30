@@ -146,7 +146,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
     mongoP1Ref,
   ]);
   return (
-    <Wrapper ref={roadmRef} enablescrolly={enableScrollY.toString()}>
+    <Wrapper ref={roadmRef} $enablescrolly={enableScrollY.toString()}>
       <Introduction
         introRef={introRef}
         htmlRef={htmlRef}
@@ -219,7 +219,7 @@ const Wrapper = styled.div`
   grid-auto-columns: 100%;
   overflow-x: scroll;
   overflow-y: ${(props) =>
-    props.enablescrolly === "true" ? "scroll" : "hidden"};
+    props.$enablescrolly === "true" ? "scroll" : "hidden"};
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer/Edge */
