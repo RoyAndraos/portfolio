@@ -227,20 +227,28 @@ export const LinksWrapper = styled.div`
 `;
 
 export const Git = styled(BsGithub)`
-  font-size: 3rem;
+  font-size: 4rem;
   margin: 0 2rem;
   color: #50196f;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
 `;
 export const LinkedIn = styled(BsLinkedin)`
-  font-size: 3rem;
+  font-size: 4rem;
   margin: 0 2rem;
   color: #50196f;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 `;
 
 const Info = styled.p`

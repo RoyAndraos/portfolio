@@ -20,7 +20,7 @@ const FrontEnd = () => {
     );
   }, []);
   return (
-    <Container>
+    <Container theme={theme}>
       <Title ref={(el) => (titleRef = el)} theme={theme}>
         Front End
       </Title>
@@ -55,6 +55,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 0 100px 0 100px;
 `;
 
 export const Wrapper = styled.div`
@@ -84,20 +85,16 @@ export const StyledListItem = styled.div`
   font-size: 1.2em;
   font-weight: 600;
   text-align: center;
-  color: black;
-  @media (max-width: 1000px) {
-    text-align: center;
-    margin-left: 0;
-    margin-right: 0;
-    width: 40%;
-  }
+  margin: 0 20px 0 20px;
 `;
 
 export const Title = styled.div`
   text-align: center;
   font-size: 2rem;
+  width: 100%;
   color: #50196f;
   font-weight: 700;
-  width: 100%;
+  border-radius: 10px;
+  padding: 30px 0 30px 0;
 `;
 export default FrontEnd;

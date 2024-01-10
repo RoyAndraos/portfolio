@@ -178,6 +178,7 @@ export const Name = styled.h1`
   width: 100%;
   ${({ theme }) => theme === "dark" && `color: whitesmoke;`};
 `;
+
 const StyledNavlink = styled(NavLink)`
   height: 100%;
   position: relative;

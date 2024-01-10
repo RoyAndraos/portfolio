@@ -8,7 +8,7 @@ const About = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { theme } = useContext(ThemeContext);
   let wrapper = useRef([]);
-
+  let words = useRef([]);
   //useEffect to detect if the screen size is less than 1000px
   useEffect(() => {
     const handleResize = () => {
@@ -29,11 +29,85 @@ const About = () => {
     wrapper.current.forEach((el) => {
       tl.fromTo(el, 1.5, { opacity: 0 }, { opacity: 1 }, 1.5);
     });
+    animateSpecialWords(words.current);
   }, []);
+
+  const animateSpecialWords = (refArray) => {
+    const tl = new TimelineLite();
+    refArray.forEach((el) => {
+      tl.fromTo(el, 0.2, { opacity: 0, y: -50 }, { opacity: 1, y: 0 });
+    });
+  };
 
   return (
     <FirstViewport>
-      <TitleWrapper theme={theme}>Skills</TitleWrapper>
+      <Story theme={theme}>
+        {" "}
+        <Title theme={theme}>About Roy </Title>
+        <p style={{ margin: "0" }}>
+          My journey into the world of technology began with three semesters in{" "}
+          <SpecialWord theme={theme} ref={(el) => (words.current[0] = el)}>
+            computer engineering,
+          </SpecialWord>
+          where I found my passion for programming.
+          <br />
+          <br />
+          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
+            Armed with curiosity and determination, I delved into web
+            development. Self-taught in{" "}
+            <SpecialWord theme={theme} ref={(el) => (words.current[1] = el)}>
+              HTML,
+            </SpecialWord>
+            <SpecialWord theme={theme} ref={(el) => (words.current[2] = el)}>
+              {" "}
+              CSS,
+            </SpecialWord>
+            <SpecialWord theme={theme} ref={(el) => (words.current[3] = el)}>
+              {" "}
+              and JavaScript,
+            </SpecialWord>
+            I soon discovered the power of bringing designs to life and creating
+            interactive user experiences.
+          </p>
+          <br />
+          Eager to deepen my skills, I embarked on a transformative journey by
+          enrolling in a{" "}
+          <SpecialWord theme={theme} ref={(el) => (words.current[4] = el)}>
+            bootcamp
+          </SpecialWord>
+          . There, I honed my craft by mastering{" "}
+          <SpecialWord theme={theme} ref={(el) => (words.current[5] = el)}>
+            React.js
+          </SpecialWord>
+          for front-end development.
+          <br />
+          <br />
+          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
+            With{" "}
+            <SpecialWord theme={theme} ref={(el) => (words.current[6] = el)}>
+              Node.js and Express.js
+            </SpecialWord>{" "}
+            as my guiding lights, I dived into the intricacies of{" "}
+            <SpecialWord theme={theme} ref={(el) => (words.current[7] = el)}>
+              server-side development
+            </SpecialWord>
+            , rounding out my skills and bringing a holistic approach to my
+            projects.
+          </p>
+          <br />
+          Today, I am on a constant quest for innovation, from concept to code,
+          I turn ideas into user-centric experiences.
+          <br />
+          <br />
+          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
+            Check out my{" "}
+            <SpecialWord theme={theme} ref={(el) => (words.current[8] = el)}>
+              skills
+            </SpecialWord>{" "}
+            on the right!
+          </p>
+        </p>
+      </Story>
       <Skills />
     </FirstViewport>
   );
@@ -44,28 +118,42 @@ const FirstViewport = styled.div`
   height: 85vh;
   top: 10vh;
   width: 100vw;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   font-family: "Roboto", sans-serif;
   overflow: hidden;
 `;
 
-const TitleWrapper = styled.div`
-  background-color: rgba(0, 0, 0, 0.7);
+const Story = styled.div`
+  color: ${(props) => (props.theme === "light" ? "black" : "white")};
+  background-color: ${(props) =>
+    props.theme === "light" ? "rgba(255,255,255,0.9)" : "transparent"};
+  width: 35%;
+  height: 85%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  border-radius: 10px;
-  position: absolute;
-  padding: 0.5rem 1.2rem;
-  left: 5%;
-  top: 5%;
-  font-size: 2rem;
-  display: flex;
+  font-weight: 600;
+  position: relative;
+  border-radius: 20px;
+  padding: 0 40px;
+  font-size: 1.3rem;
+`;
+
+const SpecialWord = styled.span`
   font-weight: 700;
-  color: ${(props) => (props.theme === "light" ? "white" : "white")};
+  position: relative;
+  color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 2rem;
+  width: 100%;
+  color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};
+  font-weight: 700;
 `;
 export default About;
 

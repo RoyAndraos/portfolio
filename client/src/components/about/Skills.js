@@ -29,7 +29,6 @@ const Skills = () => {
               width: "200%",
             },
             {
-              rotation: -90,
               opacity: 1,
               duration: 0.5,
               width: "200%",
@@ -41,7 +40,6 @@ const Skills = () => {
       } else {
         if (wrapper.current[i]) {
           gsap.to(wrapper.current[i].querySelector("p"), {
-            rotation: -90,
             width: "200%",
             position: "absolute",
             y: "10%",
@@ -58,7 +56,6 @@ const Skills = () => {
       if (i === index) {
         if (item === "false") {
           gsap.to(wrapper.current[wasSelected].querySelector("p"), {
-            rotation: -90,
             opacity: 1,
             width: "200%",
             position: "absolute",
@@ -93,8 +90,6 @@ const Skills = () => {
           selectComponent(0);
         }}
       >
-        <Title $isselected={isSelected[0]}>Front End</Title>
-
         {isSelected[0] === "true" && <FrontEnd />}
       </ComponentWrapper>
 
@@ -105,7 +100,6 @@ const Skills = () => {
           selectComponent(1);
         }}
       >
-        <Title $isselected={isSelected[1]}>Back End</Title>
         {isSelected[1] === "true" && <BackEnd />}
       </ComponentWrapper>
 
@@ -116,7 +110,6 @@ const Skills = () => {
           selectComponent(2);
         }}
       >
-        <Title $isselected={isSelected[2]}>Animation</Title>
         {isSelected[2] === "true" && <AnimationUI />}
       </ComponentWrapper>
 
@@ -127,7 +120,6 @@ const Skills = () => {
           selectComponent(3);
         }}
       >
-        <Title $isselected={isSelected[3]}>Authentication</Title>
         {isSelected[3] === "true" && <Auth />}
       </ComponentWrapper>
 
@@ -138,7 +130,6 @@ const Skills = () => {
           selectComponent(4);
         }}
       >
-        <Title $isselected={isSelected[4]}>Communication</Title>
         {isSelected[4] === "true" && <CommunicationServices />}
       </ComponentWrapper>
       <ComponentWrapper
@@ -148,7 +139,6 @@ const Skills = () => {
           selectComponent(5);
         }}
       >
-        <Title $isselected={isSelected[5]}>Other</Title>
         {isSelected[5] === "true" && <Other />}
       </ComponentWrapper>
     </SkillsWrapper>
@@ -163,7 +153,6 @@ const ComponentWrapper = styled.div`
   width: ${(props) => (props.$isselected === "true" ? "40%" : "10%")};
   border: 2px solid #50196f;
   height: 60vh;
-  padding-top: 2vh;
   border-radius: 20px;
   background-color: ${(props) =>
     props.theme === "light"
@@ -171,10 +160,10 @@ const ComponentWrapper = styled.div`
       : "rgba(255,255,255,0.9)"};
   overscroll-behavior: contain;
   overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
   transition: width 0.5s ease-in-out;
   font-size: 1.3rem;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
   cursor: pointer;
   &::-webkit-scrollbar {
     display: none;
@@ -191,15 +180,6 @@ const SkillsWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-export const Title = styled.p`
-  font-size: 2rem;
-  color: #50196f;
-  font-weight: 700;
-  white-space: nowrap;
-  position: relative;
-  top: 40%;
 `;
 
 export default Skills;

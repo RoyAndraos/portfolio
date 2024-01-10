@@ -14,6 +14,10 @@ const BackToProjects = () => {
       setLeft("50%");
       setTop("3rem");
       setTransform("translateX(-50%)");
+    } else if (location.pathname.includes("/projects/hollywoodBarberShop")) {
+      setLeft("10%");
+      setTop("3.5%");
+      setTransform("translateX(-50%)");
     } else {
       setTop("");
       setLeft("1rem");

@@ -1,62 +1,36 @@
-import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import styled from "styled-components";
 import ECommerceDescription from "./ECommerceDescription";
-import gsap, { TimelineLite } from "gsap";
+import gsap, { TimelineLite, Power4 } from "gsap";
+import GuitarDescription from "./GuitarDescription";
+import BarberShopDescription from "./BarberShopDescription";
 const Projects = () => {
-  const navigate = useNavigate();
   let eCommerceRef = useRef(null);
   let hollywoodRef = useRef(null);
   let guitarRef = useRef(null);
-  let demoRef = useRef(null);
-  const animateShowDescription = (
-    refClicked,
-    otherRef,
-    orhterOtherRef,
-    demoRef
-  ) => {
+  let descriptionRef = useRef(null);
+
+  const hoverEffect = (ref) => {
     gsap.registerPlugin(TimelineLite);
     const tl = new TimelineLite();
-    tl.fromTo(
-      refClicked.current,
-      { x: "0", opacity: "1" },
-      { x: "100%", opacity: "0", scale: "2", duration: 0.3 }
-    );
-    tl.fromTo(
-      otherRef.current,
-      { y: "0", opacity: "1" },
-      { y: "100%", opacity: "0", duration: 0.2, delay: -0.2 }
-    );
-    tl.fromTo(
-      orhterOtherRef.current,
-      { y: "0", opacity: "1" },
-      { y: "100%", opacity: "0", duration: 0.2, delay: -0.2 }
-    );
-    tl.fromTo(
-      demoRef.current,
-      { y: "0", opacity: "0" },
-      { y: "100%", opacity: "1", duration: 0.5, delay: 0.5 }
-    );
+    tl.to(ref.current, {
+      boxShadow: "0 0 10px 0px #50196f",
+      scale: "1.1",
+      duration: 0.2,
+      ease: Power4.easeOut,
+    });
   };
-  const unanimateShowDescription = (refClicked, otherRef, orhterOtherRef) => {
+  const unHoverEffect = (ref) => {
     gsap.registerPlugin(TimelineLite);
     const tl = new TimelineLite();
-    tl.fromTo(
-      refClicked.current,
-      { x: "100%", opacity: "0" },
-      { x: "0", opacity: "1", scale: "1", duration: 0.3 }
-    );
-    tl.fromTo(
-      otherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", duration: 0.2, delay: -1 }
-    );
-    tl.fromTo(
-      orhterOtherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", duration: 0.2, delay: -1 }
-    );
+    tl.to(ref.current, {
+      boxShadow: "0 0 0px 0px #50196f",
+      scale: "1",
+      duration: 0.2,
+      ease: Power4.easeOut,
+    });
   };
+
   return (
     <Container>
       <Wrapper>
@@ -64,28 +38,26 @@ const Projects = () => {
           eCommerceRef={eCommerceRef}
           guitarRef={guitarRef}
           hollywoodRef={hollywoodRef}
-          animateShowDescription={animateShowDescription}
-          unanimateShowDescription={unanimateShowDescription}
-          demoRef={demoRef}
+          descriptionRef={descriptionRef}
+          hoverEffect={hoverEffect}
+          unHoverEffect={unHoverEffect}
         />
-        <ProjectCard
-          key={"guitarProject"}
-          ref={guitarRef}
-          onClick={() => {
-            navigate("/projects/guitarSheetWriter");
-          }}
-        >
-          <Title>Guitar Sheet Writer</Title>
-        </ProjectCard>
-        <ProjectCard
-          key={"hollywoodProject"}
-          ref={hollywoodRef}
-          onClick={() => {
-            navigate("/projects/hollywoodBarberShop");
-          }}
-        >
-          <Title>Hollywood Barber Shop</Title>
-        </ProjectCard>
+        <GuitarDescription
+          eCommerceRef={eCommerceRef}
+          guitarRef={guitarRef}
+          hollywoodRef={hollywoodRef}
+          descriptionRef={descriptionRef}
+          hoverEffect={hoverEffect}
+          unHoverEffect={unHoverEffect}
+        />
+        <BarberShopDescription
+          eCommerceRef={eCommerceRef}
+          guitarRef={guitarRef}
+          hollywoodRef={hollywoodRef}
+          descriptionRef={descriptionRef}
+          hoverEffect={hoverEffect}
+          unHoverEffect={unHoverEffect}
+        />
       </Wrapper>
     </Container>
   );
@@ -115,10 +87,10 @@ export const ProjectCard = styled.div`
   z-index: 2;
   cursor: pointer;
   transition: all 0.5s ease;
-  &:hover {
+  /* &:hover {
     box-shadow: 0 0 10px 0px #50196f;
     transform: scale(1.1);
-  }
+  } */
 `;
 
 export const Title = styled.h1`

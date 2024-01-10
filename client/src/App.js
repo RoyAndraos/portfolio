@@ -38,6 +38,14 @@ import Overlay from "./components/projects/eCommerce/utils/overlay";
 import Overlay2 from "./components/projects/eCommerce/auth/Overlay";
 import Cart from "./components/projects/eCommerce/Cart";
 import Profile from "./components/projects/eCommerce/auth/Profile";
+import GuitarDemo from "./components/projects/GuitarDemo";
+import AppBarbershop from "./components/projects/barbershop/components/AppBarbershop";
+import { UserProvider } from "./components/projects/barbershop/components/contexts/UserContext";
+import { ReservationProvider } from "./components/projects/barbershop/components/contexts/ReservationContext";
+import { ServicesProvider } from "./components/projects/barbershop/components/contexts/ServicesContext";
+import { NotificationProvider } from "./components/projects/barbershop/components/contexts/NotficationContext";
+import { ClientsProvider } from "./components/projects/barbershop/components/contexts/ClientsContext";
+
 const App = () => {
   const { theme } = useContext(ThemeContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +101,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (!location.pathname.includes("/projects/eCommerce")) {
+    if (
+      !location.pathname.includes("/projects/eCommerce") &&
+      !location.pathname.includes("/projects/hollywoodBarberShop")
+    ) {
       const bgAnimation = gsap.to(bgImageRef.current, {
         x: "100%",
         duration: 20,
@@ -144,7 +155,10 @@ const App = () => {
   }
   return (
     <Wrapper theme={theme}>
-      {!location.pathname.includes("/projects/") && <Header />}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <Header />
+        )}
       {location.pathname.includes("/projects/eCommerce") &&
         location.pathname !== "/projects/eCommerce/login" &&
         location.pathname !== "/projects/eCommerce/signup" && (
@@ -158,29 +172,34 @@ const App = () => {
       <Profile showProfile={showProfile} setShowProfile={setShowProfile} />
       {isCart && <Overlay setIsCart={setIsCart} />}
       {showProfile && <Overlay2 setShowProfile={setShowProfile} />}
-      {!location.pathname.includes("/projects/") && (
-        <BgImage src={bg} ref={bgImageRef} theme={theme} />
-      )}
-      {!location.pathname.includes("/projects/") && (
-        <BgImageDark src={bg} ref={bgImageDarkRef} theme={theme} />
-      )}
-      {!location.pathname.includes("/projects/") && (
-        <BGImageLight ref={bgImageLightRef} src={bgLight} theme={theme} />
-      )}
-      {!location.pathname.includes("/projects/") && (
-        <BGImageSecondLight
-          ref={bgImageSecondLightRef}
-          src={bgLight}
-          theme={theme}
-        />
-      )}
-      {!location.pathname.includes("/projects/") && (
-        <BGImageThirdLight
-          ref={bgImageThirdLightRef}
-          src={bgLight}
-          theme={theme}
-        />
-      )}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <BgImage src={bg} ref={bgImageRef} theme={theme} />
+        )}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <BgImageDark src={bg} ref={bgImageDarkRef} theme={theme} />
+        )}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <BGImageLight ref={bgImageLightRef} src={bgLight} theme={theme} />
+        )}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <BGImageSecondLight
+            ref={bgImageSecondLightRef}
+            src={bgLight}
+            theme={theme}
+          />
+        )}
+      {!location.pathname.includes("/projects/eCommerce") &&
+        !location.pathname.includes("/projects/hollywoodBarberShop") && (
+          <BGImageThirdLight
+            ref={bgImageThirdLightRef}
+            src={bgLight}
+            theme={theme}
+          />
+        )}
       <Routes>
         <Route
           path="/"
@@ -275,6 +294,23 @@ const App = () => {
           element={Redirector(user, <Confirmation />)}
         />
         <Route path="/projects/eCommerce/404" element={<Error />} />
+        <Route
+          path="/projects/hollywoodBarberShop/*"
+          element={
+            <UserProvider>
+              <ReservationProvider>
+                <ServicesProvider>
+                  <NotificationProvider>
+                    <ClientsProvider>
+                      <AppBarbershop></AppBarbershop>
+                    </ClientsProvider>
+                  </NotificationProvider>
+                </ServicesProvider>
+              </ReservationProvider>
+            </UserProvider>
+          }
+        />
+        <Route path="/projects/guitarSheetWriter" element={<GuitarDemo />} />
       </Routes>
     </Wrapper>
   );
