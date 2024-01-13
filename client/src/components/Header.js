@@ -99,13 +99,15 @@ const Header = () => {
 
   useEffect(() => {
     if (location.pathname !== "/") {
-      setShowLogo(true);
-      animateLogo();
-    } else {
+      if (showLogo === false) {
+        setShowLogo(true);
+        animateLogo();
+      }
+    } else if (location.pathname === "/") {
       stopAnimation();
       setShowLogo(false);
     }
-  }, [location]);
+  }, [location.pathname, showLogo]);
 
   const handleSelect = (e) => {
     e.preventDefault();

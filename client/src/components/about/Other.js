@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Wrapper, StyledListItem } from "./FrontEnd";
 import { animateAboutSection } from "../../helpers";
 import { Title, Container } from "./FrontEnd";
+import ThemeContext from "../contexts/ColorTheme";
 const Other = () => {
+  const { theme } = useContext(ThemeContext);
   let wrapper = useRef(null);
   let listItem = useRef([]);
   let titleRef = useRef(null);
@@ -19,18 +21,20 @@ const Other = () => {
   }, []);
   return (
     <Container>
-      <Title ref={(el) => (titleRef = el)}>Other</Title>
-      <Wrapper ref={(el) => (wrapper = el)}>
-        <StyledListItem ref={(el) => (listItem.current[0] = el)}>
+      <Title theme={theme} ref={(el) => (titleRef = el)}>
+        Other
+      </Title>
+      <Wrapper theme={theme} ref={(el) => (wrapper = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[0] = el)}>
           Github
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[1] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[1] = el)}>
           Netlify
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[2] = el)}>
           Render
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[3] = el)}>
           VS Code
         </StyledListItem>
       </Wrapper>

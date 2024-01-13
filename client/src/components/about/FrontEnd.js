@@ -25,22 +25,22 @@ const FrontEnd = () => {
         Front End
       </Title>
       <Wrapper ref={(el) => (wrapper = el)}>
-        <StyledListItem ref={(el) => (listItem.current[0] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[0] = el)}>
           HTML
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[1] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[1] = el)}>
           CSS
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[2] = el)}>
           React
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[3] = el)}>
           Javascript
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[4] = el)}>
           Styled Components
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[5] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[5] = el)}>
           Redux
         </StyledListItem>
       </Wrapper>
@@ -86,13 +86,14 @@ export const StyledListItem = styled.div`
   font-weight: 600;
   text-align: center;
   margin: 0 20px 0 20px;
+  color: ${(props) => (props.theme === "light" ? "black" : "white")};
 `;
 
 export const Title = styled.div`
   text-align: center;
   font-size: 2rem;
   width: 100%;
-  color: #50196f;
+  color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};
   font-weight: 700;
   border-radius: 10px;
   padding: 30px 0 30px 0;

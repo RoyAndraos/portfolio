@@ -43,11 +43,11 @@ const About = () => {
     <FirstViewport>
       <Story theme={theme}>
         {" "}
-        <Title theme={theme}>About Roy </Title>
-        <p style={{ margin: "0" }}>
+        <Title theme={theme}>About Me </Title>
+        <div style={{ margin: "0" }}>
           My journey into the world of technology began with three semesters in{" "}
           <SpecialWord theme={theme} ref={(el) => (words.current[0] = el)}>
-            computer engineering,
+            computer engineering,{" "}
           </SpecialWord>
           where I found my passion for programming.
           <br />
@@ -64,7 +64,7 @@ const About = () => {
             </SpecialWord>
             <SpecialWord theme={theme} ref={(el) => (words.current[3] = el)}>
               {" "}
-              and JavaScript,
+              and JavaScript,{" "}
             </SpecialWord>
             I soon discovered the power of bringing designs to life and creating
             interactive user experiences.
@@ -78,7 +78,7 @@ const About = () => {
           . There, I honed my craft by mastering{" "}
           <SpecialWord theme={theme} ref={(el) => (words.current[5] = el)}>
             React.js
-          </SpecialWord>
+          </SpecialWord>{" "}
           for front-end development.
           <br />
           <br />
@@ -89,9 +89,9 @@ const About = () => {
             </SpecialWord>{" "}
             as my guiding lights, I dived into the intricacies of{" "}
             <SpecialWord theme={theme} ref={(el) => (words.current[7] = el)}>
-              server-side development
-            </SpecialWord>
-            , rounding out my skills and bringing a holistic approach to my
+              server-side development,{" "}
+            </SpecialWord>{" "}
+            rounding out my skills and bringing a holistic approach to my
             projects.
           </p>
           <br />
@@ -106,7 +106,7 @@ const About = () => {
             </SpecialWord>{" "}
             on the right!
           </p>
-        </p>
+        </div>
       </Story>
       <Skills />
     </FirstViewport>
@@ -141,6 +141,9 @@ const Story = styled.div`
   border-radius: 20px;
   padding: 0 40px;
   font-size: 1.3rem;
+  background-color: ${(props) =>
+    props.theme === "light" ? "rgba(255,255,255,0.9)" : "rgba(0, 0, 0, 0.4)"};
+  border: 2px solid #50196f;
 `;
 
 const SpecialWord = styled.span`

@@ -8,7 +8,6 @@ import {
   Container,
   BgImage,
   Wrapper,
-  InfoCard,
   CardTitle,
 } from "./ECommerceDescription";
 import gsap, { TimelineLite } from "gsap";
@@ -108,6 +107,7 @@ const GuitarDescription = ({
         opacity: "1",
         zIndex: "0",
         scale: "1",
+        x: "0",
         duration: 0.4,
       }
     );
@@ -149,11 +149,12 @@ const GuitarDescription = ({
                   The application should have a user interface, and allow the
                   user to use it without signing up/in, as well as get benefits
                   for doing so.
+                  <br />
+                  <br />
                   <span
                     style={{
                       marginLeft: "20px",
                       fontWeight: "600",
-                      opacity: "0.7",
                     }}
                   >
                     Time given:
@@ -245,6 +246,26 @@ const InfoWrapper = styled.div`
   left: 5%;
   gap: 1%;
   top: 30%;
+`;
+
+const InfoCard = styled.div`
+  width: 95%;
+  height: 70%;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  font-family: "Roboto", sans-serif;
+  color: white;
+  padding: 10px 0;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  font-size: 1.2rem;
+
+  &:hover {
+    height: 80%;
+    position: relative;
+    transform: translateY(-5%);
+    box-shadow: 0 0 10px 0px #50196f;
+  }
 `;
 
 export default GuitarDescription;

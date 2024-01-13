@@ -3,16 +3,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useContext, useEffect, useState } from "react";
 import ItemCardCart from "./ItemCardCart";
 import { CartContext } from "./CartContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Cart = ({ isCart, setIsCart }) => {
   const [isItemRemoved, setIsItemRemoved] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
-
   const {
     state: { selectedProducts, totalPrice },
     actions: { fetchCart, clearCart },
   } = useContext(CartContext);
+  const location = useLocation();
   //Close Cart
   const handleClose = () => {
     setIsCart(false);
@@ -22,17 +22,20 @@ const Cart = ({ isCart, setIsCart }) => {
 
   //fetch for all the products in the cart
   useEffect(() => {
-    fetch("/api/cart")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.status === 200) {
-          fetchCart({ products: data.data });
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [isCart, isItemRemoved]);
+    if (location.pathname.includes("eCommerce")) {
+      fetch("/api/cart")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (data.status === 200) {
+            fetchCart({ products: data.data });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+    // eslint-disable-next-line
+  }, [isCart, isItemRemoved, location.pathname]);
 
   //Clear All Cart ITEM
   const handleClear = () => {

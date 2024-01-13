@@ -1,11 +1,13 @@
 import React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Wrapper, StyledListItem } from "./FrontEnd";
 import { animateAboutSection } from "../../helpers";
 import { Title } from "./FrontEnd";
 import { Container } from "./FrontEnd";
+import ThemeContext from "../contexts/ColorTheme";
 const AnimationUI = () => {
+  const { theme } = useContext(ThemeContext);
   let wrapper = useRef(null);
   let listItem = useRef([]);
   let titleRef = useRef(null);
@@ -22,12 +24,14 @@ const AnimationUI = () => {
   }, []);
   return (
     <Container>
-      <Title ref={(el) => (titleRef = el)}>Animation</Title>
-      <Wrapper ref={(el) => (wrapper = el)}>
-        <StyledListItem ref={(el) => (listItem.current[0] = el)}>
+      <Title theme={theme} ref={(el) => (titleRef = el)}>
+        Animation
+      </Title>
+      <Wrapper theme={theme} ref={(el) => (wrapper = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[0] = el)}>
           GSAP (GreenSock Animation Platform)
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[1] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[1] = el)}>
           Keyframes (Styled Components)
         </StyledListItem>
       </Wrapper>

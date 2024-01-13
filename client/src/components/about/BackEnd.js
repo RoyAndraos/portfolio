@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power4 } from "gsap";
 import { Wrapper, StyledListItem } from "./FrontEnd";
 import { animateAboutSection } from "../../helpers";
 import { Title, Container } from "./FrontEnd";
+import ThemeContext from "../contexts/ColorTheme";
 const BackEnd = () => {
+  const { theme } = useContext(ThemeContext);
   let wrapper = useRef(null);
   let listItem = useRef([]);
   let titleRef = useRef(null);
@@ -19,21 +21,23 @@ const BackEnd = () => {
   }, []);
   return (
     <Container>
-      <Title ref={(el) => (titleRef = el)}>Back End</Title>
-      <Wrapper ref={(el) => (wrapper = el)}>
-        <StyledListItem ref={(el) => (listItem.current[0] = el)}>
+      <Title theme={theme} ref={(el) => (titleRef = el)}>
+        Back End
+      </Title>
+      <Wrapper theme={theme} ref={(el) => (wrapper = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[0] = el)}>
           ExpressJS
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[1] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[1] = el)}>
           NodeJS
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[2] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[2] = el)}>
           Http requests
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[3] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[3] = el)}>
           RESTful API
         </StyledListItem>
-        <StyledListItem ref={(el) => (listItem.current[4] = el)}>
+        <StyledListItem theme={theme} ref={(el) => (listItem.current[4] = el)}>
           MongoDB
         </StyledListItem>
       </Wrapper>

@@ -59,7 +59,7 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper theme={theme}>
       <FarLeft onClick={handleFarLeft} ref={(el) => (farLeftRef = el)}>
         <StyledPiCaretCircleDoubleLeftFill theme={theme} />
       </FarLeft>
@@ -76,25 +76,31 @@ const Controller = ({ roadmapRef, mapIndex, setMapIndex }) => {
 const Wrapper = styled.div`
   position: fixed;
   display: flex;
-  width: 100%;
-  bottom: 2%;
+  top: 14vh;
+  left: 50%;
+  transform: translateX(-50%);
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  z-index: 8;
-  @media (max-width: 768px) {
-    bottom: 3%;
-  }
+  padding: 0 1vw;
+  border-radius: 20px;
 `;
 
 const StyledPiCaretCircleDoubleLeftFill = styled(CgChevronDoubleLeftO)`
-  color: white;
-
-  background-color: #50196f;
+  color: #50196f;
+  background-color: white;
   border-radius: 50%;
-  transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
-
+  transition: 0.2s ease-in-out;
   cursor: pointer;
+  margin-right: 3vw;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    background-color: #50196f;
+    color: white;
+  }
   &:active {
     transform: scale(0.9);
   }
@@ -104,29 +110,39 @@ const StyledPiCaretCircleDoubleLeftFill = styled(CgChevronDoubleLeftO)`
 
 const StyledFaAngleLeft = styled(FaChevronCircleLeft)`
   color: white;
-
   background-color: #50196f;
   border-radius: 50%;
-  transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
-
+  transition: 0.2s ease-in-out;
+  margin-right: 1vw;
   cursor: pointer;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    color: #50196f;
+    background-color: white;
+  }
 
   &:active {
     transform: scale(0.9);
   }
   ${({ theme }) =>
-    theme === "dark" && `color: black;background-color: #a742bc;`};
+    theme === "dark" && `color:black;background-color: #a742bc;`};
 `;
 
 const StyledFaAngleRight = styled(FaChevronCircleRight)`
   color: white;
-
   background-color: #50196f;
   border-radius: 50%;
-  transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
-
+  transition: 0.2s ease-in-out;
   cursor: pointer;
-
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    color: #50196f;
+    background-color: white;
+  }
   &:active {
     transform: scale(0.9);
   }
@@ -138,22 +154,30 @@ const Left = styled.button`
   width: fit-content;
   border: none;
   background-color: transparent;
-  font-size: 5rem;
+  font-size: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const FarLeft = styled.button`
   width: fit-content;
   border: none;
   background-color: transparent;
-  font-size: 5rem;
-  position: absolute;
-  left: 5%;
+  font-size: 4rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Right = styled.button`
   width: fit-content;
   border: none;
   background-color: transparent;
-  font-size: 5rem;
+  font-size: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Controller;
