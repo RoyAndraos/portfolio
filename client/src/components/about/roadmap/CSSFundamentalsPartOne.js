@@ -15,13 +15,13 @@ const CSSFundamentalPartOne = ({ cssOneRef }) => {
         CSS Fundamentals 1
       </Title>
       <Info theme={theme}>
-        I learned about the different ways to select elements in CSS, such as
-        selecting by tag name, class name, id, attribute, and some basic CSS
-        properties.
+        How to select elements in CSS and how to make them prettier? <br />
+        tag name, class name, id, pseudo selectors, attribute selectors etc...
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now select different elements in CSS.
+        <br />
+        You {"<p id='somePTag'>"}, go red now
       </Acheivement>
     </Wrapper>
   );

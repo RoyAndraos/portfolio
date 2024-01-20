@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Game from "./reactEffects/Game";
-import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
-import { Play, Line } from "./TheDomPartTwo";
+import { Acheivement, Unlocked, Wrapper } from "./HTMLFundamentals";
+import { Play, Line, Title, List } from "./TheDomPartTwo";
 import { useContext } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
@@ -10,7 +10,7 @@ import {
   unanimateButton,
 } from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
-const ReactEffects = ({ reactEffectsRef }) => {
+const ReactEffects = ({ reactEffectsRef, isMobile }) => {
   const [showGame, setShowGame] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -36,6 +36,7 @@ const ReactEffects = ({ reactEffectsRef }) => {
               zIndex: "999",
               color: "#a742bc",
               backgroundColor: "rgba(255,255,255,0.8)",
+              width: "30%",
               padding: "30px",
             }}
           >
@@ -53,56 +54,46 @@ const ReactEffects = ({ reactEffectsRef }) => {
         </>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
-            React Effects{" "}
-            <Play
-              theme={theme}
-              ref={(el) => (buttonRef = el)}
-              onClick={() => {
-                playGame();
-              }}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-            >
-              Play The Cookie Game
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+          <Title theme={theme} $showgame={"false"}>
+            React Effects, Idle Cookie Game
+            {!isMobile && (
+              <Play
+                theme={theme}
+                ref={(el) => (buttonRef = el)}
+                onClick={() => {
+                  playGame();
+                }}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+              >
+                Play The Cookie Game
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme} style={{ padding: "2%" }}>
-            {/* USESTATE, USEEFFECT, USEREF AND EVENTLISTENERS TO CREATE AN IDLE COOKIE GAME. */}
-            <Unlocked theme={theme}>Code Info:</Unlocked>
-            Given an array of objects representing purchasable items, each of
-            which gives a number of cookies per second, and an svg of a cookie{" "}
-            <ul>
+            {!isMobile && <Unlocked theme={theme}>Code Info:</Unlocked>}
+            <em>
+              Given an array of objects, each of which gives a number of cookies
+              per second
+            </em>
+            <List theme={theme} $isReactEffects={"true"}>
               <li>
-                display the cookie and add a click event to it (+1 cookie)
+                Map over the objects and display them in a list with a button
+                for each
               </li>
               <li>
-                display and make the items clickable and subtract their price
-                from the total number of cookies owned
+                Every time a button is clicked, remove the price of the object
+                from the total number of cookies owned, and add the number of
+                cookies per second to the total number of cookies per second
               </li>
-              <li>
-                {" "}
-                make use of the given use-interval.js file to add the cookies
-                per second of each item to the total number of cookies owned
-              </li>
-            </ul>
+            </List>
             <Unlocked theme={theme}>
               Side Quest: Only use styled-components (no css files)
             </Unlocked>

@@ -23,6 +23,7 @@ const Summary = ({
   nodeAsynAwaitRef,
   nodeRestRef,
   mongoP1Ref,
+  isMobile,
 }) => {
   const { theme } = useContext(ThemeContext);
   const handleScrollToElement = (ref) => {
@@ -37,7 +38,7 @@ const Summary = ({
             handleScrollToElement(htmlRef);
           }}
         >
-          HTML Fundamentals
+          HTML
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -47,7 +48,7 @@ const Summary = ({
             handleScrollToElement(jsOneRef);
           }}
         >
-          Javascript Fundamentals
+          Javascript
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -57,7 +58,7 @@ const Summary = ({
             handleScrollToElement(cssOneRef);
           }}
         >
-          CSS Fundamentals
+          CSS
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -107,7 +108,7 @@ const Summary = ({
             handleScrollToElement(reactIntroRef);
           }}
         >
-          React Introduction
+          React Intro
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -167,7 +168,7 @@ const Summary = ({
             handleScrollToElement(twitterCloneRef);
           }}
         >
-          Twitter Clone Project
+          {!isMobile ? "Twitter Clone Project" : "Twitter Clone"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -177,7 +178,7 @@ const Summary = ({
             handleScrollToElement(nodeIntroRef);
           }}
         >
-          NodeJS Introduction
+          NodeJS Intro
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -187,7 +188,7 @@ const Summary = ({
             handleScrollToElement(nodeUrlParamsRef);
           }}
         >
-          NodeJS URL Params
+          {!isMobile ? "NodeJS URL Params" : "URL Params"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -197,7 +198,7 @@ const Summary = ({
             handleScrollToElement(nodePostMethodRef);
           }}
         >
-          NodeJS Post Method
+          {!isMobile ? "NodeJS Post Method" : "Post Method"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -207,7 +208,7 @@ const Summary = ({
             handleScrollToElement(nodePromisesRef);
           }}
         >
-          NodeJS Promises
+          {!isMobile ? "NodeJS Promises" : "Promises"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -217,7 +218,7 @@ const Summary = ({
             handleScrollToElement(nodeAsynAwaitRef);
           }}
         >
-          NodeJS Async/Await
+          {!isMobile ? "NodeJS Async/Await" : "Async Await"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -247,12 +248,19 @@ const Wrapper = styled.ul`
   display: grid;
   width: 100%;
   grid-auto-flow: column;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 33% 33% 33%;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 `;
 const ListItem = styled.li`
   list-style: numeric;
   color: ${(props) => (props.theme === "dark" ? "#a742bc" : "#50196f")};
+  @media (max-width: 800px) {
+    width: 30vw;
+    height: 8vh;
+    list-style: none;
+    left: -12px;
+    position: relative;
+  }
 `;
 
 const StyledButton = styled.button`

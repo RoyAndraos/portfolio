@@ -1,15 +1,15 @@
 import { useContext, useState, useRef } from "react";
-import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
   animateToShowProject,
   unanimateButton,
   animateButton,
 } from "../../../helpers";
-import { List, Play, Line } from "./TheDomPartTwo";
+import { Title, List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import AppUrlParams from "./nodeUrlParams/AppUrlParams";
-const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
+const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY, isMobile }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -51,48 +51,42 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
         </Wrapper>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             Node.js URL Params
-            <Play
-              theme={theme}
-              ref={(el) => (buttonRef = el)}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                animateToShowProject(setShowProj, showProj, nodeUrlParamsRef);
-              }}
-            >
-              Try The Artist App
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                theme={theme}
+                ref={(el) => (buttonRef = el)}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  animateToShowProject(setShowProj, showProj, nodeUrlParamsRef);
+                }}
+              >
+                Try The Artist App
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                textDecoration: "underline",
-              }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -101,15 +95,14 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "70%" }}>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Backend (get() methods):
-                </Unlocked>
-
-                <List theme={theme}>
+              <ContentWrapper $isMobile={!isMobile.toString()}>
+                <List theme={theme} $isReactEffects={isMobile.toString()}>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Backend (get() methods):
+                  </Unlocked>
                   <li>Top 50 artists ("/top50").</li>
                   <li>Specific song ("/top50/song/:songId")</li>
                   <li>Specific artist's songs ("/top50/artist/:artistName")</li>
@@ -122,26 +115,36 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY }) => {
                       HINT: new Set(), filters out duplicates
                     </Unlocked>
                   </li>
+                  {isMobile && (
+                    <Unlocked
+                      theme={theme}
+                      style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                    >
+                      Stretch: Build the Frontend
+                    </Unlocked>
+                  )}
                 </List>
               </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Front-End (stretch goal)
-                </Unlocked>
-                <List theme={theme}>
-                  <li>
-                    Make a page for every one of the endpoints that you built!
-                  </li>
-                </List>
-              </ContentWrapper>
+              {!isMobile && (
+                <ContentWrapper>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Front-End (stretch goal)
+                  </Unlocked>
+                  <List theme={theme}>
+                    <li>
+                      Make a page for every one of the endpoints that you built!
+                    </li>
+                  </List>
+                </ContentWrapper>
+              )}
             </div>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br /> I am now a get method master!
+            <br /> Get 2000
           </Acheivement>
         </>
       )}

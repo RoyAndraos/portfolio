@@ -179,6 +179,11 @@ const ComponentWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 800px) {
+    width: 80%;
+    height: ${(props) => (props.$isselected === "true" ? "40%" : "8%")};
+    font-size: 1.2rem;
+  }
 `;
 
 const SkillsWrapper = styled.div`
@@ -190,6 +195,13 @@ const SkillsWrapper = styled.div`
   height: 100%;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 800px) {
+    height: 43%;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    top: 5vh;
   }
 `;
 

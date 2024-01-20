@@ -5,11 +5,11 @@ import {
   unanimateButton,
   animateButton,
 } from "../../../helpers";
-import { List, Play, Line } from "./TheDomPartTwo";
+import { Title, List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Title, Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import AppAsyncAwait from "./nodeAsyncAwait/AppAsyncAwait";
-const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
+const NodeAsynAwait = ({ nodeAsynAwaitRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   const [showProj, setShowProj] = useState(false);
   let lineTop = useRef(null);
@@ -50,48 +50,42 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
         </Wrapper>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             Node.js Async Await
-            <Play
-              ref={(el) => (buttonRef = el)}
-              theme={theme}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                animateToShowProject(setShowProj, showProj, nodeAsynAwaitRef);
-              }}
-            >
-              Try The Joke App
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                ref={(el) => (buttonRef = el)}
+                theme={theme}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  animateToShowProject(setShowProj, showProj, nodeAsynAwaitRef);
+                }}
+              >
+                Try The Joke App
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                textDecoration: "underline",
-              }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -100,15 +94,17 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "65%" }}>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Backend (get() methods):
-                </Unlocked>
+              <ContentWrapper $isMobile={!isMobile.toString()}>
+                {!isMobile && (
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Backend (get() methods):
+                  </Unlocked>
+                )}
                 <br />
-                <List theme={theme}>
+                <List theme={theme} $isReactEffects={isMobile.toString()}>
                   <li>
                     build the getDadJoke function using
                     "https://icanhazdadjoke.com/"
@@ -122,27 +118,38 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef }) => {
                     build a getGeekJoke using the same uri of the getPun
                     fucntion
                   </li>
+                  {isMobile && (
+                    <Unlocked
+                      theme={theme}
+                      style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                    >
+                      Stretch: Build the front-end to display the jokes that we
+                      get from the backend
+                    </Unlocked>
+                  )}
                 </List>
               </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Front-End (stretch goal)
-                </Unlocked>
-                <List theme={theme}>
-                  <li>
-                    Build the front-end to display the jokes that we get from
-                    the backend
-                  </li>
-                </List>
-              </ContentWrapper>
+              {!isMobile && (
+                <ContentWrapper>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Front-End (stretch goal)
+                  </Unlocked>
+                  <List theme={theme}>
+                    <li>
+                      Build the front-end to display the jokes that we get from
+                      the backend
+                    </li>
+                  </List>
+                </ContentWrapper>
+              )}
             </div>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br /> I can now use random APIs
+            <br /> New Tool, APIs
           </Acheivement>
         </>
       )}

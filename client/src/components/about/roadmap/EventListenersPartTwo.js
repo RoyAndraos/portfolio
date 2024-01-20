@@ -1,4 +1,5 @@
-import { Wrapper, Title, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { List, Title } from "./TheDomPartTwo";
 import "../../../assets/form.css";
 import { useEffect, useState, useContext, useRef } from "react";
 import styled from "styled-components";
@@ -10,7 +11,7 @@ import {
   unanimateButton,
 } from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
-const EventListenersPartTwo = ({ eventTwoRef }) => {
+const EventListenersPartTwo = ({ eventTwoRef, isMobile }) => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const { theme } = useContext(ThemeContext);
@@ -250,36 +251,28 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
   };
   return (
     <Wrapper id="section-9" ref={eventTwoRef}>
-      <Title
-        theme={theme}
-        $showgame={showForm.toString()}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "90%",
-          transform: "translateX(35%)",
-        }}
-      >
+      <Title theme={theme} $showgame={showForm.toString()}>
         Event Listeners 2, Form Validation{" "}
-        <Play
-          theme={theme}
-          ref={(el) => (buttonRef = el)}
-          onMouseEnter={() => {
-            animateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onMouseLeave={() => {
-            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onClick={() => {
-            tryForm();
-          }}
-        >
-          {showForm ? "Back To Instructions" : "Try The Form"}
-          <Line ref={(el) => (lineTop = el)} theme={theme} />
-          <Line ref={(el) => (lineLeft = el)} theme={theme} />
-          <Line ref={(el) => (lineRight = el)} theme={theme} />
-        </Play>
+        {!isMobile && (
+          <Play
+            theme={theme}
+            ref={(el) => (buttonRef = el)}
+            onMouseEnter={() => {
+              animateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onMouseLeave={() => {
+              unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onClick={() => {
+              tryForm();
+            }}
+          >
+            {showForm ? "Back To Instructions" : "Try The Form"}
+            <Line ref={(el) => (lineTop = el)} theme={theme} />
+            <Line ref={(el) => (lineLeft = el)} theme={theme} />
+            <Line ref={(el) => (lineRight = el)} theme={theme} />
+          </Play>
+        )}
       </Title>
       {showForm ? (
         <Container theme={theme}>
@@ -389,24 +382,30 @@ const EventListenersPartTwo = ({ eventTwoRef }) => {
       ) : (
         <>
           <InfoWrapper theme={theme} style={{ padding: "3%" }}>
-            <Unlocked theme={theme}>Code Info:</Unlocked> <br />
-            Make use of the addEventListener() method to make a form validation.
-            <ul>
+            {!isMobile && (
+              <Unlocked theme={theme}>
+                Code Info:
+                <br />
+              </Unlocked>
+            )}
+
+            <List>
+              <em>Given a styled html form:</em>
               <li>Make sure all fields are filled out</li>
               <li>
                 Make sure the password is at least 10 characters long and that
                 the passwords match
               </li>
               <li>
-                {" "}
                 Make sure the user agrees to the terms of service(stretch: If
                 the password is too short, suggest a password)
               </li>
-            </ul>
+            </List>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br />I can now validate forms.
+            <br />
+            Spy On User Inputs (To Help)
           </Acheivement>
         </>
       )}

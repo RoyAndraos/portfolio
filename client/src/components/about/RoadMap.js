@@ -29,9 +29,8 @@ import NodeRest from "./roadmap/NodeRest";
 import MongoP1 from "./roadmap/MongoP1";
 import MongoP2 from "./roadmap/MongoP2";
 
-const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
+const RoadMap = ({ setRoadmapRef, setMapIndex, isMobile }) => {
   const [enableScrollY, setEnableScrollY] = useState(false);
-
   let roadmRef = useRef(null);
   let introRef = useRef(null);
   let jsOneRef = useRef(null);
@@ -170,6 +169,7 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
         nodeAsynAwaitRef={nodeAsynAwaitRef}
         nodeRestRef={nodeRestRef}
         mongoP1Ref={mongoP1Ref}
+        isMobile={isMobile}
       />
       <HTMLFundamentals htmlRef={htmlRef} />
       <JSFundamentalsPartOne jsOneRef={jsOneRef} />
@@ -177,33 +177,38 @@ const RoadMap = ({ setRoadmapRef, setMapIndex }) => {
       <CSSFundamentalsPartOne cssOneRef={cssOneRef} />
       <CSSFundamentalsPartTwo cssTwoRef={cssTwoRef} />
       <TheDomPartOne domOneRef={domOneRef} />
-      <TheDomPartTwo domTwoRef={domTwoRef} />
-      <EventListeners eventOneRef={eventOneRef} />
-      <EventListenersPartTwo eventTwoRef={eventTwoRef} />
-      <OOP oopRef={oopRef} />
-      <NyanCat nyanCatRef={nyanCatRef} />
-      <ReactIntro reactIntroRef={reactIntroRef} />
-      <ReactStateOne reactStateOneRef={reactStateOneRef} />
-      <ReactStateTwo reactStateTwoRef={reactStateTwoRef} />
-      <ReactEffects reactEffectsRef={reactEffectsRef} />
-      <ReactFetch reactFetchRef={reactFetchRef} />
-      <ReactContext reactContextRef={reactContextRef} />
-      <ReactReducer reactReducerRef={reactReducerRef} />
+      <TheDomPartTwo domTwoRef={domTwoRef} isMobile={isMobile} />
+      <EventListeners eventOneRef={eventOneRef} isMobile={isMobile} />
+      <EventListenersPartTwo eventTwoRef={eventTwoRef} isMobile={isMobile} />
+      <OOP oopRef={oopRef} isMobile={isMobile} />
+      <NyanCat nyanCatRef={nyanCatRef} isMobile={isMobile} />
+      <ReactIntro reactIntroRef={reactIntroRef} isMobile={isMobile} />
+      <ReactStateOne reactStateOneRef={reactStateOneRef} isMobile={isMobile} />
+      <ReactStateTwo reactStateTwoRef={reactStateTwoRef} isMobile={isMobile} />
+      <ReactEffects reactEffectsRef={reactEffectsRef} isMobile={isMobile} />
+      <ReactFetch reactFetchRef={reactFetchRef} isMobile={isMobile} />
+      <ReactContext reactContextRef={reactContextRef} isMobile={isMobile} />
+      <ReactReducer reactReducerRef={reactReducerRef} isMobile={isMobile} />
       <TwitterClone
         twitterCloneRef={twitterCloneRef}
         setEnableScrollY={setEnableScrollY}
+        isMobile={isMobile}
       />
-      <NodeIntro nodeIntroRef={nodeIntroRef} />
+      <NodeIntro nodeIntroRef={nodeIntroRef} isMobile={isMobile} />
       <NodeUrlParams
         nodeUrlParamsRef={nodeUrlParamsRef}
         setEnableScrollY={setEnableScrollY}
+        isMobile={isMobile}
       />
-      <NodePostMethod nodePostMethodRef={nodePostMethodRef} />
-      <NodePromises nodePromisesRef={nodePromisesRef} />
-      <NodeAsynAwait nodeAsynAwaitRef={nodeAsynAwaitRef} />
-      <NodeRest nodeRestRef={nodeRestRef} />
-      <MongoP1 mongoP1Ref={mongoP1Ref} />
-      <MongoP2 mongoP2Ref={mongoP2Ref} />
+      <NodePostMethod
+        nodePostMethodRef={nodePostMethodRef}
+        isMobile={isMobile}
+      />
+      <NodePromises nodePromisesRef={nodePromisesRef} isMobile={isMobile} />
+      <NodeAsynAwait nodeAsynAwaitRef={nodeAsynAwaitRef} isMobile={isMobile} />
+      <NodeRest nodeRestRef={nodeRestRef} isMobile={isMobile} />
+      <MongoP1 mongoP1Ref={mongoP1Ref} isMobile={isMobile} />
+      <MongoP2 mongoP2Ref={mongoP2Ref} isMobile={isMobile} />
     </Wrapper>
   );
 };
@@ -228,6 +233,15 @@ const Wrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-color: transparent; /* Set the color of the thumb */
+  }
+  @media (max-width: 1000px) {
+    height: 100vh;
+    top: 5vh;
+    grid-auto-flow: row;
+    grid-auto-rows: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
   }
 `;
 

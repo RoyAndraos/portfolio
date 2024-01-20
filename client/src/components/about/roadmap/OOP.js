@@ -16,15 +16,14 @@ const OOP = ({ oopRef }) => {
         Object Oriented Programming
       </Title>
       <Info theme={theme}>
-        In this chapter (that consisted of 2 major exercises, Books and Cats), I
-        got hands-on experience with OOP concepts. I created classes for Cats
-        and Books then defined properties and methods. It was all about
-        instantiating objects, managing properties like tiredness (cats) and
-        isRead (books), and implementing methods for behavior.
+        What are classes, how to, and why use them? <br />
+        new Class, constructor, this, static etc...
+        <br />
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now work with OOP concepts.
+        <br />
+        Classy Objects You Got There
       </Acheivement>
     </Wrapper>
   );

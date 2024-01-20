@@ -177,6 +177,13 @@ const StyledNavlink = styled(Link)`
     border: none;
   }
   ${({ theme }) => theme === "dark" && `color:#f5f5f5`};
+  @media (max-width: 800px) {
+    border-bottom: 1px solid #a742bc;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Container = styled.div`

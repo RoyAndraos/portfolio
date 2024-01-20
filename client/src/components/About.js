@@ -42,8 +42,7 @@ const About = () => {
   return (
     <FirstViewport>
       <Story theme={theme}>
-        {" "}
-        <Title theme={theme}>About Me </Title>
+        <Title theme={theme}>About Me</Title>
         <div style={{ margin: "0" }}>
           My journey into the world of technology began with three semesters in{" "}
           <SpecialWord theme={theme} ref={(el) => (words.current[0] = el)}>
@@ -97,15 +96,6 @@ const About = () => {
           <br />
           Today, I am on a constant quest for innovation, from concept to code,
           I turn ideas into user-centric experiences.
-          <br />
-          <br />
-          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
-            Check out my{" "}
-            <SpecialWord theme={theme} ref={(el) => (words.current[8] = el)}>
-              skills
-            </SpecialWord>{" "}
-            on the right!
-          </p>
         </div>
       </Story>
       <Skills />
@@ -124,6 +114,12 @@ const FirstViewport = styled.div`
   position: relative;
   font-family: "Roboto", sans-serif;
   overflow: hidden;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: 200vh;
+    overflow: scroll;
+    top: 5vh;
+  }
 `;
 
 const Story = styled.div`
@@ -135,15 +131,23 @@ const Story = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
   font-weight: 600;
-  position: relative;
   border-radius: 20px;
   padding: 0 40px;
   font-size: 1.3rem;
   background-color: ${(props) =>
     props.theme === "light" ? "rgba(255,255,255,0.9)" : "rgba(0, 0, 0, 0.4)"};
   border: 2px solid #50196f;
+  @media (max-width: 800px) {
+    width: 80%;
+    height: 40%;
+    font-size: 1.2rem;
+    border: none;
+    overflow-y: scroll;
+    background-color: ${(props) =>
+      props.theme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0, 0, 0, 0.4)"};
+    padding: 20px 20px;
+  }
 `;
 
 const SpecialWord = styled.span`

@@ -16,13 +16,18 @@ const ReactIntro = ({ reactIntroRef }) => {
         Introduction To React
       </Title>
       <Info theme={theme}>
-        In this chapter, I learned about React, and how to use it to create
-        components. I learned how to use props to pass data from parent to
-        child, and how to use state to make it dynamic.
+        What is a component, how is it reusable, and how do I create one?
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now create React components.
+        <br />
+        Let there be Component: <br />
+        {"const Component = ( ) =>{"}
+        <br /> {"return ("}
+        <br />
+        {"<div> Hello World! </div>"}
+        <br />
+        {")};"}
       </Acheivement>
     </Wrapper>
   );

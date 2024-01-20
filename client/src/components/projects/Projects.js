@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import ECommerceDescription from "./ECommerceDescription";
 import gsap, { TimelineLite, Power4 } from "gsap";
@@ -9,6 +9,21 @@ const Projects = () => {
   let hollywoodRef = useRef(null);
   let guitarRef = useRef(null);
   let descriptionRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth <= 1000;
+      setIsMobile(newIsMobile);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMobile]);
 
   const hoverEffect = (ref) => {
     gsap.registerPlugin(TimelineLite);
@@ -41,6 +56,7 @@ const Projects = () => {
           descriptionRef={descriptionRef}
           hoverEffect={hoverEffect}
           unHoverEffect={unHoverEffect}
+          isMobile={isMobile}
         />
         <GuitarDescription
           eCommerceRef={eCommerceRef}
@@ -49,6 +65,7 @@ const Projects = () => {
           descriptionRef={descriptionRef}
           hoverEffect={hoverEffect}
           unHoverEffect={unHoverEffect}
+          isMobile={isMobile}
         />
         <BarberShopDescription
           eCommerceRef={eCommerceRef}
@@ -57,6 +74,7 @@ const Projects = () => {
           descriptionRef={descriptionRef}
           hoverEffect={hoverEffect}
           unHoverEffect={unHoverEffect}
+          isMobile={isMobile}
         />
       </Wrapper>
     </Container>
@@ -70,6 +88,12 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+    width: 100vw;
+    height: unset;
+    top: 13vh;
+  }
 `;
 const Wrapper = styled.div`
   width: 80%;
@@ -78,6 +102,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  @media (max-width: 768px) {
+    height: unset;
+    width: 95%;
+    flex-direction: column;
+    gap: 3vh;
+  }
 `;
 export const ProjectCard = styled.div`
   height: 30vh;
@@ -87,10 +117,10 @@ export const ProjectCard = styled.div`
   z-index: 2;
   cursor: pointer;
   transition: all 0.5s ease;
-  /* &:hover {
-    box-shadow: 0 0 10px 0px #50196f;
-    transform: scale(1.1);
-  } */
+  @media (max-width: 768px) {
+    width: 80vw;
+    height: 25vh;
+  }
 `;
 
 export const Title = styled.h1`
@@ -108,6 +138,9 @@ export const Title = styled.h1`
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   position: absolute;
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 
 export default Projects;

@@ -15,13 +15,12 @@ const JSFundamentalPartOne = ({ jsOneRef }) => {
         Javascript Fundamentals 1
       </Title>
       <Info theme={theme}>
-        I learned about the existance of methods that make developers' life
-        simpler, such as .split(), .length, .replace(), Math.ex(), toString()
-        and more.
+        What is a method and how does it work? <br /> .split(), .length,
+        .replace(), Math.ex(), .toString() etc...
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now use methods to manipulate strings and numbers.
+        <br /> Strings, Numbers And Methods
       </Acheivement>
     </Wrapper>
   );

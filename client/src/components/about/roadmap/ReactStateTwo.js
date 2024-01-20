@@ -1,12 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import {
-  Wrapper,
-  Title,
-  Unlocked,
-  Acheivement,
-  Info,
-} from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement, Info } from "./HTMLFundamentals";
+import { List, Title } from "./TheDomPartTwo.js";
 import {
   animateToShowProject,
   animateButton,
@@ -16,7 +11,7 @@ import styled from "styled-components";
 import { data } from "./reactState2/data.js";
 import Typeahead from "./reactState2/Typeahead.js";
 import { Play, Line } from "./TheDomPartTwo.js";
-const ReactStateTwo = ({ reactStateTwoRef }) => {
+const ReactStateTwo = ({ reactStateTwoRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   const [suggestion, setSuggestion] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -29,36 +24,28 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
   };
   return (
     <Wrapper ref={reactStateTwoRef} id="section-14">
-      <Title
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "90%",
-          transform: "translateX(35%)",
-        }}
-        $showgame={showSearchBar.toString()}
-        theme={theme}
-      >
+      <Title $showgame={showSearchBar.toString()} theme={theme}>
         React State 2, My First Search Engine!
-        <Play
-          ref={(el) => (buttonRef = el)}
-          theme={theme}
-          onClick={() => {
-            showSearch();
-          }}
-          onMouseEnter={() => {
-            animateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onMouseLeave={() => {
-            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-        >
-          <Line ref={(el) => (lineTop = el)} theme={theme} />
-          <Line ref={(el) => (lineLeft = el)} theme={theme} />
-          <Line ref={(el) => (lineRight = el)} theme={theme} />
-          {showSearchBar ? "Back To Instructions" : "Try The Search Engine"}
-        </Play>
+        {!isMobile && (
+          <Play
+            ref={(el) => (buttonRef = el)}
+            theme={theme}
+            onClick={() => {
+              showSearch();
+            }}
+            onMouseEnter={() => {
+              animateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onMouseLeave={() => {
+              unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+          >
+            <Line ref={(el) => (lineTop = el)} theme={theme} />
+            <Line ref={(el) => (lineLeft = el)} theme={theme} />
+            <Line ref={(el) => (lineRight = el)} theme={theme} />
+            {showSearchBar ? "Back To Instructions" : "Try The Search Engine"}
+          </Play>
+        )}
       </Title>
       {showSearchBar ? (
         <InfoWrapper theme={theme} style={{ top: "5%" }}>
@@ -75,18 +62,27 @@ const ReactStateTwo = ({ reactStateTwoRef }) => {
       ) : (
         <>
           <Info theme={theme}>
-            <Unlocked theme={theme}>Code Info:</Unlocked>
-            <br />
-            In this workshop, I was given a data file with a list of book
-            objects. I had to create a search engine that would filter the books
-            based on the user's input. I used state to keep track of the user's
-            input, and used the filter method to filter the books based on the
-            user's input. I also used the map method to display the filtered
-            books.
+            {!isMobile && (
+              <Unlocked theme={theme}>
+                Code Info:
+                <br />
+              </Unlocked>
+            )}
+            <List theme={theme}>
+              <em>Given an array of Book objects</em>
+              <li>Create an input and track it using state</li>
+              <li>
+                Create a function that filters the books based on the input
+              </li>
+              <li>
+                Map over the filtered books and display them in a list below the
+                input
+              </li>
+            </List>
           </Info>{" "}
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br />I can now create a simple search engine.
+            <br /> You Find It For Me
           </Acheivement>
         </>
       )}

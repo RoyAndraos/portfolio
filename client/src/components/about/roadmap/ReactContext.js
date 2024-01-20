@@ -1,16 +1,16 @@
 import { useState, useContext, Children, useRef } from "react";
-import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { UserReactContextProvider } from "./reactContext/UserContextReactContext";
 import AppReactContext from "./reactContext/AppReactContext";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Play, Line } from "./TheDomPartTwo";
+import { Play, Line, Title, List } from "./TheDomPartTwo";
 import {
   animateToShowProject,
   animateButton,
   unanimateButton,
 } from "../../../helpers";
-const ReactContext = ({ reactContextRef }) => {
+const ReactContext = ({ reactContextRef, isMobile }) => {
   const [showFaceSpace, setShowFaceSpace] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -42,44 +42,38 @@ const ReactContext = ({ reactContextRef }) => {
         </UserReactContextProvider>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             React Context
-            <Play
-              theme={theme}
-              ref={(el) => (buttonRef = el)}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                tryFaceSpace();
-              }}
-            >
-              Try Facespace
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                theme={theme}
+                ref={(el) => (buttonRef = el)}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  tryFaceSpace();
+                }}
+              >
+                Try Facespace
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -88,50 +82,59 @@ const ReactContext = ({ reactContextRef }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "70%" }}>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Instructions
-                </Unlocked>
-                <ul>
-                  <li>Create the UserContext file</li>
+              <ContentWrapper $isMobile={!isMobile.toString()}>
+                {!isMobile && (
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                  >
+                    Instructions
+                  </Unlocked>
+                )}
+                <List theme={theme} $isReactEffects={"true"}>
+                  {isMobile && (
+                    <em>Given an array of users, API docs and screenshots</em>
+                  )}
+                  <li>Create a UserContext file</li>
                   <li>
-                    Create the SignIn Logic (user inputs their name, which is
-                    then sent to the server)
+                    Create a SignIn Logic (user inputs their name, which is then
+                    sent to the server)
                   </li>
-                  <li>
-                    When a user is signed in, make sure they cant sign in again
-                  </li>
+
                   <li>
                     Create the homepage with all the users images, then if a
                     user is signed in, show who they are friends with (banner)
                   </li>
-                  <li>Create the profile page (dynamic route)</li>
-                </ul>
-              </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Given
-                </Unlocked>
-                <ul>
                   <li>
-                    array of users (objects) on the server side in a data.js
-                    file
+                    Create the profile page (dynamic route), display the user's
+                    friends
                   </li>
-                  <li>Endpoints and API docs</li>
-                  <li>Screenshots of a working app</li>
-                </ul>
+                </List>
               </ContentWrapper>
+              {!isMobile && (
+                <ContentWrapper>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                  >
+                    Given
+                  </Unlocked>
+                  <ul>
+                    <li>
+                      array of users (objects) on the server side in a data.js
+                      file
+                    </li>
+                    <li>Endpoints and API docs</li>
+                    <li>Screenshots of a working app</li>
+                  </ul>
+                </ContentWrapper>
+              )}
             </div>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br />I can now use useContext!
+            <br />
+            Easy Life With "Global State"
           </Acheivement>
         </>
       )}

@@ -21,12 +21,31 @@ const GuitarDescription = ({
   descriptionRef,
   hoverEffect,
   unHoverEffect,
+  isMobile,
 }) => {
   const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
   const { theme } = useContext(ThemeContext);
   const [animationStatus, setAnimationStatus] = useState("notInProgress");
-
+  const animateDescriptionMobile = (descriptionRef) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    descriptionRef.current &&
+      tl.fromTo(
+        descriptionRef.current,
+        {
+          opacity: "0",
+          position: "absolute",
+          top: "0",
+          left: "0",
+        },
+        {
+          opacity: "1",
+          duration: 1,
+          delay: 1,
+        }
+      );
+  };
   const animateDescription = (descriptionRef) => {
     gsap.registerPlugin(TimelineLite);
     const tl = new TimelineLite();
@@ -48,8 +67,10 @@ const GuitarDescription = ({
       );
   };
   useEffect(() => {
-    animateDescription(descriptionRef);
-  }, [showDemo, descriptionRef]);
+    isMobile
+      ? animateDescriptionMobile(descriptionRef)
+      : animateDescription(descriptionRef);
+  }, [showDemo, descriptionRef, isMobile]);
 
   const animateShowDescription = (
     refClicked,
@@ -127,16 +148,27 @@ const GuitarDescription = ({
     <div>
       {showDemo && (
         <Container ref={descriptionRef}>
-          <Title
-            style={{
-              width: "100%",
-              height: "10%",
-              fontSize: "2rem",
-              color: "#a742bc",
-            }}
-          >
-            Guitar Sheet Writer
-          </Title>
+          {isMobile ? (
+            <Title
+              style={{
+                width: "95%",
+                height: "10vh",
+                position: "fixed",
+              }}
+            ></Title>
+          ) : (
+            <Title
+              style={{
+                width: "100%",
+                height: "10%",
+                fontSize: "2rem",
+                color: "#a742bc",
+              }}
+            >
+              Guitar Sheet Writer
+            </Title>
+          )}
+
           <Wrapper theme={theme}>
             <InfoWrapper>
               <InfoCard>
@@ -246,6 +278,16 @@ const InfoWrapper = styled.div`
   left: 5%;
   gap: 1%;
   top: 30%;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2vh;
+    top: 12vh;
+    padding-bottom: 14vh;
+    height: unset;
+  }
 `;
 
 const InfoCard = styled.div`
@@ -265,6 +307,9 @@ const InfoCard = styled.div`
     position: relative;
     transform: translateY(-5%);
     box-shadow: 0 0 10px 0px #50196f;
+  }
+  @media (max-width: 800px) {
+    height: unset;
   }
 `;
 

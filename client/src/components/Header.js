@@ -17,6 +17,24 @@ const Header = () => {
   let logoRef = useRef(null);
   let element = useRef(null);
 
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setSelected("");
+        break;
+      case "/about":
+        setSelected("About");
+        break;
+      case "/projects":
+        setSelected("Projects");
+        break;
+      case "/roadmap":
+        setSelected("Roadmap");
+        break;
+      default:
+        setSelected("");
+    }
+  }, [location.pathname]);
   //useEffect to detect if the screen size is less than 1000px
   useEffect(() => {
     const handleResize = () => {
@@ -166,6 +184,9 @@ const Wrapper = styled.div`
   visibility: hidden;
   z-index: 100;
   ${({ theme }) => theme === "dark" && `background: rgba(0, 0, 0, 0.6)`};
+  @media (max-width: 800px) {
+    width: 100vw;
+  }
 `;
 
 export const Name = styled.h1`

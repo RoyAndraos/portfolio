@@ -1,4 +1,4 @@
-import { Unlocked, Title, Wrapper, Acheivement } from "./HTMLFundamentals";
+import { Unlocked, Wrapper, Acheivement } from "./HTMLFundamentals";
 import {
   animateToShowProject,
   animateButton,
@@ -6,12 +6,12 @@ import {
 } from "../../../helpers";
 import ThemeContext from "../../contexts/ColorTheme";
 import { useCallback, useContext, useEffect, useState, useRef } from "react";
-import { List, Play, Line } from "./TheDomPartTwo";
+import { Title, List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import "./nodeInto/_chat-app.css";
 import styled from "styled-components";
 
-const NodeIntro = ({ nodeIntroRef }) => {
+const NodeIntro = ({ nodeIntroRef, isMobile }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
   const messageInput = useRef(document.querySelector("#user-input"));
@@ -83,7 +83,7 @@ const NodeIntro = ({ nodeIntroRef }) => {
               padding: "30px",
             }}
           >
-            React Effects{" "}
+            Node Introduction
             <Play
               style={{ marginLeft: "30px" }}
               onClick={() => {
@@ -126,48 +126,42 @@ const NodeIntro = ({ nodeIntroRef }) => {
         </ChatBody>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             Node.js Introduction
-            <Play
-              theme={theme}
-              ref={(el) => (buttonRef = el)}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                animateToShowProject(setShowProj, showProj, nodeIntroRef);
-              }}
-            >
-              Try Chat Bot
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                theme={theme}
+                ref={(el) => (buttonRef = el)}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  animateToShowProject(setShowProj, showProj, nodeIntroRef);
+                }}
+              >
+                Try Chat Bot
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                textDecoration: "underline",
-              }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -176,15 +170,17 @@ const NodeIntro = ({ nodeIntroRef }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "70%" }}>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Code Instructions
-                </Unlocked>
+              <ContentWrapper $isMobile={!isMobile.toString()}>
+                {!isMobile && (
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Code Instructions
+                  </Unlocked>
+                )}
                 <List theme={theme}>
-                  Build the get() method
+                  <em>Build the get() method</em>
                   <li>
                     the method should respond with the user's message plus a
                     Bzzt at the beginning.
@@ -192,18 +188,20 @@ const NodeIntro = ({ nodeIntroRef }) => {
                   <li>Make a setTimeout to make the chat realistic</li>
                 </List>
               </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                >
-                  Given
-                </Unlocked>
-                <List theme={theme}>
-                  <li>Html form </li>
-                  <li>Css file</li>{" "}
-                </List>
-              </ContentWrapper>
+              {!isMobile && (
+                <ContentWrapper>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                  >
+                    Given
+                  </Unlocked>
+                  <List theme={theme}>
+                    <li>Html form </li>
+                    <li>Css file</li>{" "}
+                  </List>
+                </ContentWrapper>
+              )}
             </div>
             <Unlocked
               theme={theme}
@@ -215,7 +213,7 @@ const NodeIntro = ({ nodeIntroRef }) => {
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br /> I can now build get methods
+            <br /> GET 200
           </Acheivement>
         </>
       )}

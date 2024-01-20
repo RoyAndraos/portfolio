@@ -4,7 +4,7 @@ import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import ThemeContext from "../../contexts/ColorTheme";
 import { List } from "./TheDomPartTwo";
 
-const MongoP2 = ({ mongoP2Ref }) => {
+const MongoP2 = ({ mongoP2Ref, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-27" ref={mongoP2Ref}>
@@ -12,16 +12,18 @@ const MongoP2 = ({ mongoP2Ref }) => {
         MongoDB Part 2
       </Title>
       <InfoWrapper theme={theme}>
-        <Unlocked
-          theme={theme}
-          style={{
-            fontWeight: "bold",
-            fontSize: "1.5rem",
-            textDecoration: "underline",
-          }}
-        >
-          Exercise Info
-        </Unlocked>
+        {!isMobile && (
+          <Unlocked
+            theme={theme}
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.5rem",
+              textDecoration: "underline",
+            }}
+          >
+            Exercise Info
+          </Unlocked>
+        )}
         <div
           style={{
             display: "flex",
@@ -51,7 +53,7 @@ const MongoP2 = ({ mongoP2Ref }) => {
       </InfoWrapper>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br /> I'm a MongoDB master!
+        <br /> Where Are You Storing Me?
       </Acheivement>
     </Wrapper>
   );

@@ -56,6 +56,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 100px 0 100px;
+  @media (max-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -87,6 +90,9 @@ export const StyledListItem = styled.div`
   text-align: center;
   margin: 0 20px 0 20px;
   color: ${(props) => (props.theme === "light" ? "black" : "white")};
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.div`
@@ -97,5 +103,8 @@ export const Title = styled.div`
   font-weight: 700;
   border-radius: 10px;
   padding: 30px 0 30px 0;
+  @media (max-width: 1000px) {
+    padding: 10px 0;
+  }
 `;
 export default FrontEnd;

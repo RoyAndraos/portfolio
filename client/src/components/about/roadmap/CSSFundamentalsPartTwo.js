@@ -15,14 +15,14 @@ const CSSFundamentalPartTwo = ({ cssTwoRef }) => {
         CSS Fundamentals 2
       </Title>
       <Info theme={theme}>
-        The nightmare of developers, the box model. I learned about the
-        different properties that make up the box model, such as margin, border,
-        padding, and content. With that, I also learned about flexbox, and
-        styled my first navigation bar.
+        The nightmare of developers, the box model.
+        <br />
+        What are the properties that make up the box model and what is flexbox?
+        margin, border, padding, display, flex-direction, justify-content etc...
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br /> I now understand the box model and flexbox.
+        <br /> Flex That Box Model (?)
       </Acheivement>
     </Wrapper>
   );

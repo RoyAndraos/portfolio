@@ -1,15 +1,15 @@
-import { Wrapper, Title, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
 import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import styled from "styled-components";
 import AppFetch from "./reactFetch/AppFetch";
-import { Play, Line } from "./TheDomPartTwo";
+import { Play, Line, Title, List } from "./TheDomPartTwo";
 import {
   animateToShowProject,
   animateButton,
   unanimateButton,
 } from "../../../helpers";
-const ReactFetch = ({ reactFetchRef }) => {
+const ReactFetch = ({ reactFetchRef, isMobile }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -56,44 +56,38 @@ const ReactFetch = ({ reactFetchRef }) => {
         </>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             React Fetch
-            <Play
-              theme={theme}
-              ref={(el) => (buttonRef = el)}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                handleShowMenu();
-              }}
-            >
-              Order Some Pizza
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                theme={theme}
+                ref={(el) => (buttonRef = el)}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  handleShowMenu();
+                }}
+              >
+                Order Some Pizza
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -102,14 +96,17 @@ const ReactFetch = ({ reactFetchRef }) => {
                 width: "100%",
               }}
             >
-              <ContentWrapper style={{ width: "70%" }}>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Instructions: <br />
-                </Unlocked>
-                <ul>
+              <ContentWrapper $isMobile={!isMobile.toString()}>
+                {!isMobile && (
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                  >
+                    Instructions: <br />
+                  </Unlocked>
+                )}
+                <List theme={theme} $isReactEffects={"true"}>
+                  {isMobile && <em>Given data for a menu, and API docs</em>}
                   <li>Fetch the data from the server</li>
                   <li>Display the menu items on the screen</li>
                   <li>
@@ -120,27 +117,31 @@ const ReactFetch = ({ reactFetchRef }) => {
                     When the button is clicked, the user should be redirected to
                     a confirmation page
                   </li>
-                </ul>
+                </List>
               </ContentWrapper>
-              <ContentWrapper>
-                <Unlocked
-                  theme={theme}
-                  style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                >
-                  Given: <br />
-                </Unlocked>
-                <ul>
-                  <li>
-                    Menu (array of objects) on the server side in a data.js file
-                  </li>
-                  <li>Endpoints and API docs</li>
-                </ul>
-              </ContentWrapper>
+              {!isMobile && (
+                <ContentWrapper>
+                  <Unlocked
+                    theme={theme}
+                    style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                  >
+                    Given: <br />
+                  </Unlocked>
+                  <ul>
+                    <li>
+                      Menu (array of objects) on the server side in a data.js
+                      file
+                    </li>
+                    <li>Endpoints and API docs</li>
+                  </ul>
+                </ContentWrapper>
+              )}
             </div>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br />I can now use fetch and router!
+            <br />
+            Go Fetch Me Some Pizza!
           </Acheivement>
         </>
       )}
@@ -149,7 +150,7 @@ const ReactFetch = ({ reactFetchRef }) => {
 };
 
 export const ContentWrapper = styled.div`
-  width: 40%;
+  width: ${(props) => (props.$isMobile === "true" ? "40%" : "95%")};
   font-size: 1.3rem;
 `;
 export const InfoWrapper = styled.div`
@@ -171,10 +172,14 @@ export const InfoWrapper = styled.div`
   ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;
-    border: 3px solid #50196f;
-    border-radius: 20px;
-    margin-bottom: 10%;
-    width: 85%;
+    width: 90%;
+    border-right: none;
+    border-top-right-radius: 0;
+    padding: 0;
+    max-height: 55vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 2%;
   }
 `;
 export default ReactFetch;

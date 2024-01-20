@@ -1,10 +1,5 @@
-import {
-  Wrapper,
-  Title,
-  Unlocked,
-  Info,
-  Acheivement,
-} from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Info, Acheivement } from "./HTMLFundamentals";
+import { Title } from "./TheDomPartTwo";
 import { useEffect, useState, useCallback, useRef } from "react";
 import "../../../assets/eventListeners.css";
 import styled from "styled-components";
@@ -19,7 +14,7 @@ import {
   unanimateButton,
 } from "../../../helpers";
 
-const EventListeners = ({ eventOneRef }) => {
+const EventListeners = ({ eventOneRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   const [count, setCount] = useState(0);
   const [gameState, setGameState] = useState("not started");
@@ -136,34 +131,26 @@ const EventListeners = ({ eventOneRef }) => {
   };
   return (
     <Wrapper id="section-8" ref={eventOneRef}>
-      <Title
-        theme={theme}
-        $showgame={showGame.toString()}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "90%",
-          transform: "translateX(35%)",
-        }}
-      >
+      <Title theme={theme} $showgame={showGame.toString()}>
         Event Listeners 1, Aim Game!{" "}
-        <Play
-          onClick={() => playGame()}
-          ref={(el) => (buttonRef = el)}
-          theme={theme}
-          onMouseEnter={() => {
-            animateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onMouseLeave={() => {
-            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-        >
-          {showGame ? "Back To Instructions" : "Play Aim Game"}
-          <Line ref={(el) => (lineTop = el)} theme={theme} />
-          <Line ref={(el) => (lineLeft = el)} theme={theme} />
-          <Line ref={(el) => (lineRight = el)} theme={theme} />
-        </Play>
+        {!isMobile && (
+          <Play
+            onClick={() => playGame()}
+            ref={(el) => (buttonRef = el)}
+            theme={theme}
+            onMouseEnter={() => {
+              animateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onMouseLeave={() => {
+              unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+          >
+            {showGame ? "Back To Instructions" : "Play Aim Game"}
+            <Line ref={(el) => (lineTop = el)} theme={theme} />
+            <Line ref={(el) => (lineLeft = el)} theme={theme} />
+            <Line ref={(el) => (lineRight = el)} theme={theme} />
+          </Play>
+        )}
       </Title>
       {showGame ? (
         <GameWrapper>
@@ -196,15 +183,22 @@ const EventListeners = ({ eventOneRef }) => {
       ) : (
         <>
           <Info theme={theme}>
-            <Unlocked theme={theme}>Code Info:</Unlocked> <br />
-            Make use of the addEventListener() method to make an aim game, where
-            the user has to click on all the buttons created (random number of
-            buttons positioned randomly on the game board), before the timer
-            runs out.
+            {!isMobile && (
+              <Unlocked theme={theme}>
+                Code Info:
+                <br />
+              </Unlocked>
+            )}
+            Write the required JavaScript code to make the game work; <br />
+            given the game board, make a start button that when clicked, spawns
+            a random number of red buttons. <br />
+            The user must click on all the red buttons before the timer runs
+            out. Buttons that are clicked turn green. <br />
           </Info>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br />I can now use event listeners.
+            <br />
+            Button: "I Just Got Clicked"
           </Acheivement>
         </>
       )}

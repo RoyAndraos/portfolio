@@ -7,10 +7,10 @@ import {
   unanimateButton,
   animateButton,
 } from "../../../helpers";
-import { List, Play, Line } from "./TheDomPartTwo";
+import { Title, List, Play, Line } from "./TheDomPartTwo";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Title, Unlocked } from "./HTMLFundamentals";
-const NodeRest = ({ nodeRestRef }) => {
+import { Unlocked } from "./HTMLFundamentals";
+const NodeRest = ({ nodeRestRef, isMobile }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -54,48 +54,42 @@ const NodeRest = ({ nodeRestRef }) => {
         </>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             Node.js REST
-            <Play
-              ref={(el) => (buttonRef = el)}
-              theme={theme}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                animateToShowProject(setShowProj, showProj, nodeRestRef);
-              }}
-            >
-              Try The Hangman Game
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                ref={(el) => (buttonRef = el)}
+                theme={theme}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  animateToShowProject(setShowProj, showProj, nodeRestRef);
+                }}
+              >
+                Try The Hangman Game
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                textDecoration: "underline",
-              }}
-            >
-              Exercise Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Exercise Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -105,41 +99,51 @@ const NodeRest = ({ nodeRestRef }) => {
               }}
             >
               <ContentWrapper style={{ width: "100%" }}>
-                <List theme={theme}>
-                  <Unlocked
-                    style={{ fontWeight: "bold", fontStyle: "italic" }}
-                    theme={theme}
-                  >
-                    Given a clients (exercise 1) and a words (exercise 2) array,
-                    create a RESTful API:
-                  </Unlocked>
+                <List theme={theme} $isReactEffects={isMobile.toString()}>
+                  {!isMobile ? (
+                    <Unlocked
+                      style={{ fontWeight: "bold", fontStyle: "italic" }}
+                      theme={theme}
+                    >
+                      Given a clients (exercise 1) and a words (exercise 2)
+                      array, create a RESTful API:
+                    </Unlocked>
+                  ) : (
+                    <div style={{ width: "90%" }}>
+                      <em>
+                        Given a clients (ex 1) and a words array (ex 2), Build
+                      </em>
+                    </div>
+                  )}
 
                   <li>
-                    A GET "/clients" endpoint to access a list of all the
-                    clients
+                    A GET {!isMobile && "/clients"} endpoint to access a list of
+                    all the clients
                   </li>
                   <li>
-                    A GET "/clients/:clientId" endpoint to access one client
-                    based on its id
-                  </li>
-                  <li>A POST "/clients" endpoint to add a new client</li>
-                  <li>
-                    A DELETE "/clients/:clientId" endpoint to delete a customer
-                    based on its id
+                    A GET {!isMobile && "/clients/:clientId"} endpoint to access
+                    one client based on its id
                   </li>
                   <li>
-                    A "/hangman/word/:id" endpoint that accepts an id in its
-                    url. If it's provided, it will return the word object, as it
-                    is in the array of words
+                    A POST {!isMobile && "/clients"} endpoint to add a new
+                    client
                   </li>
                   <li>
-                    A GET "/hangman/word" endpoint that will return an object
-                    that contains the id of a random word selected from an array
-                    of words and the letterCount of the word
+                    A DELETE {!isMobile && "/clients/:clientId"} endpoint to
+                    delete a customer based on its id
                   </li>
                   <li>
-                    GET "/hangman/guess/:id/:letter" This will return the
-                    appropriate status code
+                    A {!isMobile && "/hangman/word/:id"} endpoint that returns a
+                    random word object
+                  </li>
+                  <li>
+                    A GET {!isMobile && "/hangman/word"} endpoint that will
+                    return an object that contains the id of a random word and
+                    the letterCount of the word
+                  </li>
+                  <li>
+                    GET {!isMobile && "/hangman/guess/:id/:letter"} This will
+                    return the appropriate status code
                   </li>
                 </List>
               </ContentWrapper>
@@ -147,7 +151,7 @@ const NodeRest = ({ nodeRestRef }) => {
           </InfoWrapper>
           <Acheivement theme={theme} style={{ marginTop: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br /> GET, POST and DELETE are now my best friends!
+            <br /> GET POST DELETE
           </Acheivement>
         </>
       )}

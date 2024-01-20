@@ -15,12 +15,12 @@ const JSFundamentalPartTwo = ({ jsTwoRef }) => {
         Javascript Fundamentals 2
       </Title>
       <Info theme={theme}>
-        I learned about the array methods built into javascript, such as
-        .filter(), .map(), .reduce(), .sort(), .find(), .concat() and more.
+        What is an array method and how does it work? <br />
+        .filter(), .map(), .reduce(), .sort(), .find(), .concat() etc...
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now use array methods.
+        <br /> Arrays And Methods
       </Acheivement>
     </Wrapper>
   );

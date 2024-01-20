@@ -17,13 +17,13 @@ const ReactStateOne = ({ reactStateOneRef }) => {
         React State 1
       </Title>
       <Info theme={theme}>
-        In this chapter, I practiced using state to make my components dynamic.
-        I had to fill in the blanks and build functions (that handle state) that
-        will be passed down to the child components.
+        What is state, how to set it and how to pass it down to children
+        components? <br />
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I connected my funtions knowledge with my state knowledge.
+        <br />
+        Dynamic Components
       </Acheivement>
     </Wrapper>
   );

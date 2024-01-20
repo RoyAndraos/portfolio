@@ -4,6 +4,7 @@ import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power2 } from "gsap";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import ThemeContext from "./contexts/ColorTheme";
+
 const HomePage = () => {
   gsap.registerPlugin();
   let wrapper = useRef(null);
@@ -12,6 +13,7 @@ const HomePage = () => {
   let linkedInLink = useRef(null);
   let otherTextAfterElement = useRef(null);
   const { theme } = useContext(ThemeContext);
+
   useEffect(() => {
     const tl = new TimelineLite();
     tl.to(wrapper, 1, { css: { visibility: "visible" } })
@@ -116,9 +118,6 @@ const Container = styled.div`
   height: 89vh;
   position: relative;
   top: 10vh;
-  @media (max-width: 800px) {
-    top: 0;
-  }
   ${({ theme }) => theme === "dark" && `background: transparent`};
 `;
 const Wrapper = styled.div`
@@ -127,12 +126,11 @@ const Wrapper = styled.div`
   width: 95%;
   height: 50vh;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   @media (max-width: 800px) {
     flex-direction: column;
-    height: 90vh;
-    top: 10vh;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
   }
 `;
 export const Logo = styled.img`
@@ -159,9 +157,9 @@ const AfterEl = styled.div`
     rgb(51, 0, 131) 100.2%
   );
   @media (max-width: 800px) {
-    height: 70%;
-    width: 70%;
-    left: 15%;
+    height: 108%;
+    width: 90%;
+    left: 5%;
   }
 `;
 const ImageWrapper = styled.div`
@@ -183,9 +181,6 @@ const TextWrapper = styled.div`
   word-wrap: break-word;
   align-items: center;
   overflow: hidden;
-  @media (max-width: 800px) {
-    height: 40%;
-  }
 `;
 
 const InfoWrapper = styled.div`
@@ -197,7 +192,6 @@ const InfoWrapper = styled.div`
     width: 100%;
     height: 50%;
     text-align: center;
-    top: -10vh;
   }
 `;
 const Heading = styled.h1`
@@ -220,9 +214,10 @@ export const LinksWrapper = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 800px) {
-    width: 100vw;
+    width: 90vw;
     height: 10vh;
-    bottom: -10vh;
+    bottom: 5%;
+    right: 5vw;
   }
 `;
 
@@ -237,6 +232,9 @@ export const Git = styled(BsGithub)`
     opacity: 0.8;
     transform: scale(1.2);
   }
+  @media (max-width: 800px) {
+    font-size: 3rem;
+  }
 `;
 export const LinkedIn = styled(BsLinkedin)`
   font-size: 4rem;
@@ -249,6 +247,9 @@ export const LinkedIn = styled(BsLinkedin)`
     opacity: 0.8;
     transform: scale(1.1);
   }
+  @media (max-width: 800px) {
+    font-size: 3rem;
+  }
 `;
 
 const Info = styled.p`
@@ -260,10 +261,8 @@ const Info = styled.p`
   line-height: 1.8;
   text-align: right;
   @media (max-width: 800px) {
-    font-size: clamp(15px, 2vw, 30px);
     margin: 0 auto;
-    width: 50%;
-    text-align: center;
+    width: 70%;
   }
   ${({ theme }) => theme === "dark" && `color: white;`};
 `;

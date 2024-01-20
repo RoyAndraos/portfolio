@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
+import { Acheivement, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import ThemeContext from "../../contexts/ColorTheme";
-import { List } from "./TheDomPartTwo";
+import { Title, List } from "./TheDomPartTwo";
 
-const MongoP1 = ({ mongoP1Ref }) => {
+const MongoP1 = ({ mongoP1Ref, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-26" ref={mongoP1Ref}>
@@ -12,16 +12,18 @@ const MongoP1 = ({ mongoP1Ref }) => {
         MongoDB Part 1
       </Title>
       <InfoWrapper theme={theme}>
-        <Unlocked
-          theme={theme}
-          style={{
-            fontWeight: "bold",
-            fontSize: "1.5rem",
-            textDecoration: "underline",
-          }}
-        >
-          Exercise Info
-        </Unlocked>
+        {!isMobile && (
+          <Unlocked
+            theme={theme}
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.5rem",
+              textDecoration: "underline",
+            }}
+          >
+            Exercise Info
+          </Unlocked>
+        )}
         <div
           style={{
             display: "flex",
@@ -30,25 +32,35 @@ const MongoP1 = ({ mongoP1Ref }) => {
             width: "100%",
           }}
         >
-          <ContentWrapper style={{ width: "30%" }}>
-            <List theme={theme}>
-              <Unlocked style={{ fontWeight: "bold" }} theme={theme}>
-                Database Setup
-              </Unlocked>
-              <li>
-                After signing up for an account, create a new organization,
-                cluster and then a database
-              </li>
-              <li>
-                Connect to the database using the connection string provided
-              </li>
-            </List>
-          </ContentWrapper>
-          <ContentWrapper style={{ width: "60%" }}>
-            <List theme={theme}>
-              <Unlocked style={{ fontWeight: "bold" }} theme={theme}>
-                Methods
-              </Unlocked>
+          {!isMobile && (
+            <ContentWrapper style={{ width: "30%" }}>
+              <List theme={theme}>
+                <Unlocked style={{ fontWeight: "bold" }} theme={theme}>
+                  Database Setup
+                </Unlocked>
+                <li>
+                  After signing up for an account, create a new organization,
+                  cluster and then a database
+                </li>
+                <li>
+                  Connect to the database using the connection string provided
+                </li>
+              </List>
+            </ContentWrapper>
+          )}
+          <ContentWrapper $isMobile={!isMobile.toString()}>
+            <List theme={theme} $isReactEffects={isMobile.toString()}>
+              {!isMobile && (
+                <Unlocked style={{ fontWeight: "bold" }} theme={theme}>
+                  Methods
+                </Unlocked>
+              )}
+              {isMobile && (
+                <li>
+                  After signing up for an account, create a new organization,
+                  cluster then a database
+                </li>
+              )}
               <li>
                 Make a batch import function that will populate the database
               </li>
@@ -73,7 +85,8 @@ const MongoP1 = ({ mongoP1Ref }) => {
       </InfoWrapper>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now create and manage a database in MongoDB
+        <br />
+        db.MongoDB
       </Acheivement>
     </Wrapper>
   );

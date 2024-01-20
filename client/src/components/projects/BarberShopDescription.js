@@ -22,12 +22,34 @@ const BarberShopDescription = ({
   descriptionRef,
   hoverEffect,
   unHoverEffect,
+  isMobile,
 }) => {
   const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
   const { theme } = useContext(ThemeContext);
   const [animationStatus, setAnimationStatus] = useState("notInProgress");
 
+  //Animation funtion for the description, mobile version
+  const animateDescriptionMobile = (descriptionRef) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    descriptionRef.current &&
+      tl.fromTo(
+        descriptionRef.current,
+        {
+          opacity: "0",
+          position: "absolute",
+          top: "0",
+          left: "0",
+        },
+        {
+          opacity: "1",
+          duration: 1,
+          delay: 1,
+        }
+      );
+  };
+  // Animation funtion for the description, desktop version
   const animateDescription = (descriptionRef) => {
     gsap.registerPlugin(TimelineLite);
     const tl = new TimelineLite();
@@ -49,9 +71,12 @@ const BarberShopDescription = ({
       );
   };
   useEffect(() => {
-    animateDescription(descriptionRef);
-  }, [showDemo, descriptionRef]);
+    isMobile
+      ? animateDescriptionMobile(descriptionRef)
+      : animateDescription(descriptionRef);
+  }, [showDemo, descriptionRef, isMobile]);
 
+  //Animation funtion for the project Card, desktop version
   const animateShowDescription = (
     refClicked,
     secondProjCard,
@@ -95,6 +120,8 @@ const BarberShopDescription = ({
       }
     );
   };
+
+  //Animation funtion for the closing of project Card, desktop version
   const unanimateShowDescription = (refClicked, otherRef, orhterOtherRef) => {
     setAnimationStatus("inProgress");
     setTimeout(() => {
@@ -124,21 +151,102 @@ const BarberShopDescription = ({
       { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
     );
   };
+  // Animation funtion for the project Card, mobile version
+  const animateShowDescriptionMobile = (
+    refClicked,
+    secondProjCard,
+    thirdProjCard
+  ) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    tl.fromTo(
+      thirdProjCard.current,
+      { opacity: "1", y: "0" },
+      {
+        y: "100%",
+        opacity: "0",
+        zIndex: "-1",
+        duration: 0.2,
+      }
+    );
+    tl.fromTo(
+      secondProjCard.current,
+      { opacity: "1", y: "0" },
+      {
+        y: "100%",
+        opacity: "0",
+        zIndex: "-1",
+        duration: 0.2,
+      }
+    );
+    tl.fromTo(
+      refClicked.current,
+      { opacity: "1" },
+      {
+        opacity: "0",
+        zIndex: "-1",
+        scale: "2",
+        duration: 0.4,
+        y: "-300%",
+      }
+    );
+  };
+
+  //Animation funtion for the closing of project Card, mobile version
+  const unanimateShowDescriptionMobile = (
+    refClicked,
+    otherRef,
+    orhterOtherRef
+  ) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    tl.fromTo(
+      refClicked.current,
+      { opacity: "0" },
+      {
+        opacity: "1",
+        zIndex: "0",
+        scale: "1",
+        y: "0",
+        duration: 0.4,
+      }
+    );
+    tl.fromTo(
+      otherRef.current,
+      { y: "100%", opacity: "0" },
+      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
+    );
+    tl.fromTo(
+      orhterOtherRef.current,
+      { y: "100%", opacity: "0" },
+      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
+    );
+  };
 
   return (
     <div>
       {showDemo && (
         <Container ref={descriptionRef}>
-          <Title
-            style={{
-              width: "100%",
-              height: "10%",
-              fontSize: "2rem",
-              color: "#a742bc",
-            }}
-          >
-            Hollywood Barber Shop
-          </Title>
+          {isMobile ? (
+            <Title
+              style={{
+                width: "95%",
+                height: "10vh",
+                position: "fixed",
+              }}
+            ></Title>
+          ) : (
+            <Title
+              style={{
+                width: "95%",
+                height: "10vh",
+                position: "fixed",
+              }}
+            >
+              Hollywood Barber Shop
+            </Title>
+          )}
+
           <Wrapper theme={theme}>
             <InfoWrapper>
               <InfoCard>
@@ -303,18 +411,25 @@ const BarberShopDescription = ({
           </Wrapper>
           <BackButton
             onClick={() => {
-              unanimateShowDescription(
-                hollywoodRef,
-                guitarRef,
-                eCommerceRef,
-                demoRef
-              );
+              isMobile
+                ? unanimateShowDescriptionMobile(
+                    hollywoodRef,
+                    guitarRef,
+                    eCommerceRef
+                  )
+                : unanimateShowDescription(
+                    hollywoodRef,
+                    guitarRef,
+                    eCommerceRef
+                  );
               setShowDemo(false);
             }}
           ></BackButton>
           <DemoButton
             onClick={() => {
-              navigate("/projects/hollywoodBarberShop/schedule");
+              isMobile
+                ? window.alert("Available only on desktop")
+                : navigate("/projects/hollywoodBarberShop/schedule");
             }}
           >
             Demo
@@ -332,12 +447,13 @@ const BarberShopDescription = ({
           animationStatus === "notInProgress" && unHoverEffect(hollywoodRef);
         }}
         onClick={() => {
-          animateShowDescription(
-            hollywoodRef,
-            eCommerceRef,
-            guitarRef,
-            demoRef
-          );
+          isMobile
+            ? animateShowDescriptionMobile(
+                hollywoodRef,
+                eCommerceRef,
+                guitarRef
+              )
+            : animateShowDescription(hollywoodRef, eCommerceRef, guitarRef);
           setShowDemo(true);
         }}
       >
@@ -361,6 +477,18 @@ const InfoWrapper = styled.div`
   width: 90%;
   height: 100%;
   padding-left: 3%;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    top: 14vh;
+    left: 0;
+    width: 90%;
+    gap: 2vh;
+    transform: translateX(2.5%) translateY(0);
+    padding-bottom: 16vh;
+  }
 `;
 const InfoCard = styled.div`
   width: 100%;

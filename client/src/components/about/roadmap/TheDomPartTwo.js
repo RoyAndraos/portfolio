@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Wrapper, Title, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import "../../../assets/frogRace.css";
 import finishLine from "../../../assets/finshline.jpg";
 import styled from "styled-components";
@@ -15,7 +15,7 @@ import {
 } from "../../../helpers";
 import { InfoWrapper } from "./ReactFetch";
 
-const TheDomPartTwo = ({ domTwoRef }) => {
+const TheDomPartTwo = ({ domTwoRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   const [gameStarted, setGameStarted] = useState(false);
   const [racers, setRacers] = useState(selectRandomFrogs(frogStable));
@@ -187,36 +187,28 @@ const TheDomPartTwo = ({ domTwoRef }) => {
   };
   return (
     <Wrapper id="section-7" ref={domTwoRef}>
-      <Title
-        theme={theme}
-        $showgame={showGame.toString()}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "90%",
-          transform: "translateX(35%)",
-        }}
-      >
+      <Title theme={theme} $showgame={showGame.toString()}>
         The DOM 2, Frog Race Time!{" "}
-        <Play
-          theme={theme}
-          ref={(el) => (buttonRef = el)}
-          onMouseEnter={() => {
-            animateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onMouseLeave={() => {
-            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-          }}
-          onClick={() => {
-            playGame();
-          }}
-        >
-          {showGame ? "Back To Instructions" : "Play Frog Race"}
-          <Line ref={(el) => (lineTop = el)} theme={theme} />
-          <Line ref={(el) => (lineLeft = el)} theme={theme} />
-          <Line ref={(el) => (lineRight = el)} theme={theme} />
-        </Play>
+        {!isMobile && (
+          <Play
+            theme={theme}
+            ref={(el) => (buttonRef = el)}
+            onMouseEnter={() => {
+              animateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onMouseLeave={() => {
+              unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+            }}
+            onClick={() => {
+              playGame();
+            }}
+          >
+            {showGame ? "Back To Instructions" : "Play Frog Race"}
+            <Line ref={(el) => (lineTop = el)} theme={theme} />
+            <Line ref={(el) => (lineLeft = el)} theme={theme} />
+            <Line ref={(el) => (lineRight = el)} theme={theme} />
+          </Play>
+        )}
       </Title>
       {showGame ? (
         <Container>
@@ -318,27 +310,21 @@ const TheDomPartTwo = ({ domTwoRef }) => {
       ) : (
         <>
           <InfoWrapper theme={theme}>
-            <Unlocked theme={theme}>Code Info:</Unlocked>
+            {!isMobile && <Unlocked theme={theme}>Code Info:</Unlocked>}
+
             <List theme={theme}>
+              <li>Randomly select 3 out of 5 frogs (given array)</li>
               <li>
-                Take the given array of frogs and randomly select 3 of the 5
-                objects given
+                Place frogs in respective lanes and apply styling (get
+                properties from frog objects)
               </li>
-              <li>
-                Place the selected frogs in their lanes, styling the lane with
-                the object's properties (color: frogColor, number: frogNumber
-                and name)
-              </li>
-              <li>
-                Make the frogs race: random hopLengths and random intervals(frog
-                might take up to 4 seconds to decide to jump again... frogs...)
-              </li>
+              <li>Make the frogs race! random hop length and hop intervals</li>
             </List>
           </InfoWrapper>
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />
-            Gambling addiction.
+            SetInterval Randomness and racing frogs
           </Acheivement>
         </>
       )}
@@ -505,6 +491,14 @@ export const Play = styled.button`
 `;
 export const List = styled.ul`
   ${({ theme }) => theme === "dark" && `color: white;`};
+  font-size: 1.5rem;
+  width: 95%;
+  @media (max-width: 800px) {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 `;
 
 export const Line = styled.div`
@@ -530,6 +524,24 @@ export const Line = styled.div`
     right: -60px;
     top: 50%;
     transform: translateY(-50%);
+  }
+`;
+
+export const Title = styled.h1`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 90%;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 1%;
+  color: #50196f;
+  position: relative;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
+  @media (max-width: 800px) {
+    text-align: center;
   }
 `;
 

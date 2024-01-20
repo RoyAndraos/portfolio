@@ -15,13 +15,14 @@ const TheDomPartOne = ({ domOneRef }) => {
         The DOM 1
       </Title>
       <Info theme={theme}>
-        I learned about the Document Object Model (document.createElement(),
-        element.appendChild(childElement), etc...), and how to use it to
-        manipulate different elements on the page.
+        What is the DOM and how do I manipulate it? <br />
+        document.querySelector(), document.getElementById(), .innerHTML,
+        .appendChild(), .removeChild() etc...
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br />I can now manipulate the DOM.
+        <br />
+        Manipulate All
       </Acheivement>
     </Wrapper>
   );

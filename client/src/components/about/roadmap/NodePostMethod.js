@@ -1,15 +1,15 @@
 import { useContext, useRef, useState } from "react";
-import { Wrapper, Acheivement, Unlocked, Title } from "./HTMLFundamentals";
+import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
   animateToShowProject,
   unanimateButton,
   animateButton,
 } from "../../../helpers";
-import { List, Play, Line } from "./TheDomPartTwo";
+import { List, Play, Line, Title } from "./TheDomPartTwo";
 import { InfoWrapper } from "./ReactFetch";
 import AppPost from "./nodePost/components/AppPost";
-const NodePostMethod = ({ nodePostMethodRef }) => {
+const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
   const [showProj, setShowProj] = useState(false);
   const { theme } = useContext(ThemeContext);
   let lineTop = useRef(null);
@@ -51,48 +51,46 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
         </Wrapper>
       ) : (
         <>
-          <Title
-            theme={theme}
-            $showgame={"false"}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              width: "80%",
-              transform: "translateX(40%)",
-            }}
-          >
+          <Title theme={theme} $showgame={"false"}>
             Node.js Post Method
-            <Play
-              ref={(el) => (buttonRef = el)}
-              theme={theme}
-              onMouseEnter={() => {
-                animateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onMouseLeave={() => {
-                unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
-              }}
-              onClick={() => {
-                animateToShowProject(setShowProj, showProj, nodePostMethodRef);
-              }}
-            >
-              Try The Form
-              <Line ref={(el) => (lineTop = el)} theme={theme} />
-              <Line ref={(el) => (lineLeft = el)} theme={theme} />
-              <Line ref={(el) => (lineRight = el)} theme={theme} />
-            </Play>
+            {!isMobile && (
+              <Play
+                ref={(el) => (buttonRef = el)}
+                theme={theme}
+                onMouseEnter={() => {
+                  animateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onMouseLeave={() => {
+                  unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+                }}
+                onClick={() => {
+                  animateToShowProject(
+                    setShowProj,
+                    showProj,
+                    nodePostMethodRef
+                  );
+                }}
+              >
+                Try The Form
+                <Line ref={(el) => (lineTop = el)} theme={theme} />
+                <Line ref={(el) => (lineLeft = el)} theme={theme} />
+                <Line ref={(el) => (lineRight = el)} theme={theme} />
+              </Play>
+            )}
           </Title>
           <InfoWrapper theme={theme}>
-            <Unlocked
-              theme={theme}
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                textDecoration: "underline",
-              }}
-            >
-              Code Info
-            </Unlocked>
+            {!isMobile && (
+              <Unlocked
+                theme={theme}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Code Info
+              </Unlocked>
+            )}
             <div
               style={{
                 display: "flex",
@@ -101,41 +99,45 @@ const NodePostMethod = ({ nodePostMethodRef }) => {
                 width: "100%",
               }}
             >
-              <List style={{ fontSize: "1.2rem" }} theme={theme}>
+              <List $isReactEffects={"true"} theme={theme}>
                 <li>
-                  <ul>
-                    Validate that the user has not yet placed an order (because
-                    the product is free, we limit 1 per customer). We cannot
-                    know this with 100% accuracy, but we can refuse users.
-                    <li>whose name is already in our database.</li>
-                    <li>whose email is already in our database.</li>
+                  <ul
+                    style={{
+                      width: "90%",
+                      margin: "0",
+                      padding: "0",
+                      paddingLeft: "10px",
+                    }}
+                  >
+                    User has not yet placed an order:
+                    <li>Name is already in our database.</li>
+                    <li>Email is already in our database.</li>
                     <li>
-                      whose address matches an address already in our database.
-                      Use only the street number and name for this.
+                      Address matches an address already in our database. Use
+                      only the street number and name for this.
                     </li>
                   </ul>
                 </li>
                 <li>
-                  Validate that the data received is valid as much as is
-                  possible.
+                  Data received is valid as much as is possible:
                   <br />
                   <Unlocked theme={theme}>
                     Is the email, an email? Does it include @? (No need to go
                     crazy here. Just a cursory evaluation.)
                   </Unlocked>
                 </li>
+                <li>Delivery address is within Canada.</li>
                 <li>
-                  Validate that delivery address is within Canada. We only ship
-                  to Canada!
+                  Item selected is actually in stock (check for item size when
+                  needed).
                 </li>
-                <li>Validate that the item selected is actually in stock.</li>
-                <li>Validate that the item size was selected.</li>
               </List>
             </div>
           </InfoWrapper>
           <Acheivement theme={theme} style={{ marginTop: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-            <br /> I can now validate then post data to a server!
+            <br />
+            Everything is valid, Sir!
           </Acheivement>
         </>
       )}

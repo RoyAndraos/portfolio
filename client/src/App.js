@@ -324,6 +324,10 @@ const BgImage = styled.img`
   height: 100vh;
   filter: brightness(0.5);
   ${({ theme }) => theme === "light" && `display: none;`};
+  @media (max-width: 768px) {
+    object-fit: cover;
+    height: 100%;
+  }
 `;
 const Wrapper = styled.div`
   background-color: ${({ theme }) => (theme === "dark" ? "black" : "white")};
@@ -335,6 +339,10 @@ const BGImageLight = styled.img`
   width: 100%;
   height: 100vh;
   ${({ theme }) => theme === "dark" && `display: none;`};
+  @media (max-width: 768px) {
+    object-fit: cover;
+    height: 100%;
+  }
 `;
 const BgImageDark = styled.img`
   position: fixed;
@@ -345,6 +353,10 @@ const BgImageDark = styled.img`
   filter: brightness(0.5);
   transform: scaleX(1.01);
   ${({ theme }) => theme === "light" && `display: none;`};
+  @media (max-width: 768px) {
+    object-fit: cover;
+    height: 100%;
+  }
 `;
 const BGImageSecondLight = styled.img`
   position: fixed;
@@ -354,6 +366,10 @@ const BGImageSecondLight = styled.img`
   height: 100vh;
   transform: rotateY(180deg);
   ${({ theme }) => theme === "dark" && `display: none;`};
+  @media (max-width: 768px) {
+    object-fit: cover;
+    height: 100%;
+  }
 `;
 
 const BGImageThirdLight = styled.img`
@@ -363,5 +379,9 @@ const BGImageThirdLight = styled.img`
   width: 100%;
   height: 100vh;
   ${({ theme }) => theme === "dark" && `display: none;`};
+  @media (max-width: 768px) {
+    object-fit: cover;
+    height: 100%;
+  }
 `;
 export default App;

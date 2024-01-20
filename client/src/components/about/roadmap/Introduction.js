@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import styled from "styled-components";
-import { Info, Title } from "./HTMLFundamentals";
 import { Play, Line } from "./TheDomPartTwo";
 import {
   animateButton,
@@ -33,6 +32,7 @@ const Introduction = ({
   nodeAsynAwaitRef,
   nodeRestRef,
   mongoP1Ref,
+  isMobile,
 }) => {
   const [showSummary, setShowSummary] = useState(false);
   const { theme } = useContext(ThemeContext);
@@ -45,17 +45,7 @@ const Introduction = ({
   };
   return (
     <Wrapper id="section-0" ref={introRef}>
-      <Title
-        theme={theme}
-        $showgame={"false"}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "90%",
-          transform: "translateX(35%)",
-        }}
-      >
+      <Title theme={theme} $showgame={"false"}>
         My Web Developement Roadmap
         <Play
           ref={(el) => (buttonRef = el)}
@@ -71,9 +61,13 @@ const Introduction = ({
           }}
         >
           {showSummary ? "Back" : "Show Summary"}
-          <Line ref={(el) => (lineTop = el)} theme={theme} />
-          <Line ref={(el) => (lineLeft = el)} theme={theme} />
-          <Line ref={(el) => (lineRight = el)} theme={theme} />
+          {!isMobile && (
+            <>
+              <Line ref={(el) => (lineTop = el)} theme={theme} />
+              <Line ref={(el) => (lineLeft = el)} theme={theme} />
+              <Line ref={(el) => (lineRight = el)} theme={theme} />
+            </>
+          )}
         </Play>
       </Title>
       {showSummary ? (
@@ -100,6 +94,7 @@ const Introduction = ({
             nodeAsynAwaitRef={nodeAsynAwaitRef}
             nodeRestRef={nodeRestRef}
             mongoP1Ref={mongoP1Ref}
+            isMobile={isMobile}
           />
         </InfoWrapper>
       ) : (
@@ -130,7 +125,12 @@ const Wrapper = styled.div`
   align-items: center;
   position: relative;
   left: 10%;
-  top: -10%;
+  @media (max-width: 800px) {
+    width: 95%;
+    left: 2.5%;
+    justify-content: center;
+    scroll-snap-align: start;
+  }
 `;
 
 const Purple = styled.span`
@@ -140,6 +140,45 @@ const Purple = styled.span`
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
   @media (max-width: 1000px) {
     font-size: 1.6rem;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 1%;
+  color: #50196f;
+  position: relative;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 90%;
+
+  @media (max-width: 800px) {
+    left: 0;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    max-height: 25vh;
+    min-height: 20vh;
+    text-align: center;
+  }
+`;
+const Info = styled.p`
+  font-size: 1.5rem;
+  padding: 5%;
+  margin: 0;
+  border-top: 3px solid #50196f;
+  border-right: 3px solid #50196f;
+  border-top-right-radius: 20px;
+  color: black;
+  line-height: 2;
+  width: 80%;
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
+  @media (max-width: 800px) {
   }
 `;
 export default Introduction;

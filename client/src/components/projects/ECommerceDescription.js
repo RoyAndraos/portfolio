@@ -10,10 +10,10 @@ const ECommerceDescription = ({
   eCommerceRef,
   guitarRef,
   hollywoodRef,
-  demoRef,
   descriptionRef,
   hoverEffect,
   unHoverEffect,
+  isMobile,
 }) => {
   const [animationStatus, setAnimationStatus] = useState("notInProgress");
   const navigate = useNavigate();
@@ -37,9 +37,25 @@ const ECommerceDescription = ({
         }
       );
   };
+  const animateMobileDescription = (descriptionRef) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    descriptionRef.current &&
+      tl.fromTo(
+        descriptionRef.current,
+        { opacity: "0", position: "absolute", top: "0", left: "0" },
+        {
+          opacity: "1",
+          duration: 1,
+          delay: 1,
+        }
+      );
+  };
   useEffect(() => {
-    animateDescription(descriptionRef);
-  }, [showDemo, descriptionRef]);
+    isMobile
+      ? animateMobileDescription(descriptionRef)
+      : animateDescription(descriptionRef);
+  }, [showDemo, descriptionRef, isMobile]);
 
   const animateShowDescription = (
     refClicked,
@@ -113,20 +129,101 @@ const ECommerceDescription = ({
       { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
     );
   };
+
+  const unanimateShowDescriptionMobile = (
+    refClicked,
+    otherRef,
+    orhterOtherRef
+  ) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    tl.fromTo(
+      refClicked.current,
+      { y: "100%", opacity: "0" },
+      {
+        y: "0",
+        opacity: "1",
+        zIndex: "1",
+        scale: "1",
+        duration: 0.4,
+      }
+    );
+    tl.fromTo(
+      otherRef.current,
+      { y: "100%", opacity: "0" },
+      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
+    );
+    tl.fromTo(
+      orhterOtherRef.current,
+      { y: "100%", opacity: "0" },
+      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
+    );
+  };
+
+  const mobileAnimationDescription = (
+    refClicked,
+    secondProjCard,
+    thirdProjCard
+  ) => {
+    gsap.registerPlugin(TimelineLite);
+    const tl = new TimelineLite();
+    tl.fromTo(
+      thirdProjCard.current,
+      { opacity: "1", y: "0" },
+      {
+        y: "100%",
+        opacity: "0",
+        zIndex: "-1",
+        duration: 0.2,
+      }
+    );
+    tl.fromTo(
+      secondProjCard.current,
+      { opacity: "1", y: "0" },
+      {
+        y: "100%",
+        opacity: "0",
+        zIndex: "-1",
+        duration: 0.2,
+      }
+    );
+    tl.fromTo(
+      refClicked.current,
+      { opacity: "1" },
+      {
+        y: "300%",
+        opacity: "0",
+        zIndex: "-1",
+        scale: "2",
+        duration: 0.4,
+      }
+    );
+  };
+
   return (
     <div>
       {showDemo && (
         <Container ref={descriptionRef}>
-          <Title
-            style={{
-              width: "100%",
-              height: "10%",
-              fontSize: "2rem",
-              color: "#a742bc",
-            }}
-          >
-            E-Commerce (Group Project)
-          </Title>
+          {isMobile ? (
+            <Title
+              style={{
+                width: "95%",
+                height: "10vh",
+                position: "fixed",
+              }}
+            ></Title>
+          ) : (
+            <Title
+              style={{
+                width: "100%",
+                height: "10%",
+                fontSize: "2rem",
+                color: "#a742bc",
+              }}
+            >
+              E-Commerce (Group Project)
+            </Title>
+          )}
           <Wrapper theme={theme}>
             <Description>
               <InfoCard>
@@ -248,18 +345,25 @@ const ECommerceDescription = ({
           </Wrapper>
           <BackButton
             onClick={() => {
-              unanimateShowDescription(
-                eCommerceRef,
-                guitarRef,
-                hollywoodRef,
-                demoRef
-              );
+              isMobile
+                ? unanimateShowDescriptionMobile(
+                    eCommerceRef,
+                    guitarRef,
+                    hollywoodRef
+                  )
+                : unanimateShowDescription(
+                    eCommerceRef,
+                    guitarRef,
+                    hollywoodRef
+                  );
               setShowDemo(false);
             }}
           ></BackButton>
           <DemoButton
             onClick={() => {
-              navigate("/projects/eCommerce");
+              isMobile
+                ? window.alert("Demo only available on desktop")
+                : navigate("/projects/eCommerce");
             }}
           >
             Demo
@@ -276,17 +380,14 @@ const ECommerceDescription = ({
           animationStatus === "notInProgress" && unHoverEffect(eCommerceRef);
         }}
         onClick={() => {
-          animateShowDescription(
-            eCommerceRef,
-            guitarRef,
-            hollywoodRef,
-            demoRef
-          );
+          isMobile
+            ? mobileAnimationDescription(eCommerceRef, guitarRef, hollywoodRef)
+            : animateShowDescription(eCommerceRef, guitarRef, hollywoodRef);
           setShowDemo(true);
         }}
       >
         <Title>E-Commerce (Group Project)</Title>
-        <BgImage src={eCommerceBg} alt="screenshot of the project" />
+        <BgImage src={eCommerceBg} alt="screenshot of the eCommerce Project" />
       </ProjectCard>
     </div>
   );
@@ -313,6 +414,10 @@ export const BackButton = styled(IoMdArrowRoundBack)`
     opacity: 1;
     transform: scale(1.1);
   }
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 15vh;
+  }
 `;
 
 export const Container = styled.div`
@@ -321,6 +426,12 @@ export const Container = styled.div`
   position: absolute;
   top: 13vh;
   overflow-y: hidden;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: unset;
+    top: 10vh;
+    overflow-x: hidden;
+  }
 `;
 export const Wrapper = styled.div`
   width: 100%;
@@ -331,6 +442,9 @@ export const Wrapper = styled.div`
       ? "rgba(255,255,255,0.7)"
       : "rgba(255,255,255, 0.9)"};
   z-index: 1;
+  @media (max-width: 768px) {
+    height: unset;
+  }
 `;
 
 const Description = styled.div`
@@ -344,6 +458,16 @@ const Description = styled.div`
   top: 15%;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    top: 13vh;
+    gap: 2vh;
+    height: unset;
+    padding-bottom: 15vh;
   }
 `;
 
@@ -400,6 +524,15 @@ export const InfoCard = styled.div`
       transform: translateY(-10%);
     }
   }
+  @media (max-width: 768px) {
+    height: unset;
+    &:nth-child(2) {
+      transform: translateY(0);
+    }
+    &:nth-child(4) {
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const CardTitle = styled.div`
@@ -448,6 +581,15 @@ export const DemoButton = styled.button`
   &:active {
     box-shadow: #422800 2px 2px 0 0;
     transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 768px) {
+    width: 30%;
+    height: 6vh;
+    right: 50%;
+    top: 15vh;
+    transform: translateX(50%);
+    position: fixed;
   }
 `;
 

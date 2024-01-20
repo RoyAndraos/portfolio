@@ -9,16 +9,19 @@ const HTMLFundamentals = ({ htmlRef }) => {
         HTML Fundamentals
       </Title>
       <Info theme={theme}>
-        I learned how to use the right html tag for different use cases.
-        <br />I had to use{" "}
+        How to use the right html tag for different use cases.
+        <br />
+        <br />
         {
-          "<a></a>, <ul></ul>, <ol></ol>, <li></li>, <h1></h1>, <p></p>, <img></img>, <button></button> and more "
+          "<a></a>, <ul></ul>, <ol></ol>, <li></li>, <h1></h1>, <p></p>, <img></img>, <button></button> and more, "
         }
         to replicate certain examples.
+        <br />
       </Info>
       <Acheivement theme={theme}>
         <Unlocked theme={theme}> Acheivement Unlocked!</Unlocked>
-        <br />I can now use html tags efficiently.
+        <br />
+        Right Use Case, Right Tag
       </Acheivement>
     </Wrapper>
   );
@@ -32,8 +35,12 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  @media (max-width: 1000px) {
-    height: 70%;
+  @media (max-width: 800px) {
+    gap: 3vh;
+    height: unset;
+    margin-bottom: ${(props) =>
+      props.$isReactReducer === "true" ? "-8vh" : "0"};
+    scroll-snap-align: start;
   }
 `;
 
@@ -47,9 +54,8 @@ export const Title = styled.h1`
   left: -35%;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
   top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
-  @media (max-width: 1000px) {
+  @media (max-width: 800px) {
     left: 0;
-    margin-bottom: 10%;
   }
 `;
 export const Info = styled.p`
@@ -63,12 +69,12 @@ export const Info = styled.p`
   line-height: 2;
   width: 80%;
   ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
-  @media (max-width: 1000px) {
-    font-size: 1.2rem;
-    border: 3px solid #50196f;
-    border-radius: 20px;
-    margin-bottom: 10%;
-    width: 85%;
+  @media (max-width: 800px) {
+    border-right: none;
+    border-top-right-radius: 0;
+    padding: 0;
+    padding-top: 5%;
+    width: 90%;
   }
 `;
 export const Acheivement = styled.p`
@@ -83,12 +89,14 @@ export const Acheivement = styled.p`
   border-top-left-radius: 20px;
   ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   font-weight: 700;
-  @media (max-width: 1000px) {
-    border: 3px solid #50196f;
-    border-radius: 20px;
-    font-size: 1.2rem;
-    padding: 5%;
-    width: 85%;
+  @media (max-width: 800px) {
+    left: 0;
+    max-width: 80%;
+    padding: 3vh 0 0 0;
+    border-left: none;
+    border-top-left-radius: 0;
+    text-align: center;
+    margin-top: 0;
   }
 `;
 

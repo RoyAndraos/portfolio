@@ -100,6 +100,7 @@ const Wrapper = styled.div`
   height: 100%;
   width: 100%;
   background-color: #262829;
+  z-index: 1;
 `;
 const GameArea = styled.div`
   width: 50%;
