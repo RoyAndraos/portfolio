@@ -51,10 +51,11 @@ const Introduction = ({
           ref={(el) => (buttonRef = el)}
           theme={theme}
           onMouseEnter={() => {
-            animateButton(lineLeft, lineRight, lineTop, buttonRef);
+            lineLeft && animateButton(lineLeft, lineRight, lineTop, buttonRef);
           }}
           onMouseLeave={() => {
-            unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
+            lineLeft &&
+              unanimateButton(lineLeft, lineRight, lineTop, buttonRef);
           }}
           onClick={() => {
             handleShowSummary();
@@ -71,7 +72,7 @@ const Introduction = ({
         </Play>
       </Title>
       {showSummary ? (
-        <InfoWrapper theme={theme}>
+        <InfoWrapper theme={theme} style={{ overflow: "hidden" }}>
           <Summary
             htmlRef={htmlRef}
             jsOneRef={jsOneRef}

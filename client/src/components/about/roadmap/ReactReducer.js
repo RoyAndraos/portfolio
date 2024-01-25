@@ -83,18 +83,6 @@ const ReactReducer = ({ reactReducerRef, isMobile }) => {
             )}
           </Title>
           <InfoWrapper theme={theme}>
-            {!isMobile && (
-              <Unlocked
-                theme={theme}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1.5rem",
-                  textDecoration: "underline",
-                }}
-              >
-                Code Info
-              </Unlocked>
-            )}
             <div
               style={{
                 display: "flex",
@@ -154,16 +142,13 @@ const ReactReducer = ({ reactReducerRef, isMobile }) => {
                 </ContentWrapper>
               )}
             </div>
-            <Unlocked
-              theme={theme}
-              style={{ fontSize: "1.2rem", wordBreak: "break-all" }}
-            >
+            <Unlocked theme={theme} style={{ fontSize: "1.2rem" }}>
               Stretch: add puchaseTicketRequest, purchaseTicketSuccess and
               purchaseTicketFailure actions to the Booking reducer, and a
               markSeatAsPurchased action for the Seats reducer.
             </Unlocked>
           </InfoWrapper>
-          <Acheivement theme={theme}>
+          <Acheivement theme={theme} style={{ margin: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />
             Easier Life with "Global State Management"

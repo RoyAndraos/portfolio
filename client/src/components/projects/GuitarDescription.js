@@ -1,5 +1,4 @@
 import { ProjectCard, Title } from "./Projects";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import ThemeContext from "../contexts/ColorTheme";
 import {
@@ -23,7 +22,6 @@ const GuitarDescription = ({
   unHoverEffect,
   isMobile,
 }) => {
-  const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
   const { theme } = useContext(ThemeContext);
   const [animationStatus, setAnimationStatus] = useState("notInProgress");
@@ -233,12 +231,13 @@ const GuitarDescription = ({
               setShowDemo(false);
             }}
           ></BackButton>
-          <DemoButton
-            onClick={() => {
-              navigate("/projects/guitarSheetWriter");
-            }}
-          >
-            Demo
+          <DemoButton>
+            <a
+              style={{ textDecoration: "none", color: "#422800" }}
+              href="https://youtu.be/kmPUFGyACNc"
+            >
+              Demo
+            </a>
           </DemoButton>
         </Container>
       )}

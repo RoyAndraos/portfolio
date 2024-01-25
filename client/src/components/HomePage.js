@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import logo from "../assets/finalPortfolioReactIcon.png";
 import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power2 } from "gsap";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import ThemeContext from "./contexts/ColorTheme";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   gsap.registerPlugin();
@@ -13,7 +14,7 @@ const HomePage = () => {
   let linkedInLink = useRef(null);
   let otherTextAfterElement = useRef(null);
   const { theme } = useContext(ThemeContext);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const tl = new TimelineLite();
     tl.to(wrapper, 1, { css: { visibility: "visible" } })
@@ -79,6 +80,14 @@ const HomePage = () => {
         <InfoWrapper>
           <TextWrapper>
             <Heading theme={theme}>Full Stack Developer</Heading>
+            <ContactMeButton
+              theme={theme}
+              onClick={() => {
+                navigate("/contact");
+              }}
+            >
+              Contact Me
+            </ContactMeButton>
           </TextWrapper>
           <InfoTextWrapper>
             <Info theme={theme}>
@@ -101,13 +110,44 @@ const HomePage = () => {
           <LinkedIn theme={theme} />
         </a>
       </LinksWrapper>
+      {/* <div style={{ position: "absolute", width: "100%", height: "100%" }}>
+        <Shape theme={theme} />
+      </div> */}
     </Container>
   );
 };
 
 const InfoTextWrapper = styled.div`
   height: fit-content;
+  z-index: 10;
 `;
+
+// const Shape = styled.div`
+//   position: fixed;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+//   clip-path: polygon(59% 16%, 100% 38%, 85% 95%, 21% 72%, 0% 38%);
+//   width: 90%;
+//   height: 100%;
+//   z-index: 10000;
+//   background-color: ${({ theme }) =>
+//     theme === "dark" ? "rgba(0, 0, 0, 0.5);" : "rgba(255, 255, 255, 0.5);"};
+//   z-index: 0;
+//   &:after {
+//     content: "";
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     width: 90%;
+//     height: 100%;
+//     clip-path: polygon(39% 16%, 80% 38%, 65% 95%, 1% 72%, 0% 38%);
+//     border-radius: 100%;
+//     background-color: ${({ theme }) =>
+//       theme === "dark" ? "#a742bc" : "#50196f"};
+//     opacity: 0.2;
+//   }
+// `;
 
 const Container = styled.div`
   display: flex;
@@ -126,6 +166,7 @@ const Wrapper = styled.div`
   width: 95%;
   height: 50vh;
   position: relative;
+  z-index: 12;
   @media (max-width: 800px) {
     flex-direction: column;
     justify-content: flex-start;
@@ -177,10 +218,16 @@ const TextWrapper = styled.div`
   height: 20%;
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  transform: translateX(-10%);
   word-wrap: break-word;
   align-items: center;
   overflow: hidden;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: 30%;
+    align-items: flex-end;
+  }
 `;
 
 const InfoWrapper = styled.div`
@@ -199,6 +246,7 @@ const Heading = styled.h1`
   margin: 0;
   color: #50196f;
   font-family: "Roboto", sans-serif;
+  margin-right: 40px;
   @media (max-width: 800px) {
     margin: 0 auto;
   }
@@ -265,6 +313,110 @@ const Info = styled.p`
     width: 70%;
   }
   ${({ theme }) => theme === "dark" && `color: white;`};
+`;
+
+const glitch = keyframes`
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+`;
+
+const ContactMeButton = styled.button`
+  width: 150px;
+  height: 76px;
+  line-height: 78px;
+  font-size: 20px;
+  font-family: "Bebas Neue", sans-serif;
+  background: linear-gradient(45deg, transparent 5%, #50196f 5%);
+  clip-path: polygon(0% 10%, 100% 0%, 100% 100%, 0% 80%);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 30%;
+  border: 0;
+  color: #fff;
+  letter-spacing: -1px;
+  outline: transparent;
+  position: relative;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  right: 0;
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:after {
+    --slice-0: inset(50% 50% 50% 50%);
+    --slice-1: inset(80% -6px 0 0);
+    --slice-2: inset(50% -6px 30% 0);
+    --slice-3: inset(10% -6px 85% 0);
+    --slice-4: inset(40% -6px 43% 0);
+    --slice-5: inset(80% -6px 5% 0);
+    content: "HIRE ME";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 3%,
+      #00e6f6 3%,
+      #00e6f6 5%,
+      #a742bc 5%
+    );
+    text-shadow: -3px -3px 0px #a742bc, 3px 3px 0px #a742bc;
+    clip-path: var(--slice-0);
+  }
+
+  &:hover:after {
+    animation: 1s ${glitch};
+    animation-timing-function: steps(2, end);
+  }
 `;
 
 export default HomePage;

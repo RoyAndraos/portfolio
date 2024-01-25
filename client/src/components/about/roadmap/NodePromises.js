@@ -43,7 +43,7 @@ const NodePromises = ({ nodePromisesRef, isMobile }) => {
               </List>
             </ContentWrapper>
           )}
-          <ContentWrapper isMobile={!isMobile.toString()}>
+          <ContentWrapper $isMobile={!isMobile.toString()}>
             <List $isReactEffects={"true"}>
               {isMobile && (
                 <>

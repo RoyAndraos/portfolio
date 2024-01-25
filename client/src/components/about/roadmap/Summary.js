@@ -250,6 +250,10 @@ const Wrapper = styled.ul`
   grid-auto-flow: column;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  @media (max-width: 800px) {
+    top: -15px;
+    position: relative;
+  }
 `;
 const ListItem = styled.li`
   list-style: numeric;

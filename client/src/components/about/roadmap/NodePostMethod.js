@@ -79,18 +79,6 @@ const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
             )}
           </Title>
           <InfoWrapper theme={theme}>
-            {!isMobile && (
-              <Unlocked
-                theme={theme}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1.5rem",
-                  textDecoration: "underline",
-                }}
-              >
-                Code Info
-              </Unlocked>
-            )}
             <div
               style={{
                 display: "flex",
@@ -121,7 +109,7 @@ const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
                 <li>
                   Data received is valid as much as is possible:
                   <br />
-                  <Unlocked theme={theme}>
+                  <Unlocked theme={theme} style={{ fontWeight: "100" }}>
                     Is the email, an email? Does it include @? (No need to go
                     crazy here. Just a cursory evaluation.)
                   </Unlocked>

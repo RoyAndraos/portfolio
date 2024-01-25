@@ -35,7 +35,7 @@ const About = () => {
   const animateSpecialWords = (refArray) => {
     const tl = new TimelineLite();
     refArray.forEach((el) => {
-      tl.fromTo(el, 0.2, { opacity: 0, y: -50 }, { opacity: 1, y: 0 });
+      tl.fromTo(el, 0.3, { opacity: 0, y: -50 }, { opacity: 1, y: 0 });
     });
   };
 

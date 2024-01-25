@@ -78,18 +78,6 @@ const NodeRest = ({ nodeRestRef, isMobile }) => {
             )}
           </Title>
           <InfoWrapper theme={theme}>
-            {!isMobile && (
-              <Unlocked
-                theme={theme}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1.5rem",
-                  textDecoration: "underline",
-                }}
-              >
-                Exercise Info
-              </Unlocked>
-            )}
             <div
               style={{
                 display: "flex",

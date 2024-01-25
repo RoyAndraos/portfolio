@@ -12,18 +12,6 @@ const MongoP1 = ({ mongoP1Ref, isMobile }) => {
         MongoDB Part 1
       </Title>
       <InfoWrapper theme={theme}>
-        {!isMobile && (
-          <Unlocked
-            theme={theme}
-            style={{
-              fontWeight: "bold",
-              fontSize: "1.5rem",
-              textDecoration: "underline",
-            }}
-          >
-            Exercise Info
-          </Unlocked>
-        )}
         <div
           style={{
             display: "flex",

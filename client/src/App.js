@@ -38,13 +38,13 @@ import Overlay from "./components/projects/eCommerce/utils/overlay";
 import Overlay2 from "./components/projects/eCommerce/auth/Overlay";
 import Cart from "./components/projects/eCommerce/Cart";
 import Profile from "./components/projects/eCommerce/auth/Profile";
-import GuitarDemo from "./components/projects/GuitarDemo";
 import AppBarbershop from "./components/projects/barbershop/components/AppBarbershop";
 import { UserProvider } from "./components/projects/barbershop/components/contexts/UserContext";
 import { ReservationProvider } from "./components/projects/barbershop/components/contexts/ReservationContext";
 import { ServicesProvider } from "./components/projects/barbershop/components/contexts/ServicesContext";
 import { NotificationProvider } from "./components/projects/barbershop/components/contexts/NotficationContext";
 import { ClientsProvider } from "./components/projects/barbershop/components/contexts/ClientsContext";
+import Contact from "./components/Contact.js";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -106,35 +106,35 @@ const App = () => {
     ) {
       const bgAnimation = gsap.to(bgImageRef.current, {
         x: "100%",
-        duration: 20,
+        duration: 140,
         repeat: -1,
         ease: "linear",
       });
 
       const bgDarkAnimation = gsap.to(bgImageDarkRef.current, {
         x: "100%",
-        duration: 20,
+        duration: 140,
         repeat: -1,
         ease: "linear",
       });
 
       const bgLightAnimation = gsap.to(bgImageLightRef.current, {
         x: "200%",
-        duration: 30,
+        duration: 200,
         repeat: -1,
         ease: "linear",
       });
 
       const bgSecondLightAnimation = gsap.to(bgImageSecondLightRef.current, {
         x: "200%",
-        duration: 30,
+        duration: 200,
         repeat: -1,
         ease: "linear",
       });
 
       const bgThirdLightAnimation = gsap.to(bgImageThirdLightRef.current, {
         x: "200%",
-        duration: 30,
+        duration: 200,
         repeat: -1,
         ease: "linear",
       });
@@ -250,6 +250,15 @@ const App = () => {
           }
         />
         <Route
+          path="/contact"
+          element={
+            <TransitionComponent>
+              <Contact />
+            </TransitionComponent>
+          }
+        />
+
+        <Route
           path="/projects/eCommerce/signup"
           element={Redirector(!user, <Signup />, "/projects/eCommerce")}
         />
@@ -310,7 +319,6 @@ const App = () => {
             </UserProvider>
           }
         />
-        <Route path="/projects/guitarSheetWriter" element={<GuitarDemo />} />
       </Routes>
     </Wrapper>
   );

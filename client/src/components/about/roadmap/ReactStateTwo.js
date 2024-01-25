@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Wrapper, Unlocked, Acheivement, Info } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
 import { List, Title } from "./TheDomPartTwo.js";
 import {
   animateToShowProject,
@@ -61,13 +61,7 @@ const ReactStateTwo = ({ reactStateTwoRef, isMobile }) => {
         </InfoWrapper>
       ) : (
         <>
-          <Info theme={theme}>
-            {!isMobile && (
-              <Unlocked theme={theme}>
-                Code Info:
-                <br />
-              </Unlocked>
-            )}
+          <InfoWrapper theme={theme}>
             <List theme={theme}>
               <em>Given an array of Book objects</em>
               <li>Create an input and track it using state</li>
@@ -79,7 +73,7 @@ const ReactStateTwo = ({ reactStateTwoRef, isMobile }) => {
                 input
               </li>
             </List>
-          </Info>{" "}
+          </InfoWrapper>{" "}
           <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br /> You Find It For Me
@@ -91,28 +85,30 @@ const ReactStateTwo = ({ reactStateTwoRef, isMobile }) => {
 };
 
 const InfoWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 85%;
   font-size: 1.5rem;
-  border-top: 3px solid #50196f;
+  padding: 1rem;
+  margin: 0;
+  border-top: ${(props) =>
+    props.theme === "dark" ? `3px solid #a742bc` : `3px solid #50196f`};
+  border-right: ${(props) =>
+    props.theme === "dark" ? `3px solid #a742bc` : `3px solid #50196f`};
+  border-top-right-radius: 20px;
   color: black;
   line-height: 2;
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
+  overflow: hidden;
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   ${({ theme }) => theme === "dark" && `color: white;`};
   @media (max-width: 1000px) {
     font-size: 1.2rem;
-    border: 3px solid #50196f;
-    border-radius: 20px;
-    margin-bottom: 10%;
-    width: 100%;
-    height: 40%;
+    border: none;
+    border-top: 3px solid #50196f;
+    border-radius: 0;
     overflow-y: scroll;
-    padding: 5%;
   }
 `;
 

@@ -310,8 +310,6 @@ const TheDomPartTwo = ({ domTwoRef, isMobile }) => {
       ) : (
         <>
           <InfoWrapper theme={theme}>
-            {!isMobile && <Unlocked theme={theme}>Code Info:</Unlocked>}
-
             <List theme={theme}>
               <li>Randomly select 3 out of 5 frogs (given array)</li>
               <li>

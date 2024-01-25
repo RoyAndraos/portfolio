@@ -183,12 +183,6 @@ const EventListeners = ({ eventOneRef, isMobile }) => {
       ) : (
         <>
           <Info theme={theme}>
-            {!isMobile && (
-              <Unlocked theme={theme}>
-                Code Info:
-                <br />
-              </Unlocked>
-            )}
             Write the required JavaScript code to make the game work; <br />
             given the game board, make a start button that when clicked, spawns
             a random number of red buttons. <br />

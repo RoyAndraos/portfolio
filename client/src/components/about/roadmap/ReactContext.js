@@ -66,14 +66,6 @@ const ReactContext = ({ reactContextRef, isMobile }) => {
             )}
           </Title>
           <InfoWrapper theme={theme}>
-            {!isMobile && (
-              <Unlocked
-                theme={theme}
-                style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-              >
-                Code Info
-              </Unlocked>
-            )}
             <div
               style={{
                 display: "flex",

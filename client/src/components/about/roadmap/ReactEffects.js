@@ -55,7 +55,7 @@ const ReactEffects = ({ reactEffectsRef, isMobile }) => {
       ) : (
         <>
           <Title theme={theme} $showgame={"false"}>
-            React Effects, Idle Cookie Game
+            React Effects{!isMobile && ", Idle Cookie Game"}
             {!isMobile && (
               <Play
                 theme={theme}
@@ -78,7 +78,6 @@ const ReactEffects = ({ reactEffectsRef, isMobile }) => {
             )}
           </Title>
           <InfoWrapper theme={theme} style={{ padding: "2%" }}>
-            {!isMobile && <Unlocked theme={theme}>Code Info:</Unlocked>}
             <em>
               Given an array of objects, each of which gives a number of cookies
               per second

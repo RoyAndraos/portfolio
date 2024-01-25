@@ -238,7 +238,7 @@ const BarberShopDescription = ({
           ) : (
             <Title
               style={{
-                width: "95%",
+                width: "100%",
                 height: "10vh",
                 position: "fixed",
               }}
@@ -510,7 +510,7 @@ const InfoCard = styled.div`
   &:hover {
     height: 105%;
     position: relative;
-    transform: translateY(-13%);
+    transform: translateY(-11.5%);
     box-shadow: 0 0 10px 0px #50196f;
   }
 `;

@@ -382,13 +382,6 @@ const EventListenersPartTwo = ({ eventTwoRef, isMobile }) => {
       ) : (
         <>
           <InfoWrapper theme={theme} style={{ padding: "3%" }}>
-            {!isMobile && (
-              <Unlocked theme={theme}>
-                Code Info:
-                <br />
-              </Unlocked>
-            )}
-
             <List>
               <em>Given a styled html form:</em>
               <li>Make sure all fields are filled out</li>
