@@ -7,14 +7,15 @@ const ArtistPage = ({ artistName, setRoute, route, setSongRank }) => {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    fetch(`/top50/artist/${artistName}`)
+    fetch(
+      `https://roy-portfolio-server.onrender.com/top50/artist/${artistName}`
+    )
       .then((res) => res.json())
       .then((parsed) => {
         setSongs(parsed.data);
       });
   }, [artistName]);
 
-  console.log("ArtistPage.js: songs: ", songs);
   if (songs.length === 0) return <p>...</p>;
   return (
     <>

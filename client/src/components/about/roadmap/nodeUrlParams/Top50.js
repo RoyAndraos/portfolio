@@ -8,14 +8,12 @@ const Top50 = ({ setRoute, route, setSongRank }) => {
 
   useEffect(() => {
     // this is where we fetch the data from the server and add it to state.
-    fetch("/top50")
+    fetch("https://roy-portfolio-server.onrender.com/top50")
       .then((res) => res.json())
       .then((parsed) => {
         setAllSongs(parsed.data);
       });
   }, []);
-
-  console.log("Top50.js: allSongs: ", allSongs);
 
   return (
     <>

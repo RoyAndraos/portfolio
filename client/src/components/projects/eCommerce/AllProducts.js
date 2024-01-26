@@ -12,7 +12,7 @@ const AllProducts = () => {
   const [sortOrder, setSortOrder] = useState("default");
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`/api/products/${sortOrder}`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/products/${sortOrder}`)
       .then((res) => res.json())
       .then((result) => setProducts(result.data))
       .catch(() => {

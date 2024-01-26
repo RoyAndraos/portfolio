@@ -53,8 +53,9 @@ const {
   getSortedProducts,
 } = require("./eCommerce/handlers");
 const { signup, login, getUser, logout } = require("./eCommerce/authHandler");
-
+const cors = require("cors");
 express()
+  .use(cors())
   .use(express.json())
   .use(morgan("tiny"))
   .use(require("./react-reducer/routes.js"))

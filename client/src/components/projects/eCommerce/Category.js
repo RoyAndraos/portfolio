@@ -12,7 +12,9 @@ const Category = () => {
   const { category } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`/api/categories/${category}/${sortOrder}`)
+    fetch(
+      `https://roy-portfolio-server.onrender.com/api/categories/${category}/${sortOrder}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setItemsInCategory(data.data);

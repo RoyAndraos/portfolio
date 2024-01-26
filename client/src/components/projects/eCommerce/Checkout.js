@@ -22,7 +22,7 @@ const Checkout = () => {
   }, [selectedProducts]);
 
   useEffect(() => {
-    fetch("/api/cart")
+    fetch("https://roy-portfolio-server.onrender.com/api/cart")
       .then((res) => res.json())
       .then((data) => {
         fetchCart({ products: data.data });
@@ -42,7 +42,7 @@ const Checkout = () => {
         updateCart({ index, quantity: qty });
 
         setIsUpdating(true);
-        fetch("/api/addToCart", {
+        fetch("https://roy-portfolio-server.onrender.com/api/addToCart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -53,7 +53,9 @@ const Checkout = () => {
           .then((data) => {
             if (data.status === 200) {
               setIsUpdating(false);
-              return fetch("/api/cart");
+              return fetch(
+                "https://roy-portfolio-server.onrender.com/api/cart"
+              );
             }
           })
           .then((res) => res.json())

@@ -21,7 +21,9 @@ const SearchResult = ({
   //Fetch item by name
   useEffect(() => {
     if (isSearchResultActive) {
-      fetch(`/api/productSearch/${searchInput}`)
+      fetch(
+        `https://roy-portfolio-server.onrender.com/api/productSearch/${searchInput}`
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {

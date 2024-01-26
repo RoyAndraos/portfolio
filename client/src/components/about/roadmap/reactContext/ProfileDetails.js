@@ -6,7 +6,7 @@ const ProfileDetails = ({ profileId, setProfileId }) => {
   const [profile, setProfile] = useState(null);
   const [profileFriends, setFriends] = useState([]);
   useEffect(() => {
-    fetch(`/api/users/${profileId}`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/users/${profileId}`)
       .then((res) => res.json())
       .then((parsedRes) => {
         setProfile(parsedRes.data);
@@ -14,7 +14,9 @@ const ProfileDetails = ({ profileId, setProfileId }) => {
           return;
         } else {
           parsedRes.data.friends.forEach((friend) => {
-            fetch(`/api/users/${friend}`)
+            fetch(
+              `https://roy-portfolio-server.onrender.com/api/users/${friend}`
+            )
               .then((res) => res.json())
               .then((parsedRes) =>
                 setFriends((prevFriends) => [...prevFriends, parsedRes.data])

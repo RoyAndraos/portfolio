@@ -7,7 +7,7 @@ const SectionBarTweets = ({ props, setRoute }) => {
   const [feedInfo, setFeedInfo] = useState(null);
 
   useEffect(() => {
-    fetch("/api/me/home-feed")
+    fetch("https://roy-portfolio-server.onrender.com/api/me/home-feed")
       .then((res) => res.json())
       .then((result) => {
         setFeedOrder(result.tweetIds);

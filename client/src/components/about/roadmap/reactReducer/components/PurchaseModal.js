@@ -40,7 +40,7 @@ const PurchaseModal = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     purchaseTicketRequest();
-    fetch("/api/book-seat", {
+    fetch("https://roy-portfolio-server.onrender.com/api/book-seat", {
       method: "POST",
       body: JSON.stringify({
         seatId: selectedSeatId,

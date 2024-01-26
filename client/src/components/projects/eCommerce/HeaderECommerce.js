@@ -41,7 +41,7 @@ const HeaderECommerce = ({ setIsCart, setShowProfile }) => {
 
   //fetch list of categories for dropdown menu
   useEffect(() => {
-    fetch("/api/categories")
+    fetch("https://roy-portfolio-server.onrender.com/api/categories")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data.data);

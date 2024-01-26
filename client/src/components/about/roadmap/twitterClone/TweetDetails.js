@@ -7,7 +7,7 @@ import Loader from "./Loader";
 const TweetDetails = ({ tweetId, setRoute, setProfileId }) => {
   const [tweetData, setTweetData] = useState();
   useEffect(() => {
-    fetch(`/api/tweet/${tweetId}`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/tweet/${tweetId}`)
       .then((res) => res.json())
       .then((result) => setTweetData(result.tweet));
   }, [tweetId]);

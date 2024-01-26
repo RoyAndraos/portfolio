@@ -10,7 +10,7 @@ const SectionTwoHomePage = () => {
   const navigate = useNavigate();
   //fetch for all the products in our database
   useEffect(() => {
-    fetch("/api/products/default")
+    fetch("https://roy-portfolio-server.onrender.com/api/products/default")
       .then((res) => {
         return res.json();
       })

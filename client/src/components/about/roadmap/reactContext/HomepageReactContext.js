@@ -4,7 +4,7 @@ import styled from "styled-components";
 const HomepageReactContext = ({ setProfileId, setRoute }) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch("/api/users")
+    fetch("https://roy-portfolio-server.onrender.com/api/users")
       .then((result) => result.json())
       .then((parsedRes) => setUsers(parsedRes.data));
   }, []);

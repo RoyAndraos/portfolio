@@ -37,7 +37,7 @@ const AppHangman = () => {
 
   const handleEndGame = useCallback(() => {
     if (word && word.id) {
-      fetch(`/hangman/word/${word.id}`)
+      fetch(`https://roy-portfolio-server.onrender.com/hangman/word/${word.id}`)
         .then((res) => res.json())
         .then((data) => {
           setGameOverShowWord((prevWord) => data.data);
@@ -66,7 +66,7 @@ const AppHangman = () => {
   };
 
   const getNewWord = () => {
-    fetch("/hangman/word")
+    fetch("https://roy-portfolio-server.onrender.com/hangman/word")
       .then((res) => res.json())
       .then((data) => {
         setWord(data.data);
@@ -75,7 +75,9 @@ const AppHangman = () => {
   };
 
   const handleGuess = (letter) => {
-    fetch(`/hangman/guess/${word.id}/${letter}`)
+    fetch(
+      `https://roy-portfolio-server.onrender.com/hangman/guess/${word.id}/${letter}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setUsedLetters([...usedLetters, letter]);

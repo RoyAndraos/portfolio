@@ -17,12 +17,15 @@ const ItemCardCart = ({ product, isItemRemoved, setIsItemRemoved }) => {
   //Remove ONE item from the card
   const handleRemove = () => {
     setIsRemoveLoading(true);
-    fetch(`/api/removeFromCart/${product._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://roy-portfolio-server.onrender.com/api/removeFromCart/${product._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => {
         return response.json();
       })

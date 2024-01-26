@@ -8,7 +8,9 @@ const Confirmation = () => {
 
   //fetch order from BE
   useEffect(() => {
-    fetch(`/api/confirmation/${orderId}`)
+    fetch(
+      `https://roy-portfolio-server.onrender.com/api/confirmation/${orderId}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrderInfo(data.data);
@@ -18,7 +20,7 @@ const Confirmation = () => {
 
   //clear cart from DB
   useEffect(() => {
-    fetch("/api/resetCart", {
+    fetch("https://roy-portfolio-server.onrender.com/api/resetCart", {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -26,7 +28,6 @@ const Confirmation = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => {})
       .catch((err) => console.log(err));
   }, []);
 

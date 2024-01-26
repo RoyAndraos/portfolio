@@ -10,7 +10,7 @@ const HomeFeedTwitter = ({ props }) => {
   const { reload, setReload, setRoute, setProfileId, setTweetId } = props;
 
   useEffect(() => {
-    fetch("/api/me/home-feed")
+    fetch("https://roy-portfolio-server.onrender.com/api/me/home-feed")
       .then((res) => res.json())
       .then((result) => {
         setFeedOrder(result.tweetIds);

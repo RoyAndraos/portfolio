@@ -13,7 +13,7 @@ const Profile = ({ showProfile, setShowProfile }) => {
 
   const handleLogout = () => {
     setIsLoading(true);
-    fetch("/api/users/logout", {
+    fetch("https://roy-portfolio-server.onrender.com/api/users/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

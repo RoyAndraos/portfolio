@@ -14,7 +14,7 @@ const Brand = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/brand/${brandId}`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/brand/${brandId}`)
       .then((res) => res.json())
       .then((data) => {
         setBrand(data.data.brand);

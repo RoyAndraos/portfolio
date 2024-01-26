@@ -13,7 +13,7 @@ const AppFetch = () => {
   const [orderId, setOrderId] = useState(null);
   const [pizzaId, setPizzaId] = useState(null);
   useEffect(() => {
-    fetch("/menu")
+    fetch("https://roy-portfolio-server.onrender.com/menu")
       .then((res) => res.json())
       .then((result) => setMenu(result.data));
   }, []);

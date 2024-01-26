@@ -18,7 +18,7 @@ const OrderFetch = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/orders", {
+    fetch("https://roy-portfolio-server.onrender.com/orders", {
       method: "POST",
       headers: {
         Accept: "application/json",

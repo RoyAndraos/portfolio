@@ -4,7 +4,7 @@ import styled from "styled-components";
 const PizzaDetailsFetch = ({ pizzaId, setSelectedRoute }) => {
   const [pizza, setPizza] = useState(null);
   useEffect(() => {
-    fetch(`/menu/${pizzaId}`)
+    fetch(`https://roy-portfolio-server.onrender.com/menu/${pizzaId}`)
       .then((res) => res.json())
       .then((result) => setPizza(result.data));
   }, [pizzaId]);

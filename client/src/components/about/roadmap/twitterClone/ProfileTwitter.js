@@ -7,7 +7,7 @@ import Loader from "./Loader";
 const ProfileTwitter = ({ setRoute, profileId }) => {
   const [profile, setProfile] = useState(null);
   useEffect(() => {
-    fetch(`/api/${profileId}/profile`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/${profileId}/profile`)
       .then((res) => res.json())
       .then((data) => setProfile(data.profile))
       .catch(() => {

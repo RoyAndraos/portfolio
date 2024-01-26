@@ -13,7 +13,7 @@ const HomeHeader = ({ props }) => {
   const handleSubmit = (e) => {
     if (charactersLeft > 0) {
       e.preventDefault();
-      fetch("/api/tweet", {
+      fetch("https://roy-portfolio-server.onrender.com/api/tweet", {
         method: "POST",
         headers: {
           Accept: "application/json",

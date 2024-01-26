@@ -23,7 +23,7 @@ const Cart = ({ isCart, setIsCart }) => {
   //fetch for all the products in the cart
   useEffect(() => {
     if (location.pathname.includes("eCommerce")) {
-      fetch("/api/cart")
+      fetch("https://roy-portfolio-server.onrender.com/api/cart")
         .then((res) => {
           return res.json();
         })
@@ -40,7 +40,7 @@ const Cart = ({ isCart, setIsCart }) => {
   //Clear All Cart ITEM
   const handleClear = () => {
     setIsDeleteLoading(true);
-    fetch("/api/resetCart", {
+    fetch("https://roy-portfolio-server.onrender.com/api/resetCart", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

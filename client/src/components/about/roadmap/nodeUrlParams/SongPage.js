@@ -6,13 +6,13 @@ const SongPage = ({ songRank, setRoute, route }) => {
   const [song, setSong] = useState({});
 
   useEffect(() => {
-    fetch(`/top50/song/${songRank}`)
+    fetch(`https://roy-portfolio-server.onrender.com/top50/song/${songRank}`)
       .then((res) => res.json())
       .then((json) => {
         setSong(json.data);
       });
   }, [songRank]);
-  console.log(song);
+
   return (
     <>
       <HeaderUrlParams

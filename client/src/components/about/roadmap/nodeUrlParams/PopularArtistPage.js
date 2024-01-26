@@ -6,14 +6,12 @@ const PopularArtistPage = ({ route, setRoute, setSongRank }) => {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    fetch("/top50/popular-artist")
+    fetch("https://roy-portfolio-server.onrender.com/top50/popular-artist")
       .then((res) => res.json())
       .then((parsed) => {
         setSongs(parsed.data);
       });
   }, []);
-
-  console.log("PopularArtistPage.js: songs: ", songs);
 
   return (
     <>

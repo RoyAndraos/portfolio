@@ -27,7 +27,7 @@ const AppPost = () => {
   const handleClick = (ev) => {
     ev.preventDefault();
     setSubStatus("pending");
-    fetch("/order", {
+    fetch("https://roy-portfolio-server.onrender.com/order", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {

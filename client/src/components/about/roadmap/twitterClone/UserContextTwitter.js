@@ -6,7 +6,7 @@ export const UserTwitterProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [status, setStatus] = useState("loading");
   useEffect(() => {
-    fetch("/api/me/profile")
+    fetch("https://roy-portfolio-server.onrender.com/api/me/profile")
       .then((res) => res.json())
       .then((result) => setCurrentUser(result.profile), setStatus("idle"));
   }, []);

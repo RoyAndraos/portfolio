@@ -69,7 +69,7 @@ const App = () => {
         setIsLoading(true);
         if (document.cookie) {
           const token = document.cookie.split("userToken=")[1].split(";")[0];
-          fetch(`/api/user/${token}`)
+          fetch(`https://roy-portfolio-server.onrender.com/api/user/${token}`)
             .then((res) => res.json())
             .then((data) => {
               if (data.status === 200) {

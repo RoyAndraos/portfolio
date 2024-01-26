@@ -47,7 +47,7 @@ const Signup = () => {
     } else {
       setIsSignup(true);
 
-      fetch("/api/users/signup", {
+      fetch("https://roy-portfolio-server.onrender.com/api/users/signup", {
         method: "POST",
         headers: {
           Accept: "application/json",

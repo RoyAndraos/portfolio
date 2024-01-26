@@ -10,7 +10,7 @@ const Brands = () => {
   const navigate = useNavigate();
   //get Brands from Mongo
   useEffect(() => {
-    fetch("/api/brands")
+    fetch("https://roy-portfolio-server.onrender.com/api/brands")
       .then((res) => res.json())
       .then((data) => {
         //save and sort brand names in alphabetical order

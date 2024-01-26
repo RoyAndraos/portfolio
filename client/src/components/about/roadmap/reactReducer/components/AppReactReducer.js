@@ -10,7 +10,7 @@ const AppReactContext = () => {
   } = useContext(SeatContext);
 
   useEffect(() => {
-    fetch("/api/seat-availability")
+    fetch("https://roy-portfolio-server.onrender.com/api/seat-availability")
       .then((res) => res.json())
       .then((data) => receiveSeatInfoFromServer(data));
   }, []);

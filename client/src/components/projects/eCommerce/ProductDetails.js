@@ -19,7 +19,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   //useEffect used to fetch for the specific product then fetch for the company that made it.
   useEffect(() => {
-    fetch(`/api/product/${params}`)
+    fetch(`https://roy-portfolio-server.onrender.com/api/product/${params}`)
       .then((res) => res.json())
       .then((result) => {
         setProduct(result.data);
@@ -27,7 +27,9 @@ const ProductDetails = () => {
         return result; // return the result from the first promise
       })
       .then((result) => {
-        return fetch(`/api/brand/${result.data.companyId}`); // return a new promise for the second fetch
+        return fetch(
+          `https://roy-portfolio-server.onrender.com/api/brand/${result.data.companyId}`
+        ); // return a new promise for the second fetch
       })
       .then((res) => res.json())
       .then((result) => {
@@ -60,7 +62,7 @@ const ProductDetails = () => {
 
     addToCart({ product, quantity: newQuantity });
 
-    fetch("/api/addToCart", {
+    fetch("https://roy-portfolio-server.onrender.com/api/addToCart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

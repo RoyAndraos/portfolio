@@ -28,7 +28,7 @@ const FormData = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    fetch("/api/checkout", {
+    fetch("https://roy-portfolio-server.onrender.com/api/checkout", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const OrderConfirmedFetch = ({ orderId }) => {
   const [orderInfo, setOrderInfo] = useState([]);
   useEffect(() => {
-    fetch(`/orders/${orderId}`)
+    fetch(`https://roy-portfolio-server.onrender.com/orders/${orderId}`)
       .then((res) => res.json())
       .then((result) => setOrderInfo(result.data));
   }, [orderId]);

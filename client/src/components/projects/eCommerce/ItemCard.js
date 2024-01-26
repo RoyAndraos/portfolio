@@ -34,7 +34,7 @@ const ItemCard = ({ product }) => {
 
       addToCartReducer({ product, quantity: quantityToAdd });
 
-      fetch("/api/addToCart", {
+      fetch("https://roy-portfolio-server.onrender.com/api/addToCart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const ItemCard = ({ product }) => {
         body: JSON.stringify({ product, quantity: quantityToAdd }),
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(() => {
           setIsCartPending(false);
         })
         .catch((error) => {

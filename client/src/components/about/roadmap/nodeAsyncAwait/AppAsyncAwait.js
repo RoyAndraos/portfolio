@@ -4,7 +4,7 @@ const AppAsyncAwait = () => {
   const [joke, setJoke] = useState("");
   const [jokeType, setJokeType] = useState("dad");
   const handleGetJoke = () => {
-    fetch(`/joke/${jokeType}`)
+    fetch(`https://roy-portfolio-server.onrender.com/joke/${jokeType}`)
       .then((res) => res.json())
       .then((data) => {
         setJoke(data);

@@ -57,7 +57,9 @@ const NodeIntro = ({ nodeIntroRef, isMobile }) => {
     const message = { author: "user", text: messageInput.current.value };
     updateConversation(message);
 
-    fetch(`/bot-message/?textContent=${message.text}`)
+    fetch(
+      `https://roy-portfolio-server.onrender.com/bot-message/?textContent=${message.text}`
+    )
       .then((res) => res.json())
       .then((data) => {
         updateConversation(data.message);

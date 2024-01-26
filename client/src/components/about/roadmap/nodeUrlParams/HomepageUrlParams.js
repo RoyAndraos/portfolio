@@ -7,7 +7,7 @@ const HomepageUrlParams = ({ setRoute, setArtistName, route }) => {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    fetch(`/top50/artist`)
+    fetch(`https://roy-portfolio-server.onrender.com/top50/artist`)
       .then((res) => res.json())
       .then((json) => {
         setArtists(json.data);
