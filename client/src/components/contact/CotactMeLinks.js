@@ -141,6 +141,9 @@ const TextWrapper = styled.div`
   font-size: clamp(1rem, 2vw, 1.5rem);
   letter-spacing: 0.3rem;
   background-color: transparent;
+  @media (max-width: 800px) {
+    align-items: flex-start;
+  }
 `;
 const Wrapper = styled.div`
   width: 60%;
@@ -151,6 +154,9 @@ const Wrapper = styled.div`
     theme === "dark" ? "3px solid #a742bc" : "3px solid #50196f"};
   position: relative;
   color: ${({ theme }) => (theme === "dark" ? "whitesmoke" : "black")};
+  @media (max-width: 800px) {
+    width: 90%;
+  }
 `;
 const LinksWrapper = styled.div`
   width: 50%;
@@ -167,6 +173,7 @@ const LinksWrapper = styled.div`
   @media (max-width: 800px) {
     width: 100%;
     right: 0;
+    justify-content: space-evenly;
   }
 `;
 const Git = styled(FaGithub)`
@@ -176,6 +183,9 @@ const Git = styled(FaGithub)`
   &:hover {
     opacity: 0.8;
     transform: scale(1.2);
+  }
+  @media (max-width: 800px) {
+    font-size: 2.5rem;
   }
 `;
 
@@ -187,6 +197,9 @@ const LinkedIn = styled(FaLinkedin)`
     opacity: 0.8;
     transform: scale(1.2);
   }
+  @media (max-width: 800px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Facebook = styled(FaFacebook)`
@@ -197,6 +210,9 @@ const Facebook = styled(FaFacebook)`
     opacity: 0.8;
     transform: scale(1.2);
   }
+  @media (max-width: 800px) {
+    font-size: 2.5rem;
+  }
 `;
 const Instagram = styled(FaInstagram)`
   cursor: pointer;
@@ -205,6 +221,9 @@ const Instagram = styled(FaInstagram)`
   &:hover {
     opacity: 0.8;
     transform: scale(1.2);
+  }
+  @media (max-width: 800px) {
+    font-size: 2.5rem;
   }
 `;
 const Phone = styled(BsPhone)`
