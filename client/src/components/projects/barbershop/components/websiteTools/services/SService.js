@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
-import Cookies from "js-cookie";
 import { ServicesContext } from "../../contexts/ServicesContext";
 import { NotificationContext } from "../../contexts/NotficationContext";
 import { objectsAreEqual } from "../../helpers";
