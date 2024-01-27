@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
-import Cookies from "js-cookie";
 import { ServicesContext } from "../../contexts/ServicesContext";
 import { NotificationContext } from "../../contexts/NotficationContext";
 import { objectsAreEqual } from "../../helpers";
@@ -13,32 +12,16 @@ const SService = ({ service }) => {
     setServiceEdit({ ...serviceEdit, [key]: value });
   };
   const handleSaveChanges = () => {
-    const token = Cookies.get("token");
-    const headers = {
-      authorization: token,
-    };
-    fetch(`https://hollywood-fairmount-admin.onrender.com/updateServices`, {
-      method: "PATCH",
-      body: JSON.stringify(serviceEdit),
-      headers: {
-        "Content-Type": "application/json",
-        ...headers,
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setNotification("Service updated successfully");
-        setServices((prevServices) => {
-          return prevServices.map((service) => {
-            if (service._id === result.data._id) {
-              return result.data;
-            } else {
-              return service;
-            }
-          });
-        });
-      })
-      .catch((err) => setNotification("Something went wrong"));
+    setNotification("Service updated successfully");
+    setServices((prevServices) => {
+      return prevServices.map((service) => {
+        if (service._id === result.data._id) {
+          return result.data;
+        } else {
+          return service;
+        }
+      });
+    });
   };
   return (
     <WrapperInner key={service._id + "inner"}>
