@@ -197,11 +197,11 @@ const SkillsWrapper = styled.div`
     display: none;
   }
   @media (max-width: 800px) {
-    height: 43%;
+    height: 75%;
     position: relative;
     width: 100%;
     flex-direction: column;
-    top: 5vh;
+    top: 16vh;
   }
 `;
 

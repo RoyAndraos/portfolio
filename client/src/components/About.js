@@ -116,7 +116,7 @@ const FirstViewport = styled.div`
   overflow: hidden;
   @media (max-width: 800px) {
     flex-direction: column;
-    height: 200vh;
+    min-height: 200vh;
     overflow: scroll;
     top: 5vh;
   }
@@ -140,13 +140,15 @@ const Story = styled.div`
   border: 2px solid #50196f;
   @media (max-width: 800px) {
     width: 80%;
-    height: 40%;
     font-size: 1.2rem;
+    top: 12vh;
+    height: 100%;
+    position: relative;
     border: none;
-    overflow-y: scroll;
+    overflow-y: hidden;
+    padding: 1rem;
     background-color: ${(props) =>
       props.theme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0, 0, 0, 0.4)"};
-    padding: 20px 20px;
   }
 `;
 
