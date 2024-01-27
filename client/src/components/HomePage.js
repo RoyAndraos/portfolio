@@ -180,9 +180,8 @@ export const Logo = styled.img`
   inset: 0;
   transform: scale(0.3) rotate(0);
   margin: auto;
-  min-width: 300px;
   @media (max-width: 800px) {
-    width: 50%;
+    width: 40%;
   }
 `;
 const AfterEl = styled.div`
@@ -209,13 +208,12 @@ const ImageWrapper = styled.div`
   height: 100%;
   @media (max-width: 800px) {
     width: 100%;
-    height: 40%;
+    height: 30%;
   }
 `;
 
 const TextWrapper = styled.div`
   width: 100%;
-  height: 20%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -225,7 +223,6 @@ const TextWrapper = styled.div`
   overflow: hidden;
   @media (max-width: 800px) {
     flex-direction: column;
-    height: 30%;
     align-items: flex-end;
   }
 `;
@@ -237,7 +234,6 @@ const InfoWrapper = styled.div`
   position: relative;
   @media (max-width: 800px) {
     width: 100%;
-    height: 50%;
     text-align: center;
   }
 `;
@@ -416,6 +412,12 @@ const ContactMeButton = styled.button`
   &:hover:after {
     animation: 1s ${glitch};
     animation-timing-function: steps(2, end);
+  }
+  @media (max-width: 800px) {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
   }
 `;
 
