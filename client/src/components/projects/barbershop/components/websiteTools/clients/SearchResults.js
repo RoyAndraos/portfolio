@@ -29,7 +29,7 @@ const SearchResults = ({ searchResults, setSearchResults }) => {
       setClients(newClients);
       setSearchResults(newClients);
     }
-  }, [clients, setClients, setSearchResults]);
+  }, [clients, setClients, setSearchResults, searchResults]);
   // Function to toggle the edit state for a specific client
   const handleEditToggle = (clientId, field, e) => {
     e.preventDefault();

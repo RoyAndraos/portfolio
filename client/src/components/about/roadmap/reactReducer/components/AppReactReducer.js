@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 import { SeatContext } from "./SeatContext";
 import TicketWidget from "./TicketWidget";
 import PurchaseModal from "./PurchaseModal";
@@ -9,11 +9,21 @@ const AppReactContext = () => {
     actions: { receiveSeatInfoFromServer },
   } = useContext(SeatContext);
 
+  const fetchDataAndReceiveSeatInfo = useCallback(async () => {
+    try {
+      const response = await fetch(
+        "https://roy-portfolio-server.onrender.com/api/seat-availability"
+      );
+      const data = await response.json();
+      receiveSeatInfoFromServer(data);
+    } catch (error) {
+      console.error("Error fetching seat info:", error);
+    }
+  }, [receiveSeatInfoFromServer]);
+
   useEffect(() => {
-    fetch("https://roy-portfolio-server.onrender.com/api/seat-availability")
-      .then((res) => res.json())
-      .then((data) => receiveSeatInfoFromServer(data));
-  }, []);
+    fetchDataAndReceiveSeatInfo();
+  }, [fetchDataAndReceiveSeatInfo]);
 
   return (
     <Wrapper>

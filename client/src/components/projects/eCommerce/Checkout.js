@@ -22,15 +22,17 @@ const Checkout = () => {
   }, [selectedProducts]);
 
   useEffect(() => {
-    fetch("https://roy-portfolio-server.onrender.com/api/cart")
-      .then((res) => res.json())
-      .then((data) => {
-        fetchCart({ products: data.data });
-      })
-      .catch(() => {
-        navigate("/projects/eCommerce/404");
-      });
-  }, [navigate]);
+    if (isUpdating) {
+      fetch("https://roy-portfolio-server.onrender.com/api/cart")
+        .then((res) => res.json())
+        .then((data) => {
+          fetchCart({ products: data.data });
+        })
+        .catch(() => {
+          navigate("/projects/eCommerce/404");
+        });
+    }
+  }, [isUpdating, fetchCart, navigate]);
 
   if (!quantity || isUpdating) {
     return <CheckoutLoader />;

@@ -11,15 +11,15 @@ const Clients = () => {
   //   const [searchType, setSearchType] = useState("name");
   const handleSearchClick = () => {
     const newClientsArray = clients.filter((client) => {
-      if (client.fname.toLowerCase().includes(searchTerm.toLowerCase())) {
-        if (client.lname.toLowerCase().includes(searchTerm.toLowerCase())) {
-          return client;
-        }
-      } else if (client.phone.includes(searchTerm)) {
-        return client;
-      } else if (client.email.includes(searchTerm)) {
+      if (
+        client.fname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.lname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.phone.includes(searchTerm) ||
+        client.email.includes(searchTerm)
+      ) {
         return client;
       }
+      return null; // or any other default value
     });
     setSearchResults(newClientsArray);
   };
