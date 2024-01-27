@@ -168,8 +168,12 @@ const App = () => {
             setShowProfile={setShowProfile}
           />
         )}
-      <Cart isCart={isCart} setIsCart={setIsCart} />
-      <Profile showProfile={showProfile} setShowProfile={setShowProfile} />
+      {location.pathname.includes("/project/eCommerce") && (
+        <Cart isCart={isCart} setIsCart={setIsCart} />
+      )}
+      {location.pathname.includes("/project/eCommerce") && (
+        <Profile showProfile={showProfile} setShowProfile={setShowProfile} />
+      )}
       {isCart && <Overlay setIsCart={setIsCart} />}
       {showProfile && <Overlay2 setShowProfile={setShowProfile} />}
       {!location.pathname.includes("/projects/eCommerce") &&
