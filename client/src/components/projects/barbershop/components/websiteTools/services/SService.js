@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
+import Cookies from "js-cookie";
 import { ServicesContext } from "../../contexts/ServicesContext";
 import { NotificationContext } from "../../contexts/NotficationContext";
 import { objectsAreEqual } from "../../helpers";
@@ -15,13 +16,13 @@ const SService = ({ service }) => {
     setNotification("Service updated successfully");
     setServices((prevServices) => {
       return prevServices.map((service) => {
-        if (service._id === result.data._id) {
-          return result.data;
+        if (service._id === serviceEdit._id) {
+          return serviceEdit;
         } else {
           return service;
         }
       });
-    });
+    }).catch((err) => setNotification("Something went wrong"));
   };
   return (
     <WrapperInner key={service._id + "inner"}>
