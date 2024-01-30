@@ -168,10 +168,10 @@ const App = () => {
             setShowProfile={setShowProfile}
           />
         )}
-      {location.pathname.includes("/project/eCommerce") && (
+      {location.pathname.includes("/projects/eCommerce") && (
         <Cart isCart={isCart} setIsCart={setIsCart} />
       )}
-      {location.pathname.includes("/project/eCommerce") && (
+      {location.pathname.includes("/projects/eCommerce") && (
         <Profile showProfile={showProfile} setShowProfile={setShowProfile} />
       )}
       {isCart && <Overlay setIsCart={setIsCart} />}
@@ -341,15 +341,14 @@ const BgImage = styled.img`
     height: 100%;
   }
 `;
-const Wrapper = styled.div`
-  background-color: ${({ theme }) => (theme === "dark" ? "black" : "white")};
-`;
+const Wrapper = styled.div``;
 const BGImageLight = styled.img`
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100vh;
+  filter: brightness(1.15);
   ${({ theme }) => theme === "dark" && `display: none;`};
   @media (max-width: 768px) {
     object-fit: cover;
@@ -377,6 +376,7 @@ const BGImageSecondLight = styled.img`
   width: 100%;
   height: 100vh;
   transform: rotateY(180deg);
+  filter: brightness(1.15);
   ${({ theme }) => theme === "dark" && `display: none;`};
   @media (max-width: 768px) {
     object-fit: cover;
@@ -390,6 +390,7 @@ const BGImageThirdLight = styled.img`
   top: 0;
   width: 100%;
   height: 100vh;
+  filter: brightness(1.15);
   ${({ theme }) => theme === "dark" && `display: none;`};
   @media (max-width: 768px) {
     object-fit: cover;

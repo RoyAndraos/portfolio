@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Acheivement, Unlocked, Wrapper } from "./HTMLFundamentals";
+import { Title, Acheivement, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Title, List } from "./TheDomPartTwo";
+import { List } from "./TheDomPartTwo";
 
 const MongoP1 = ({ mongoP1Ref, isMobile }) => {
   const { theme } = useContext(ThemeContext);

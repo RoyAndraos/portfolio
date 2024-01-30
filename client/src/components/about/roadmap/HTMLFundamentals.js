@@ -35,6 +35,8 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  scroll-snap-align: start;
+  scroll-behavior: smooth;
   @media (max-width: 800px) {
     gap: 3vh;
     height: unset;
@@ -49,14 +51,11 @@ export const Title = styled.h1`
   font-weight: 700;
   margin: 0;
   margin-bottom: 1%;
+  width: 80%;
   color: #50196f;
   position: relative;
-  left: -35%;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
   top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
-  @media (max-width: 800px) {
-    left: 0;
-  }
 `;
 export const Info = styled.p`
   font-size: 1.5rem;

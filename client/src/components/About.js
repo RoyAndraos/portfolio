@@ -127,14 +127,14 @@ const Story = styled.div`
   background-color: ${(props) =>
     props.theme === "light" ? "rgba(255,255,255,0.9)" : "transparent"};
   width: 35%;
-  height: 85%;
+  min-height: 85%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   font-weight: 600;
   border-radius: 20px;
-  padding: 0 40px;
-  font-size: 1.3rem;
+  padding: 10px 40px;
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
   background-color: ${(props) =>
     props.theme === "light" ? "rgba(255,255,255,0.9)" : "rgba(0, 0, 0, 0.4)"};
   border: 2px solid #50196f;
@@ -142,7 +142,7 @@ const Story = styled.div`
     width: 80%;
     font-size: 1.2rem;
     top: 12vh;
-    height: 100%;
+    min-height: 60%;
     position: relative;
     border: none;
     overflow-y: hidden;

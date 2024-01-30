@@ -158,6 +158,7 @@ const Left = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
 `;
 const FarLeft = styled.button`
   width: fit-content;
@@ -167,6 +168,7 @@ const FarLeft = styled.button`
   position: relative;
   display: flex;
   justify-content: center;
+  outline: none;
   align-items: center;
 `;
 
@@ -177,6 +179,7 @@ const Right = styled.button`
   font-size: 4rem;
   display: flex;
   justify-content: center;
+  outline: none;
   align-items: center;
 `;
 

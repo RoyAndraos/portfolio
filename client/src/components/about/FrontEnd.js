@@ -85,7 +85,7 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledListItem = styled.div`
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
   margin: 0 20px 0 20px;

@@ -53,7 +53,7 @@ const GuitarDescription = ({
         {
           opacity: "0",
           position: "absolute",
-          top: "50%",
+          top: "60%",
           left: "50%",
           transform: "translate(-50%,-50%)",
         },
@@ -292,7 +292,7 @@ const InfoWrapper = styled.div`
 const InfoCard = styled.div`
   width: 95%;
   height: 70%;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.8);
   font-family: "Roboto", sans-serif;
   color: white;

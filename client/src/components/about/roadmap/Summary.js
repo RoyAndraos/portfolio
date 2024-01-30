@@ -98,7 +98,7 @@ const Summary = ({
             handleScrollToElement(nyanCatRef);
           }}
         >
-          Nyan Cat Project
+          {!isMobile ? "Nyan Cat Project" : "Nyan Cat"}
         </StyledButton>
       </ListItem>
       <ListItem theme={theme}>
@@ -258,6 +258,7 @@ const Wrapper = styled.ul`
 const ListItem = styled.li`
   list-style: numeric;
   color: ${(props) => (props.theme === "dark" ? "#a742bc" : "#50196f")};
+  font-size: clamp(0.9rem, 1.2rem, 1.5rem);
   @media (max-width: 800px) {
     width: 30vw;
     height: 8vh;

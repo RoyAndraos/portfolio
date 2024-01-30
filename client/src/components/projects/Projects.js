@@ -84,35 +84,34 @@ const Container = styled.div`
   position: relative;
   top: 10vh;
   width: 100%;
-  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
   @media (max-width: 768px) {
     overflow-x: hidden;
     width: 100vw;
     height: unset;
-    top: 13vh;
+    top: 11vh;
   }
 `;
 const Wrapper = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 95%;
   position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
   @media (max-width: 768px) {
-    height: unset;
     width: 95%;
+    height: 80%;
     flex-direction: column;
     gap: 3vh;
   }
 `;
 export const ProjectCard = styled.div`
-  height: 30vh;
-  width: 25vw;
-  border-radius: 20px;
+  width: 28vw;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
   position: relative;
   z-index: 2;
   cursor: pointer;
@@ -128,15 +127,15 @@ export const Title = styled.h1`
   font-family: "Roboto", sans-serif;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  width: 25vw;
+  width: 100%;
   height: 6vh;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
   z-index: 3;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   position: absolute;
   @media (max-width: 768px) {
     width: 80vw;

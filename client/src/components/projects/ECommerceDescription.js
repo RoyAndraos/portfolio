@@ -28,7 +28,7 @@ const ECommerceDescription = ({
         { opacity: "0" },
         {
           position: "absolute",
-          top: "50%",
+          top: "60%",
           left: "50%",
           transform: "translate(-50%,-50%)",
           opacity: "1",
@@ -88,17 +88,13 @@ const ECommerceDescription = ({
         duration: 0.2,
       }
     );
-    tl.fromTo(
-      refClicked.current,
-      { x: "0", opacity: "1" },
-      {
-        x: "200%",
-        opacity: "0",
-        zIndex: "-1",
-        scale: "3",
-        duration: 0.4,
-      }
-    );
+    tl.to(refClicked.current, {
+      x: "100%",
+      opacity: "0",
+      zIndex: "-1",
+      scale: "3",
+      duration: 0.4,
+    });
   };
   const unanimateShowDescription = (refClicked, otherRef, orhterOtherRef) => {
     setAnimationStatus("inProgress");
@@ -201,7 +197,13 @@ const ECommerceDescription = ({
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {showDemo && (
         <Container ref={descriptionRef}>
           {isMobile ? (
@@ -289,7 +291,6 @@ const ECommerceDescription = ({
                   &#125;
                 </p>
               </InfoCard>
-
               <InfoCard>
                 <CardTitle>Backend Requirements</CardTitle>
                 <List>
@@ -396,7 +397,7 @@ export const BgImage = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   z-index: 1;
 `;
 
@@ -423,9 +424,6 @@ export const BackButton = styled(IoMdArrowRoundBack)`
 export const Container = styled.div`
   width: 80vw;
   height: 80vh;
-  position: absolute;
-  top: 13vh;
-  overflow-y: hidden;
   @media (max-width: 768px) {
     width: 100%;
     height: unset;
@@ -436,7 +434,7 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: ${(props) =>
     props.theme === "light"
       ? "rgba(255,255,255,0.7)"
@@ -474,7 +472,7 @@ const Description = styled.div`
 export const InfoCard = styled.div`
   width: 95%;
   height: 70%;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.8);
   font-family: "Roboto", sans-serif;
   color: white;

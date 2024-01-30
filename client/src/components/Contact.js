@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 90vh;
   position: relative;
-  top: 10vh;
   @media (max-width: 800px) {
     font-size: 2rem;
   }

@@ -527,7 +527,7 @@ export const Line = styled.div`
 
 export const Title = styled.h1`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: baseline;
   width: 90%;
   font-size: 2rem;

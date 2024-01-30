@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Acheivement, Title } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Title, List } from "./TheDomPartTwo";
+import { List } from "./TheDomPartTwo";
 const NodePromises = ({ nodePromisesRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   return (

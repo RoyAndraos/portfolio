@@ -59,7 +59,7 @@ const BarberShopDescription = ({
         {
           opacity: "0",
           position: "absolute",
-          top: "50%",
+          top: "60%",
           left: "50%",
           transform: "translate(-50%,-50%)",
         },
@@ -270,6 +270,7 @@ const BarberShopDescription = ({
                     offered, the barbers, the shop's story as well as all the
                     links (socials, location and contact info).
                   </li>
+                  {!isMobile && <br />}
                   <li>Book an appointment and recieve a confirmation email.</li>
                 </List>
                 <p
@@ -291,18 +292,24 @@ const BarberShopDescription = ({
                     View their reservations on the calendar and edit/cancel them
                     if needed.
                   </li>
+                  {!isMobile && <br />}
                   <li>Make a new reservation.</li>
+                  {!isMobile && <br />}
                   <li>
                     Change their weekly availability (make slots available to
                     book or vice versa)
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Take time off (make a specific day or more unavailable)
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Edit their profile (which is shown on the client side)
                   </li>
+                  {!isMobile && <br />}
                   <li>Edit text or images that are shown on the client side</li>
+                  {!isMobile && <br />}
                   <li>Edit their services (names, prices, duration etc...)</li>
                 </List>
               </InfoCard>
@@ -324,6 +331,7 @@ const BarberShopDescription = ({
                     Display all the reservations made, and allow the barber to
                     click on reservations to edit or delete them.
                   </li>
+                  {!isMobile && <br />}
                   <li>Reservation Form.</li>
                 </List>
                 <p
@@ -342,6 +350,7 @@ const BarberShopDescription = ({
                     Barbers can click on slots to toggle them from available to
                     unavailable and vice versa.
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Time Off, <br />
                     Barbers will select start date and end date to make every
@@ -364,16 +373,19 @@ const BarberShopDescription = ({
                     Barbers can add, delete or edit their profile (name,
                     picture, description).
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Services, <br />
                     Barbers can add, delete or edit their services (name, price,
                     duration).
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Text/Images, <br />
                     Barbers can edit the text/images that is shown on the client
                     side.
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Clients, <br />
                     Barbers can view/edit/delete all the clients that have
@@ -388,19 +400,23 @@ const BarberShopDescription = ({
                     Built a single page showcasing all 3 sections (Menu, About,
                     Barbers) with a slideshow as the landing page.
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Any "Book" button will navigate the user to the first step
                     of the booking, "Personal Information Form".
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     "Next Step" button will then validate the data and navigate
                     the user to the "Booking Form".
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     "Submit" button will then validate the data and navigate the
                     user to the "Confirmation" page, where all the information
                     will be displayed .
                   </li>
+                  {!isMobile && <br />}
                   <li>
                     Users will also recieve a confirmation email with all said
                     information.
@@ -498,7 +514,7 @@ const InfoCard = styled.div`
   color: white;
   padding: 10px 0;
   transition: 0.3s ease-in-out;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 1.2rem;
   overflow-y: scroll;
