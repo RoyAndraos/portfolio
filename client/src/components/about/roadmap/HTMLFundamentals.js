@@ -56,6 +56,9 @@ export const Title = styled.h1`
   position: relative;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
   top: ${(props) => (props.$showgame === "false" ? "0" : "5%")};
+  @media (max-width: 800px) {
+    font-size: 28px;
+  }
 `;
 export const Info = styled.p`
   font-size: 1.5rem;
@@ -74,6 +77,7 @@ export const Info = styled.p`
     padding: 0;
     padding-top: 5%;
     width: 90%;
+    font-size: 18px;
   }
 `;
 export const Acheivement = styled.p`
@@ -96,6 +100,7 @@ export const Acheivement = styled.p`
     border-top-left-radius: 0;
     text-align: center;
     margin-top: 0;
+    font-size: 18px;
   }
 `;
 
@@ -103,5 +108,8 @@ export const Unlocked = styled.span`
   color: #50196f;
   font-weight: 700;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+  @media (max-width: 800px) {
+    font-size: 18px;
+  }
 `;
 export default HTMLFundamentals;

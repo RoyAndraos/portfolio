@@ -110,9 +110,6 @@ const HomePage = () => {
           <LinkedIn theme={theme} />
         </a>
       </LinksWrapper>
-      {/* <div style={{ position: "absolute", width: "100%", height: "100%" }}>
-        <Shape theme={theme} />
-      </div> */}
     </Container>
   );
 };
@@ -121,33 +118,6 @@ const InfoTextWrapper = styled.div`
   height: fit-content;
   z-index: 10;
 `;
-
-// const Shape = styled.div`
-//   position: fixed;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%, -50%);
-//   clip-path: polygon(59% 16%, 100% 38%, 85% 95%, 21% 72%, 0% 38%);
-//   width: 90%;
-//   height: 100%;
-//   z-index: 10000;
-//   background-color: ${({ theme }) =>
-//     theme === "dark" ? "rgba(0, 0, 0, 0.5);" : "rgba(255, 255, 255, 0.5);"};
-//   z-index: 0;
-//   &:after {
-//     content: "";
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     width: 90%;
-//     height: 100%;
-//     clip-path: polygon(39% 16%, 80% 38%, 65% 95%, 1% 72%, 0% 38%);
-//     border-radius: 100%;
-//     background-color: ${({ theme }) =>
-//       theme === "dark" ? "#a742bc" : "#50196f"};
-//     opacity: 0.2;
-//   }
-// `;
 
 const Container = styled.div`
   display: flex;
@@ -262,6 +232,7 @@ export const LinksWrapper = styled.div`
     height: 10vh;
     bottom: 5%;
     right: 5vw;
+    z-index: 1000;
   }
 `;
 

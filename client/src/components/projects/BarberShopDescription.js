@@ -18,7 +18,6 @@ const BarberShopDescription = ({
   eCommerceRef,
   guitarRef,
   hollywoodRef,
-  demoRef,
   descriptionRef,
   hoverEffect,
   unHoverEffect,
@@ -270,7 +269,7 @@ const BarberShopDescription = ({
                     offered, the barbers, the shop's story as well as all the
                     links (socials, location and contact info).
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>Book an appointment and recieve a confirmation email.</li>
                 </List>
                 <p
@@ -292,24 +291,24 @@ const BarberShopDescription = ({
                     View their reservations on the calendar and edit/cancel them
                     if needed.
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>Make a new reservation.</li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Change their weekly availability (make slots available to
                     book or vice versa)
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Take time off (make a specific day or more unavailable)
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Edit their profile (which is shown on the client side)
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>Edit text or images that are shown on the client side</li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>Edit their services (names, prices, duration etc...)</li>
                 </List>
               </InfoCard>
@@ -331,7 +330,7 @@ const BarberShopDescription = ({
                     Display all the reservations made, and allow the barber to
                     click on reservations to edit or delete them.
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>Reservation Form.</li>
                 </List>
                 <p
@@ -350,7 +349,7 @@ const BarberShopDescription = ({
                     Barbers can click on slots to toggle them from available to
                     unavailable and vice versa.
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Time Off, <br />
                     Barbers will select start date and end date to make every
@@ -373,19 +372,19 @@ const BarberShopDescription = ({
                     Barbers can add, delete or edit their profile (name,
                     picture, description).
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Services, <br />
                     Barbers can add, delete or edit their services (name, price,
                     duration).
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Text/Images, <br />
                     Barbers can edit the text/images that is shown on the client
                     side.
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Clients, <br />
                     Barbers can view/edit/delete all the clients that have
@@ -400,23 +399,23 @@ const BarberShopDescription = ({
                     Built a single page showcasing all 3 sections (Menu, About,
                     Barbers) with a slideshow as the landing page.
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Any "Book" button will navigate the user to the first step
                     of the booking, "Personal Information Form".
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     "Next Step" button will then validate the data and navigate
                     the user to the "Booking Form".
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     "Submit" button will then validate the data and navigate the
                     user to the "Confirmation" page, where all the information
                     will be displayed .
                   </li>
-                  {!isMobile && <br />}
+                  <br />
                   <li>
                     Users will also recieve a confirmation email with all said
                     information.
@@ -503,7 +502,6 @@ const InfoWrapper = styled.div`
     width: 90%;
     gap: 2vh;
     transform: translateX(2.5%) translateY(0);
-    padding-bottom: 16vh;
   }
 `;
 const InfoCard = styled.div`
@@ -528,6 +526,9 @@ const InfoCard = styled.div`
     position: relative;
     transform: translateY(-11.5%);
     box-shadow: 0 0 10px 0px #50196f;
+  }
+  @media (max-width: 768px) {
+    font-size: 18px;
   }
 `;
 

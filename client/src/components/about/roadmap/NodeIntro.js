@@ -192,10 +192,7 @@ const NodeIntro = ({ nodeIntroRef, isMobile }) => {
                 </ContentWrapper>
               )}
             </div>
-            <Unlocked
-              theme={theme}
-              style={{ fontSize: "1.3rem", width: "100%" }}
-            >
+            <Unlocked theme={theme} style={{ width: "100%" }}>
               Stretch: User should be able to ask for a joke; send "joke" as a
               message to the bot.
             </Unlocked>
@@ -240,6 +237,7 @@ const Acheivement = styled.p`
     border-top-left-radius: 0;
     text-align: center;
     margin-top: 0;
+    font-size: 18px;
   }
   @media (max-height: 800px) {
     position: absolute;

@@ -153,6 +153,7 @@ export const Acheivement = styled.p`
     border-left: none;
     border-top-left-radius: 0;
     text-align: center;
+    font-size: 18px;
     margin-top: 0;
   }
   @media (max-height: 800px) {

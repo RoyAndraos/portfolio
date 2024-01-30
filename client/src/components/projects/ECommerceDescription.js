@@ -298,10 +298,12 @@ const ECommerceDescription = ({
                     Be RESTful (use the right method for the right job and hold
                     nothing in memory).
                   </li>
+                  <br />
                   <li>
                     Provide the FE with the required data in a clear and
                     organized way.
                   </li>
+                  <br />
                   <li>Update the database as users make purchases.</li>
                 </List>
               </InfoCard>
@@ -318,11 +320,14 @@ const ECommerceDescription = ({
                 </p>
                 <List>
                   <li>View all items in the database.</li>
+                  <br />
                   <li>Purchase items that are in stock.</li>
+                  <br />
                   <li>
                     View their cart containing the items they intend to
                     purchase.
                   </li>
+                  <br />
                   <li>Edit the cart before completing the purchase.</li>
                 </List>
               </InfoCard>
@@ -332,10 +337,12 @@ const ECommerceDescription = ({
                   <li>
                     Attendance to the daily stand-ups conducted by your PM.
                   </li>
+                  <br />
                   <li>
                     A Trello board to divide up the tasks (other similar sites
                     are fine too).
                   </li>
+                  <br />
                   <li>
                     A group chat or new private discord server for your team and
                     your PM.
@@ -417,13 +424,13 @@ export const BackButton = styled(IoMdArrowRoundBack)`
   }
   @media (max-width: 768px) {
     position: fixed;
-    top: 15vh;
   }
 `;
 
 export const Container = styled.div`
   width: 80vw;
   height: 80vh;
+  position: relative;
   @media (max-width: 768px) {
     width: 100%;
     height: unset;
@@ -549,6 +556,9 @@ export const List = styled.ul`
   position: relative;
   left: 1%;
   font-size: 1.2rem;
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 export const DemoButton = styled.button`
   position: absolute;
@@ -585,7 +595,6 @@ export const DemoButton = styled.button`
     width: 30%;
     height: 6vh;
     right: 50%;
-    top: 15vh;
     transform: translateX(50%);
     position: fixed;
   }

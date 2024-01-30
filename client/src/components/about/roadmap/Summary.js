@@ -264,6 +264,7 @@ const ListItem = styled.li`
     height: 8vh;
     list-style: none;
     left: -12px;
+    font-size: 18px;
     position: relative;
   }
 `;
@@ -279,6 +280,7 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   font-weight: 600;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
 `;
 export default Summary;

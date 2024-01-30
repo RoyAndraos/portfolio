@@ -194,6 +194,7 @@ export const Acheivement = styled.p`
     border-top-left-radius: 0;
     text-align: center;
     margin-top: 0;
+    font-size: 18px;
   }
   @media (max-height: 800px) {
     position: absolute;

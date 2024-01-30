@@ -171,7 +171,7 @@ const GuitarDescription = ({
             <InfoWrapper>
               <InfoCard>
                 <CardTitle>Instructions</CardTitle>
-                <p style={{ margin: "20% 20px", fontSize: "1.3rem" }}>
+                <Text>
                   Build a Full Stack application that makes use of a MongoDB
                   database, and an API of your choice.
                   <br />
@@ -194,21 +194,21 @@ const GuitarDescription = ({
                     </span>
                     .
                   </span>
-                </p>
+                </Text>
               </InfoCard>
               <InfoCard>
                 <CardTitle>My Idea</CardTitle>
-                <p style={{ margin: "20% 20px", fontSize: "1.3rem" }}>
+                <Text>
                   I wanted to create an application that would write the music
                   sheets for me: <br />
                   <br />
                   User would play the guitar, application would listen to it
                   then write the notes on the sheet music in real time.
-                </p>
+                </Text>
               </InfoCard>
               <InfoCard>
                 <CardTitle>Execution</CardTitle>
-                <p style={{ margin: "20% 20px", fontSize: "1.3rem" }}>
+                <Text>
                   Used the Web Audio API to listen to the guitar, and wrote a
                   pitch detection algorithm to detect and convert the
                   frequencies to notes. <br />
@@ -216,7 +216,7 @@ const GuitarDescription = ({
                   Users would be able to use this feature without signing up,
                   but would have to sign up to save/edit or share their music
                   sheets with their friends.
-                </p>
+                </Text>
               </InfoCard>
             </InfoWrapper>
           </Wrapper>
@@ -311,5 +311,11 @@ const InfoCard = styled.div`
     height: unset;
   }
 `;
-
+const Text = styled.p`
+  font-size: 1.3rem;
+  margin: 20% 20px;
+  @media (max-width: 800px) {
+    font-size: 18px;
+  }
+`;
 export default GuitarDescription;

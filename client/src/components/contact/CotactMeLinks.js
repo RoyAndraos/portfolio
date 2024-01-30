@@ -105,10 +105,7 @@ const CotactMeLinks = () => {
       </TextWrapper>
       <LinksWrapper theme={theme}>
         <div>
-          <Link
-            href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/"
-            rel="noreferrer"
-          >
+          <Link href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/">
             <LinkedIn />
           </Link>
         </div>

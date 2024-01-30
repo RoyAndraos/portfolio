@@ -140,7 +140,7 @@ const Purple = styled.span`
   font-size: 2rem;
   ${({ theme }) => theme === "dark" && `color: #a742bc;`};
   @media (max-width: 1000px) {
-    font-size: 1.6rem;
+    font-size: 20px;
   }
 `;
 
@@ -166,6 +166,7 @@ const Title = styled.div`
     max-height: 25vh;
     min-height: 20vh;
     text-align: center;
+    font-size: 28px;
   }
 `;
 const Info = styled.p`
@@ -180,6 +181,7 @@ const Info = styled.p`
   width: 80%;
   ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
   @media (max-width: 800px) {
+    font-size: 18px;
   }
 `;
 export default Introduction;

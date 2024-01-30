@@ -486,6 +486,10 @@ export const Play = styled.button`
   transition: 0.2s ease-in-out;
   cursor: pointer;
   border-radius: 10px;
+  @media (max-width: 1000px) {
+    font-size: 18px;
+    padding: 5px 10px;
+  }
 `;
 export const List = styled.ul`
   ${({ theme }) => theme === "dark" && `color: white;`};
@@ -496,6 +500,7 @@ export const List = styled.ul`
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
+    font-size: 18px;
   }
 `;
 

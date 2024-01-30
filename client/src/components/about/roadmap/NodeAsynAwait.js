@@ -107,10 +107,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef, isMobile }) => {
                     fucntion
                   </li>
                   {isMobile && (
-                    <Unlocked
-                      theme={theme}
-                      style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                    >
+                    <Unlocked theme={theme} style={{ fontWeight: "bold" }}>
                       Stretch: Build the front-end to display the jokes that we
                       get from the backend
                     </Unlocked>
@@ -119,10 +116,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef, isMobile }) => {
               </ContentWrapper>
               {!isMobile && (
                 <ContentWrapper>
-                  <Unlocked
-                    theme={theme}
-                    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
-                  >
+                  <Unlocked theme={theme} style={{ fontWeight: "bold" }}>
                     Front-End (stretch goal)
                   </Unlocked>
                   <List theme={theme}>
