@@ -1,9 +1,9 @@
 import { useState, useContext, Children, useRef } from "react";
-import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { UserReactContextProvider } from "./reactContext/UserContextReactContext";
 import AppReactContext from "./reactContext/AppReactContext";
-import { ContentWrapper, InfoWrapper } from "./ReactFetch";
+import { ContentWrapper, InfoWrapper, Acheivement } from "./ReactFetch";
 import { Play, Line, Title, List } from "./TheDomPartTwo";
 import {
   animateToShowProject,

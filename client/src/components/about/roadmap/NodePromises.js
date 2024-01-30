@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Wrapper, Unlocked, Acheivement, Title } from "./HTMLFundamentals";
+import { Wrapper, Unlocked, Title } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import { List } from "./TheDomPartTwo";
+import styled from "styled-components";
 const NodePromises = ({ nodePromisesRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   return (
@@ -100,5 +101,34 @@ const NodePromises = ({ nodePromisesRef, isMobile }) => {
     </Wrapper>
   );
 };
+
+export const Acheivement = styled.p`
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0;
+  margin-top: 3%;
+  padding: 1.5% 1.5%;
+  border-left: 3px solid #50196f;
+  border-top: 3px solid #50196f;
+  border-top-left-radius: 20px;
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
+  font-weight: 700;
+  @media (max-width: 800px) {
+    left: 0;
+    max-width: 80%;
+    padding: 3vh 0 0 0;
+    border-left: none;
+    border-top-left-radius: 0;
+    text-align: center;
+    margin-top: 0;
+  }
+  @media (max-height: 800px) {
+    display: none;
+  }
+  @media (min-height: 1000px) {
+    display: flex;
+  }
+`;
 
 export default NodePromises;

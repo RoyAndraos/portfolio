@@ -6,8 +6,8 @@ import {
   animateButton,
 } from "../../../helpers";
 import { Title, List, Play, Line } from "./TheDomPartTwo";
-import { ContentWrapper, InfoWrapper } from "./ReactFetch";
-import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { ContentWrapper, InfoWrapper, Acheivement } from "./ReactFetch";
+import { Wrapper, Unlocked } from "./HTMLFundamentals";
 import AppAsyncAwait from "./nodeAsyncAwait/AppAsyncAwait";
 const NodeAsynAwait = ({ nodeAsynAwaitRef, isMobile }) => {
   const { theme } = useContext(ThemeContext);
@@ -66,7 +66,7 @@ const NodeAsynAwait = ({ nodeAsynAwaitRef, isMobile }) => {
                   animateToShowProject(setShowProj, showProj, nodeAsynAwaitRef);
                 }}
               >
-                Try The Joke App
+                Jokes API
                 <Line ref={(el) => (lineTop = el)} theme={theme} />
                 <Line ref={(el) => (lineLeft = el)} theme={theme} />
                 <Line ref={(el) => (lineRight = el)} theme={theme} />

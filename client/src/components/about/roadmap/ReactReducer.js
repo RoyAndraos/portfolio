@@ -139,14 +139,21 @@ const ReactReducer = ({ reactReducerRef, isMobile }) => {
                     <li>Initial UI, which is a table of seats</li>
                     <li>Screenshots</li>
                   </ul>
+                  <Unlocked
+                    theme={theme}
+                    style={{
+                      fontSize: "1.2rem",
+                      left: "2%",
+                      position: "relative",
+                    }}
+                  >
+                    Stretch: add puchaseTicketRequest, purchaseTicketSuccess and
+                    purchaseTicketFailure actions to the Booking reducer, and a
+                    markSeatAsPurchased action for the Seats reducer.
+                  </Unlocked>
                 </ContentWrapper>
               )}
             </div>
-            <Unlocked theme={theme} style={{ fontSize: "1.2rem" }}>
-              Stretch: add puchaseTicketRequest, purchaseTicketSuccess and
-              purchaseTicketFailure actions to the Booking reducer, and a
-              markSeatAsPurchased action for the Seats reducer.
-            </Unlocked>
           </InfoWrapper>
           <Acheivement theme={theme} style={{ margin: "0" }}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>

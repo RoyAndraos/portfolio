@@ -1,7 +1,8 @@
 import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
-import { Acheivement, Wrapper } from "./HTMLFundamentals";
+import { Wrapper } from "./HTMLFundamentals";
 import AppHangman from "./nodeRest/AppHangman";
+import { Acheivement } from "./NodePromises";
 import {
   animateToShowProject,
   unanimateButton,
@@ -70,7 +71,7 @@ const NodeRest = ({ nodeRestRef, isMobile }) => {
                   animateToShowProject(setShowProj, showProj, nodeRestRef);
                 }}
               >
-                Try The Hangman Game
+                Hangman
                 <Line ref={(el) => (lineTop = el)} theme={theme} />
                 <Line ref={(el) => (lineLeft = el)} theme={theme} />
                 <Line ref={(el) => (lineRight = el)} theme={theme} />

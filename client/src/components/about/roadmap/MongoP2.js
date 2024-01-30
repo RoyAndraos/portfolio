@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { Acheivement, Title, Unlocked, Wrapper } from "./HTMLFundamentals";
+import { Title, Unlocked, Wrapper } from "./HTMLFundamentals";
 import { ContentWrapper, InfoWrapper } from "./ReactFetch";
 import ThemeContext from "../../contexts/ColorTheme";
 import { List } from "./TheDomPartTwo";
-
-const MongoP2 = ({ mongoP2Ref, isMobile }) => {
+import { Acheivement } from "./NodePostMethod";
+const MongoP2 = ({ mongoP2Ref }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Wrapper id="section-27" ref={mongoP2Ref}>
@@ -40,8 +40,11 @@ const MongoP2 = ({ mongoP2Ref, isMobile }) => {
         </div>
       </InfoWrapper>
       <Acheivement theme={theme}>
-        <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
-        <br /> Where Are You Storing Me?
+        <Unlocked theme={theme} style={{ top: "20%" }}>
+          Acheivement Unlocked!
+        </Unlocked>
+        <br />
+        Manage A Database
       </Acheivement>
     </Wrapper>
   );

@@ -1,5 +1,5 @@
 import { useContext, useState, useRef } from "react";
-import { Wrapper, Unlocked, Acheivement } from "./HTMLFundamentals";
+import { Wrapper, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
   animateToShowProject,
@@ -7,7 +7,7 @@ import {
   animateButton,
 } from "../../../helpers";
 import { Title, List, Play, Line } from "./TheDomPartTwo";
-import { ContentWrapper, InfoWrapper } from "./ReactFetch";
+import { ContentWrapper, InfoWrapper, Acheivement } from "./ReactFetch";
 import AppUrlParams from "./nodeUrlParams/AppUrlParams";
 const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY, isMobile }) => {
   const [showProj, setShowProj] = useState(false);
@@ -67,7 +67,7 @@ const NodeUrlParams = ({ nodeUrlParamsRef, setEnableScrollY, isMobile }) => {
                   animateToShowProject(setShowProj, showProj, nodeUrlParamsRef);
                 }}
               >
-                Try The Artist App
+                Artists API
                 <Line ref={(el) => (lineTop = el)} theme={theme} />
                 <Line ref={(el) => (lineLeft = el)} theme={theme} />
                 <Line ref={(el) => (lineRight = el)} theme={theme} />

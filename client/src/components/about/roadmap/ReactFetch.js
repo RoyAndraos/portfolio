@@ -1,4 +1,4 @@
-import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Unlocked } from "./HTMLFundamentals";
 import { useContext, useRef, useState } from "react";
 import ThemeContext from "../../contexts/ColorTheme";
 import styled from "styled-components";
@@ -172,6 +172,36 @@ export const InfoWrapper = styled.div`
     overflow-y: scroll;
     overflow-x: hidden;
     padding-right: 2%;
+  }
+`;
+export const Acheivement = styled.p`
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0;
+  margin-top: 3%;
+  padding: 1.5% 1.5%;
+  border-left: 3px solid #50196f;
+  border-top: 3px solid #50196f;
+  border-top-left-radius: 20px;
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
+  font-weight: 700;
+  @media (max-width: 800px) {
+    left: 0;
+    max-width: 80%;
+    padding: 3vh 0 0 0;
+    border-left: none;
+    border-top-left-radius: 0;
+    text-align: center;
+    margin-top: 0;
+  }
+  @media (max-height: 800px) {
+    position: absolute;
+    right: 20%;
+    bottom: 15%;
+  }
+  @media (min-height: 1000px) {
+    position: relative;
   }
 `;
 export default ReactFetch;

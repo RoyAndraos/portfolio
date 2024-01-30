@@ -1,5 +1,6 @@
+import styled from "styled-components";
 import { useContext, useRef, useState } from "react";
-import { Wrapper, Acheivement, Unlocked } from "./HTMLFundamentals";
+import { Wrapper, Unlocked } from "./HTMLFundamentals";
 import ThemeContext from "../../contexts/ColorTheme";
 import {
   animateToShowProject,
@@ -71,7 +72,7 @@ const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
                   );
                 }}
               >
-                Try The Form
+                Fill Out The Form
                 <Line ref={(el) => (lineTop = el)} theme={theme} />
                 <Line ref={(el) => (lineLeft = el)} theme={theme} />
                 <Line ref={(el) => (lineRight = el)} theme={theme} />
@@ -122,7 +123,7 @@ const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
               </List>
             </div>
           </InfoWrapper>
-          <Acheivement theme={theme} style={{ marginTop: "0" }}>
+          <Acheivement theme={theme}>
             <Unlocked theme={theme}>Acheivement Unlocked!</Unlocked>
             <br />
             Everything is valid, Sir!
@@ -133,4 +134,34 @@ const NodePostMethod = ({ nodePostMethodRef, isMobile }) => {
   );
 };
 
+export const Acheivement = styled.p`
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0;
+  margin-top: 3%;
+  padding: 1.5% 1.5%;
+  border-left: 3px solid #50196f;
+  border-top: 3px solid #50196f;
+  border-top-left-radius: 20px;
+  ${({ theme }) => theme === "dark" && `color: white;border-color: #a742bc`};
+  font-weight: 700;
+  @media (max-width: 800px) {
+    left: 0;
+    max-width: 80%;
+    padding: 3vh 0 0 0;
+    border-left: none;
+    border-top-left-radius: 0;
+    text-align: center;
+    margin-top: 0;
+  }
+  @media (max-height: 800px) {
+    position: absolute;
+    right: 20%;
+    top: 15%;
+  }
+  @media (min-height: 1000px) {
+    position: relative;
+  }
+`;
 export default NodePostMethod;
