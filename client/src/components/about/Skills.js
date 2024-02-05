@@ -197,7 +197,7 @@ const SkillsWrapper = styled.div`
     display: none;
   }
   @media (max-width: 800px) {
-    min-height: 40%;
+    height: 100vh;
     padding-bottom: 10%;
     position: relative;
     width: 100%;

@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import pdf from "../assets/RoyResume.pdf";
 import { useState, useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite } from "gsap";
 import BurgerMenu from "./BurgerMenu";
 import ThemeContext from "./contexts/ColorTheme";
-import { LinksWrapper, Git, LinkedIn } from "./HomePage";
 const Navbar = ({ selected, handleSelect }) => {
   gsap.registerPlugin();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,6 +14,7 @@ const Navbar = ({ selected, handleSelect }) => {
   let navElThree = useRef(null);
   let navElFour = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
     const tl = new TimelineLite();
@@ -75,13 +75,18 @@ const Navbar = ({ selected, handleSelect }) => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+  console.log(selected);
   return (
     <Container ref={(el) => (wrapper = el)} theme={theme}>
       <BurgerMenu toggleMenu={toggleMenu} menuOpen={menuOpen} />
       <Wrapper $isopen={menuOpen.toString()}>
         <StyledNavlink
+          key={"About"}
           ref={(el) => (navElOne = el)}
-          isselected={"About" === selected ? "true" : "false"}
+          $isselected={"About" === selected ? true : false}
           $isopen={menuOpen.toString()}
           theme={theme}
           onClick={(e) => {
@@ -93,9 +98,10 @@ const Navbar = ({ selected, handleSelect }) => {
           About
         </StyledNavlink>
         <StyledNavlink
+          key={"Projects"}
           theme={theme}
           ref={(el) => (navElTwo = el)}
-          isselected={"Projects" === selected ? "true" : "false"}
+          $isselected={"Projects" === selected ? true : false}
           $isopen={menuOpen.toString()}
           onClick={(e) => {
             handleSelect(e);
@@ -106,9 +112,10 @@ const Navbar = ({ selected, handleSelect }) => {
           Projects
         </StyledNavlink>
         <StyledNavlink
+          key={"Roadmap"}
           theme={theme}
           ref={(el) => (navElFour = el)}
-          isselected={"Roadmap" === selected ? "true" : "false"}
+          $isselected={"Roadmap" === selected ? true : false}
           $isopen={menuOpen.toString()}
           onClick={(e) => {
             handleSelect(e);
@@ -119,6 +126,7 @@ const Navbar = ({ selected, handleSelect }) => {
           Roadmap
         </StyledNavlink>
         <StyledNavlink
+          key={"Resume"}
           ref={(el) => (navElThree = el)}
           to={pdf}
           target="_blank"
@@ -127,16 +135,6 @@ const Navbar = ({ selected, handleSelect }) => {
         >
           Resume
         </StyledNavlink>
-        {menuOpen && (
-          <LinksWrapper style={{ position: "relative", bottom: "0" }}>
-            <a href="https://github.com/RoyAndraos">
-              <Git style={{ color: "#a742bc" }} />
-            </a>
-            <a href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/">
-              <LinkedIn style={{ color: "#a742bc" }} />
-            </a>
-          </LinksWrapper>
-        )}
       </Wrapper>
     </Container>
   );
@@ -162,17 +160,17 @@ const Wrapper = styled.div`
 `;
 
 const StyledNavlink = styled(Link)`
-  color: ${(props) => (props.$isopen === "true" ? "whitesmoke" : "black")};
   font-weight: bold;
   font-size: 1.2rem;
   transition: 0.1s ease-in-out;
   background-color: transparent;
   width: 33%;
   text-align: center;
-  text-underline-offset: 5px;
-  text-decoration-thickness: 20px;
-  text-decoration: ${(props) =>
-    props.isselected === "true" ? "underline" : "none"};
+  color: ${(props) =>
+    props.$isselected === true ? "#a742bc" : "whitesmoke"}!important;
+  font-weight: ${(props) =>
+    props.$isselected === true ? "bold" : "normal"}!important;
+  text-decoration: none;
   &:last-of-type {
     border: none;
   }
@@ -183,6 +181,13 @@ const StyledNavlink = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 70%;
+    &:last-of-type {
+      border-bottom: 1px solid #a742bc;
+    }
+    &:first-of-type {
+      border-top: 1px solid #a742bc;
+    }
   }
 `;
 

@@ -117,7 +117,7 @@ const FirstViewport = styled.div`
   @media (max-width: 800px) {
     flex-direction: column;
     min-height: 200vh;
-    overflow: scroll;
+    height: unset;
     top: 5vh;
   }
 `;

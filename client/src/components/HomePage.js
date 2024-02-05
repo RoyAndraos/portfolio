@@ -389,6 +389,7 @@ const ContactMeButton = styled.button`
     height: 50px;
     line-height: 50px;
     font-size: 15px;
+    letter-spacing: 0.5px;
   }
 `;
 

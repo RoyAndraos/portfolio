@@ -4,7 +4,7 @@ import { useState } from "react";
 const ThemeContext = createContext({ completed: false });
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
 
   return (
     <ThemeContext.Provider
