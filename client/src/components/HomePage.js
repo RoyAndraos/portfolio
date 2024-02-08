@@ -57,7 +57,6 @@ const HomePage = () => {
         ease: Power2.easeInOut,
         delay: -1.4, // Delays the animation start
       })
-
       .fromTo(
         img,
         {
@@ -118,7 +117,6 @@ const InfoTextWrapper = styled.div`
   height: fit-content;
   z-index: 10;
 `;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,7 +179,6 @@ const ImageWrapper = styled.div`
     height: 30%;
   }
 `;
-
 const TextWrapper = styled.div`
   width: 100%;
   position: relative;
@@ -196,7 +193,6 @@ const TextWrapper = styled.div`
     align-items: flex-end;
   }
 `;
-
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -235,7 +231,6 @@ export const LinksWrapper = styled.div`
     z-index: 1000;
   }
 `;
-
 export const Git = styled(BsGithub)`
   font-size: 4rem;
   margin: 0 2rem;
@@ -266,7 +261,6 @@ export const LinkedIn = styled(BsLinkedin)`
     font-size: 3rem;
   }
 `;
-
 const Info = styled.p`
   font-size: clamp(20px, 1.5vw, 30px);
   margin: 0;
@@ -281,7 +275,6 @@ const Info = styled.p`
   }
   ${({ theme }) => theme === "dark" && `color: white;`};
 `;
-
 const glitch = keyframes`
   0% {
     clip-path: var(--slice-1);
@@ -330,7 +323,6 @@ const glitch = keyframes`
     transform: translate(0);
   }
 `;
-
 const ContactMeButton = styled.button`
   width: 150px;
   height: 76px;
@@ -354,7 +346,6 @@ const ContactMeButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
-
   &:after {
     --slice-0: inset(50% 50% 50% 50%);
     --slice-1: inset(80% -6px 0 0);
@@ -379,7 +370,6 @@ const ContactMeButton = styled.button`
     text-shadow: -3px -3px 0px #a742bc, 3px 3px 0px #a742bc;
     clip-path: var(--slice-0);
   }
-
   &:hover:after {
     animation: 1s ${glitch};
     animation-timing-function: steps(2, end);

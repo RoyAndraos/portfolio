@@ -78,7 +78,6 @@ const Navbar = ({ selected, handleSelect }) => {
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
-  console.log(selected);
   return (
     <Container ref={(el) => (wrapper = el)} theme={theme}>
       <BurgerMenu toggleMenu={toggleMenu} menuOpen={menuOpen} />
@@ -150,11 +149,11 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     position: fixed;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
     top: 10vh;
     left: 0;
     width: 100%;
-    height: 90vh;
+    height: 70vh;
     transition: 300ms ease-in-out;
   }
 `;
@@ -186,7 +185,7 @@ const StyledNavlink = styled(Link)`
       border-bottom: 1px solid #a742bc;
     }
     &:first-of-type {
-      border-top: 1px solid #a742bc;
+      border-top: none;
     }
   }
 `;
