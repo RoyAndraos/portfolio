@@ -166,14 +166,16 @@ const StyledNavlink = styled(Link)`
   width: 33%;
   text-align: center;
   color: ${(props) =>
-    props.$isselected === true ? "#a742bc" : "whitesmoke"}!important;
-  font-weight: ${(props) =>
-    props.$isselected === true ? "bold" : "normal"}!important;
+    props.$isselected
+      ? "#a742bc"
+      : props.theme === "dark"
+      ? "whitesmoke"
+      : "black"}!important;
+  font-weight: ${(props) => (props.$isselected ? "bold" : "normal")}!important;
   text-decoration: none;
   &:last-of-type {
     border: none;
   }
-  ${({ theme }) => theme === "dark" && `color:#f5f5f5`};
   @media (max-width: 800px) {
     border-bottom: 1px solid #a742bc;
     height: 20%;
