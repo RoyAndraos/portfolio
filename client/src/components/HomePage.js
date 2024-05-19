@@ -74,7 +74,11 @@ const HomePage = () => {
     <Container theme={theme}>
       <Wrapper>
         <ImageWrapper ref={(el) => (wrapper = el)}>
-          <Logo src={logo} ref={(el) => (img = el)}></Logo>
+          <Logo
+            src={logo}
+            alt={"spinning react logo"}
+            ref={(el) => (img = el)}
+          ></Logo>
         </ImageWrapper>
         <InfoWrapper>
           <TextWrapper>

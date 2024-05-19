@@ -156,22 +156,20 @@ const Header = () => {
       >
         {isMobile ? "Roy A." : "Roy Andraos "}
       </Name>
-      <div>
-        {" "}
-        <ToggleLabel theme={theme}>theme</ToggleLabel>
-        <Toggle
-          name={"Color Theme button"}
-          onClick={() => {
-            if (theme === "light") {
-              setTheme("dark");
-            } else {
-              setTheme("light");
-            }
-          }}
-        >
-          <StyledMdOutlineLightMode theme={theme} />
-        </Toggle>
-      </div>
+
+      <Toggle
+        aria-label="theme toggle button"
+        name={"Color Theme button"}
+        onClick={() => {
+          if (theme === "light") {
+            setTheme("dark");
+          } else {
+            setTheme("light");
+          }
+        }}
+      >
+        <StyledMdOutlineLightMode theme={theme} />
+      </Toggle>
 
       <Navbar selected={selected} handleSelect={handleSelect} />
     </Wrapper>
