@@ -156,22 +156,41 @@ const Header = () => {
       >
         {isMobile ? "Roy A." : "Roy Andraos "}
       </Name>
-      <Toggle
-        onClick={() => {
-          if (theme === "light") {
-            setTheme("dark");
-          } else {
-            setTheme("light");
-          }
-        }}
-      >
-        <StyledMdOutlineLightMode theme={theme} />
-      </Toggle>
+      <div>
+        {" "}
+        <ToggleLabel theme={theme}>theme</ToggleLabel>
+        <Toggle
+          name={"Color Theme button"}
+          onClick={() => {
+            if (theme === "light") {
+              setTheme("dark");
+            } else {
+              setTheme("light");
+            }
+          }}
+        >
+          <StyledMdOutlineLightMode theme={theme} />
+        </Toggle>
+      </div>
+
       <Navbar selected={selected} handleSelect={handleSelect} />
     </Wrapper>
   );
 };
 
+const ToggleLabel = styled.label`
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  font-weight: bold;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 33.3%;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  color: #50196f;
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`};
+`;
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;

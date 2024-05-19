@@ -178,19 +178,30 @@ const App = () => {
       {showProfile && <Overlay2 setShowProfile={setShowProfile} />}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
-          <BgImage src={bg} ref={bgImageRef} theme={theme} />
+          <BgImage src={bg} ref={bgImageRef} theme={theme} alt="stary night" />
         )}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
-          <BgImageDark src={bg} ref={bgImageDarkRef} theme={theme} />
+          <BgImageDark
+            src={bg}
+            ref={bgImageDarkRef}
+            theme={theme}
+            alt="stary night"
+          />
         )}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
-          <BGImageLight ref={bgImageLightRef} src={bgLight} theme={theme} />
+          <BGImageLight
+            ref={bgImageLightRef}
+            src={bgLight}
+            theme={theme}
+            alt="stary night"
+          />
         )}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
           <BGImageSecondLight
+            alt="stary night"
             ref={bgImageSecondLightRef}
             src={bgLight}
             theme={theme}
@@ -199,6 +210,7 @@ const App = () => {
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
           <BGImageThirdLight
+            alt="stary night"
             ref={bgImageThirdLightRef}
             src={bgLight}
             theme={theme}

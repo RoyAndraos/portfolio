@@ -99,20 +99,39 @@ const HomePage = () => {
         </InfoWrapper>
       </Wrapper>
       <LinksWrapper>
-        <a href="https://github.com/RoyAndraos" ref={(el) => (gitLink = el)}>
-          <Git theme={theme} />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/"
-          ref={(el) => (linkedInLink = el)}
-        >
-          <LinkedIn theme={theme} />
-        </a>
+        <LinkLabelWrapper>
+          <a href="https://github.com/RoyAndraos" ref={(el) => (gitLink = el)}>
+            <Git theme={theme} />
+          </a>
+          <IconLabel theme={theme}>github</IconLabel>
+        </LinkLabelWrapper>
+        <LinkLabelWrapper>
+          <a
+            href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/"
+            ref={(el) => (linkedInLink = el)}
+          >
+            <LinkedIn theme={theme} />
+          </a>
+          <IconLabel theme={theme}>linkedIn</IconLabel>
+        </LinkLabelWrapper>
       </LinksWrapper>
     </Container>
   );
 };
+const IconLabel = styled.label`
+  color: #50196f;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
 
+  ${({ theme }) => theme === "dark" && `color: #a742bc;`}
+`;
+const LinkLabelWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 2rem;
+`;
 const InfoTextWrapper = styled.div`
   height: fit-content;
   z-index: 10;

@@ -149,11 +149,14 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: ${(props) =>
+      props.theme === "dark"
+        ? "rgba(0, 0, 0, 0.8)"
+        : "rgba(255, 255, 255, 0.99)"};
     top: 10vh;
     left: 0;
     width: 100%;
-    height: 70vh;
+    height: 90vh;
     transition: 300ms ease-in-out;
   }
 `;
@@ -166,11 +169,24 @@ const StyledNavlink = styled(Link)`
   width: 33%;
   text-align: center;
   color: ${(props) =>
-    props.$isselected
-      ? "#a742bc"
-      : props.theme === "dark"
-      ? "whitesmoke"
-      : "black"}!important;
+    // props.$isselected && props.theme === "dark"
+    //   ? "#a742bc"
+    //   : props.theme === "dark"
+    //   ? "whitesmoke"
+    //   : "black"
+    {
+      if (
+        props.$isselected &&
+        (props.theme === "dark" || props.theme === "light")
+      ) {
+        return "#a742bc";
+      } else if (props.theme === "dark") {
+        return "black";
+      } else {
+        return "black";
+      }
+      // props.$isselected && props.theme === "light" ? "#a742bc" : "";
+    }}!important;
   font-weight: ${(props) => (props.$isselected ? "bold" : "normal")}!important;
   text-decoration: none;
   &:last-of-type {
