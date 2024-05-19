@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import logo from "../assets/finalPortfolioReactIcon.png";
+import logo from "../assets/finalPortfolioReactIcon.webp";
 import { useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite, Power2 } from "gsap";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
@@ -104,32 +104,27 @@ const HomePage = () => {
       </Wrapper>
       <LinksWrapper>
         <LinkLabelWrapper>
-          <a href="https://github.com/RoyAndraos" ref={(el) => (gitLink = el)}>
+          <a
+            href="https://github.com/RoyAndraos"
+            aria-label="github icon"
+            ref={(el) => (gitLink = el)}
+          >
             <Git theme={theme} />
           </a>
-          <IconLabel theme={theme}>github</IconLabel>
         </LinkLabelWrapper>
         <LinkLabelWrapper>
           <a
+            aria-label="LinkedIn icon"
             href="https://www.linkedin.com/in/roy-andraos-b92ab01a8/"
             ref={(el) => (linkedInLink = el)}
           >
             <LinkedIn theme={theme} />
           </a>
-          <IconLabel theme={theme}>linkedIn</IconLabel>
         </LinkLabelWrapper>
       </LinksWrapper>
     </Container>
   );
 };
-const IconLabel = styled.label`
-  color: #50196f;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-
-  ${({ theme }) => theme === "dark" && `color: #a742bc;`}
-`;
 const LinkLabelWrapper = styled.div`
   display: flex;
   flex-direction: column;

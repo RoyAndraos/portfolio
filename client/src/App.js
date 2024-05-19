@@ -10,8 +10,8 @@ import styled from "styled-components";
 import HomePage from "./components/HomePage";
 import TransitionComponent from "./components/TransitionComponent";
 import About from "./components/About";
-import bg from "./assets/BG1.jpg";
-import bgLight from "./assets/5243451.jpg";
+import bg from "./assets/BG1.webp";
+import bgLight from "./assets/5243451.webp";
 import { useContext, useEffect, useRef, useState } from "react";
 import ThemeContext from "./components/contexts/ColorTheme";
 import "./scroll.css";
@@ -178,11 +178,18 @@ const App = () => {
       {showProfile && <Overlay2 setShowProfile={setShowProfile} />}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
-          <BgImage src={bg} ref={bgImageRef} theme={theme} alt="stary night" />
+          <BgImage
+            src={bg}
+            ref={bgImageRef}
+            theme={theme}
+            fetchpriority="high"
+            alt="stary night"
+          />
         )}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
           <BgImageDark
+            fetchpriority="high"
             src={bg}
             ref={bgImageDarkRef}
             theme={theme}
@@ -195,13 +202,13 @@ const App = () => {
             ref={bgImageLightRef}
             src={bgLight}
             theme={theme}
-            alt="stary night"
+            alt="light sky"
           />
         )}
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
           <BGImageSecondLight
-            alt="stary night"
+            alt="light sky"
             ref={bgImageSecondLightRef}
             src={bgLight}
             theme={theme}
@@ -210,7 +217,7 @@ const App = () => {
       {!location.pathname.includes("/projects/eCommerce") &&
         !location.pathname.includes("/projects/hollywoodBarberShop") && (
           <BGImageThirdLight
-            alt="stary night"
+            alt="light sky"
             ref={bgImageThirdLightRef}
             src={bgLight}
             theme={theme}

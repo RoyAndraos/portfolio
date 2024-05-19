@@ -16,6 +16,7 @@ const Navbar = ({ selected, handleSelect }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useContext(ThemeContext);
+  const isMobile = window.innerWidth <= 800;
   useEffect(() => {
     const tl = new TimelineLite();
     tl.to(wrapper, 0, { css: { visibility: "visible" } })
@@ -88,6 +89,7 @@ const Navbar = ({ selected, handleSelect }) => {
           $isselected={"About" === selected ? true : false}
           $isopen={menuOpen.toString()}
           theme={theme}
+          $isMobile={isMobile}
           onClick={(e) => {
             handleSelect(e);
             setMenuOpen(false); // Close the menu when a link is clicked
@@ -97,6 +99,7 @@ const Navbar = ({ selected, handleSelect }) => {
           About
         </StyledNavlink>
         <StyledNavlink
+          $isMobile={isMobile}
           key={"Projects"}
           theme={theme}
           ref={(el) => (navElTwo = el)}
@@ -111,6 +114,7 @@ const Navbar = ({ selected, handleSelect }) => {
           Projects
         </StyledNavlink>
         <StyledNavlink
+          $isMobile={isMobile}
           key={"Roadmap"}
           theme={theme}
           ref={(el) => (navElFour = el)}
@@ -125,6 +129,7 @@ const Navbar = ({ selected, handleSelect }) => {
           Roadmap
         </StyledNavlink>
         <StyledNavlink
+          $isMobile={isMobile}
           key={"Resume"}
           ref={(el) => (navElThree = el)}
           to={pdf}
@@ -168,13 +173,8 @@ const StyledNavlink = styled(Link)`
   background-color: transparent;
   width: 33%;
   text-align: center;
-  color: ${(props) =>
-    // props.$isselected && props.theme === "dark"
-    //   ? "#a742bc"
-    //   : props.theme === "dark"
-    //   ? "whitesmoke"
-    //   : "black"
-    {
+  color: ${(props) => {
+    if (props.$isMobile) {
       if (
         props.$isselected &&
         (props.theme === "dark" || props.theme === "light")
@@ -185,8 +185,18 @@ const StyledNavlink = styled(Link)`
       } else {
         return "black";
       }
-      // props.$isselected && props.theme === "light" ? "#a742bc" : "";
-    }}!important;
+    } else {
+      if (props.$isselected && props.theme === "dark") {
+        return "#a742bc";
+      } else if (props.$isselected && props.theme === "light") {
+        return "#50196f";
+      } else if (props.theme === "dark") {
+        return "whitesmoke";
+      } else {
+        return "#50196f";
+      }
+    }
+  }}!important;
   font-weight: ${(props) => (props.$isselected ? "bold" : "normal")}!important;
   text-decoration: none;
   &:last-of-type {
