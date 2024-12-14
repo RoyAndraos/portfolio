@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import pdf from "../assets/RoyResume.pdf";
+import pdf from "../assets/resume.pdf";
 import { useState, useEffect, useRef, useContext } from "react";
 import gsap, { TimelineLite } from "gsap";
 import BurgerMenu from "./BurgerMenu";

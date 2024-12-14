@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ReservationContext } from "../../../contexts/ReservationContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Wrapper } from "../../Schedule";
 import { FaArrowLeft } from "react-icons/fa";
 import BarberFormEdit from "./BarberFormEdit";
 import NameFormEdit from "./NameFormEdit";
@@ -13,21 +12,32 @@ import NumberFormEdit from "./NumberFormEdit";
 import EmailFormEdit from "./EmailFormEdit";
 import NoteFormEdit from "./NoteFormEdit";
 import LastNameFormEdit from "./LastNameFormEdit";
-import { ClientsContext } from "../../../contexts/ClientsContext";
 
 const EditRsvp = () => {
   const { reservations } = useContext(ReservationContext);
-  const { clients } = useContext(ClientsContext);
+  const [timeEdit, setTimeEdit] = useState("Edit");
   const params = useParams()._id;
   const navigate = useNavigate();
-  const thisReservation = reservations.filter(
-    (reservation) => reservation._id === params
-  );
-  const clientNote = clients.filter(
-    (client) => client._id === thisReservation[0].client_id
-  );
-  const [formData, setFormData] = useState(thisReservation[0]);
-  const [note, setNote] = useState(clientNote[0].note);
+  const [thisReservation, setThisReservation] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [note, setNote] = useState("");
+
+  useEffect(() => {
+    if (!reservations) {
+      navigate("/projects/hollywoodBarberShop/schedule");
+      return;
+    }
+    const foundReservation = reservations.find(
+      (reservation) => reservation._id === params
+    );
+    if (foundReservation) {
+      setThisReservation(foundReservation);
+      setFormData(foundReservation);
+    } else {
+      navigate("/projects/hollywoodBarberShop/schedule");
+    }
+  }, [reservations, params, navigate]);
+
   const handleChangeNote = (e) => {
     setNote(e.target.value);
   };
@@ -38,11 +48,13 @@ const EditRsvp = () => {
       [key]: value,
     });
   };
-
   const handleExit = (e) => {
     e.preventDefault();
     navigate("/projects/hollywoodBarberShop/schedule");
   };
+
+  if (!reservations || !thisReservation) return <div>Loading...</div>;
+
   return (
     <Wrapper style={{ position: "relative" }} key={"edit"}>
       <BackButton onClick={(e) => handleExit(e)}>
@@ -51,54 +63,56 @@ const EditRsvp = () => {
       <SmallWrapper>
         <IdWrapper>
           <StyledLabel>Reservation id</StyledLabel>
-          <Id>{thisReservation[0]._id}</Id>
+          <Id>{thisReservation._id}</Id>
         </IdWrapper>
         <NameFormEdit
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           handleChange={handleChange}
         />
         <LastNameFormEdit
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           handleChange={handleChange}
         />
         <BarberFormEdit
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           handleChange={handleChange}
         />
         <ServiceFormEdit
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           handleChange={handleChange}
         />
         <TimeSlotEdit
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           handleChange={handleChange}
           formData={formData}
+          timeEdit={timeEdit}
+          setTimeEdit={setTimeEdit}
+          setFormData={setFormData}
         />
         <NumberFormEdit
           handleChange={handleChange}
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
         />
         <EmailFormEdit
           handleChange={handleChange}
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
         />
         <NoteFormEdit
           handleChange={handleChangeNote}
-          reservation={thisReservation[0]}
+          reservation={thisReservation}
           note={note}
           setNote={setNote}
-          initialNote={clientNote[0].note}
         />
         <SaveDelete
           formData={formData}
-          initialFormData={thisReservation[0]}
-          initialNote={clientNote[0].note}
+          initialFormData={thisReservation}
           note={note}
         />
       </SmallWrapper>
     </Wrapper>
   );
 };
+
 const SmallWrapper = styled.div`
   font-family: "Roboto", sans-serif;
   display: flex;
@@ -107,12 +121,12 @@ const SmallWrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 50%;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
   align-items: center;
   position: relative;
+  @media (max-width: 768px) {
+    width: 90%;
+    top: 10%;
+  }
 `;
 export const LabelInfoWrapper = styled.div`
   display: grid;
@@ -182,5 +196,22 @@ const IdWrapper = styled.div`
   align-items: center;
   width: 100%;
   border-bottom: 1px solid #035e3f;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  height: 91.5vh;
+  @media (max-width: 768px) {
+    height: 80vh;
+    padding-bottom: 10vh;
+  }
+`;
+
 export default EditRsvp;

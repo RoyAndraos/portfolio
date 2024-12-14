@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import { NotificationContext } from "../../../contexts/NotficationContext";
 import { isEqual } from "../../../helpers";
-
 const SaveDelete = ({ formData, initialFormData, initialNote, note }) => {
   // useContext: notification, reservations
   const { setNotification } = useContext(NotificationContext);
   const { reservations, setReservations } = useContext(ReservationContext);
   const [hasNoteChanged, setHasNoteChanged] = useState(initialNote !== note);
-
+  const [sendSMS, setSendSMS] = useState(true);
   const [isFormDataDifferent, setIsFormDataDifferent] = useState(
     !isEqual(formData, initialFormData)
   );
@@ -25,40 +24,44 @@ const SaveDelete = ({ formData, initialFormData, initialNote, note }) => {
   const navigate = useNavigate();
 
   // function: delete reservation from database and context
-  const handleDeleteReservation = () => {
+  const handleDeleteReservation = (e) => {
     setNotification("Reservation deleted successfully");
     setReservations(
       reservations.filter((reservation) => reservation._id !== params)
     );
+
     navigate("/projects/hollywoodBarberShop/schedule");
   };
 
   // function: save reservation to database and context
   const handleSaveReservationEdit = (e) => {
     e.preventDefault();
-    setNotification("Note updated successfully");
-    setReservations(
-      reservations.map((reservation) => {
-        if (reservation._id === params) {
-          return { ...reservation, note: note };
-        }
-        return reservation;
-      })
-    );
-
-    setReservations(
-      reservations.map((reservation) => {
-        if (reservation._id === params) {
-          return formData;
-        }
-        return reservation;
-      })
-    );
-    setNotification("Reservation updated successfully");
-    navigate("/projects/hollywoodBarberShop/schedule");
+    if (hasNoteChanged) {
+      setNotification("Note updated successfully");
+      setReservations(
+        reservations.map((reservation) => {
+          if (reservation._id === params) {
+            return formData;
+          }
+          return reservation;
+        })
+      );
+      setNotification("Reservation updated successfully");
+      navigate("/projects/hollywoodBarberShop/schedule");
+    }
   };
   return (
     <ButtonWrapper>
+      <CheckboxWrapper>
+        <input
+          type="checkbox"
+          defaultChecked={sendSMS}
+          onClick={() => {
+            setSendSMS(!sendSMS);
+          }}
+        />
+        <label>Send SMS</label>
+      </CheckboxWrapper>
       <Delete onClick={(e) => handleDeleteReservation(e)}>Delete</Delete>
       <SaveChanges
         onClick={(e) => handleSaveReservationEdit(e)}
@@ -119,5 +122,14 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   width: 80%;
+`;
+
+const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0;
+  color: #035e3f;
+  width: 7vw;
 `;
 export default SaveDelete;

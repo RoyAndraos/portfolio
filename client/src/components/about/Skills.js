@@ -92,90 +92,94 @@ const Skills = () => {
     setIsSelected(newIsSelected);
   };
   return (
-    <SkillsWrapper>
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[0]}
-        ref={(el) => (wrapper.current[0] = el)}
-        onClick={() => {
-          selectComponent(0);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[0]}>
-          Front End
-        </Title>
-        {isSelected[0] === "true" && <FrontEnd />}
-      </ComponentWrapper>
+    <div>
+      <Title theme={theme}>My Skills</Title>
 
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[1]}
-        ref={(el) => (wrapper.current[1] = el)}
-        onClick={() => {
-          selectComponent(1);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[1]}>
-          Back End
-        </Title>
-        {isSelected[1] === "true" && <BackEnd />}
-      </ComponentWrapper>
+      <SkillsWrapper>
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[0]}
+          ref={(el) => (wrapper.current[0] = el)}
+          onClick={() => {
+            selectComponent(0);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[0]}>
+            Front End
+          </Title>
+          {isSelected[0] === "true" && <FrontEnd />}
+        </ComponentWrapper>
 
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[2]}
-        ref={(el) => (wrapper.current[2] = el)}
-        onClick={() => {
-          selectComponent(2);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[2]}>
-          Animation
-        </Title>
-        {isSelected[2] === "true" && <AnimationUI />}
-      </ComponentWrapper>
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[1]}
+          ref={(el) => (wrapper.current[1] = el)}
+          onClick={() => {
+            selectComponent(1);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[1]}>
+            Back End
+          </Title>
+          {isSelected[1] === "true" && <BackEnd />}
+        </ComponentWrapper>
 
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[3]}
-        ref={(el) => (wrapper.current[3] = el)}
-        onClick={() => {
-          selectComponent(3);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[3]}>
-          Authentication
-        </Title>
-        {isSelected[3] === "true" && <Auth />}
-      </ComponentWrapper>
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[2]}
+          ref={(el) => (wrapper.current[2] = el)}
+          onClick={() => {
+            selectComponent(2);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[2]}>
+            Animation
+          </Title>
+          {isSelected[2] === "true" && <AnimationUI />}
+        </ComponentWrapper>
 
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[4]}
-        ref={(el) => (wrapper.current[4] = el)}
-        onClick={() => {
-          selectComponent(4);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[4]}>
-          Communication
-        </Title>
-        {isSelected[4] === "true" && <CommunicationServices />}
-      </ComponentWrapper>
-      <ComponentWrapper
-        theme={theme}
-        $isselected={isSelected[5]}
-        ref={(el) => (wrapper.current[5] = el)}
-        onClick={() => {
-          selectComponent(5);
-        }}
-      >
-        <Title theme={theme} $isselected={isSelected[5]}>
-          Other
-        </Title>
-        {isSelected[5] === "true" && <Other />}
-      </ComponentWrapper>
-    </SkillsWrapper>
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[3]}
+          ref={(el) => (wrapper.current[3] = el)}
+          onClick={() => {
+            selectComponent(3);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[3]}>
+            Authentication
+          </Title>
+          {isSelected[3] === "true" && <Auth />}
+        </ComponentWrapper>
+
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[4]}
+          ref={(el) => (wrapper.current[4] = el)}
+          onClick={() => {
+            selectComponent(4);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[4]}>
+            Communication
+          </Title>
+          {isSelected[4] === "true" && <CommunicationServices />}
+        </ComponentWrapper>
+        <ComponentWrapper
+          theme={theme}
+          $isselected={isSelected[5]}
+          ref={(el) => (wrapper.current[5] = el)}
+          onClick={() => {
+            selectComponent(5);
+          }}
+        >
+          <Title theme={theme} $isselected={isSelected[5]}>
+            Other
+          </Title>
+          {isSelected[5] === "true" && <Other />}
+        </ComponentWrapper>
+      </SkillsWrapper>
+    </div>
   );
 };
 
@@ -186,12 +190,11 @@ const ComponentWrapper = styled.div`
   position: relative;
   width: ${(props) => (props.$isselected === "true" ? "40%" : "10%")};
   border: 2px solid #50196f;
-  height: 85%;
+  height: 70vh;
   border-radius: 20px;
   background-color: ${(props) =>
     props.theme === "light" ? "rgba(255, 255, 255, 0.9)" : "rgba(0,0,0,0.4)"};
   overscroll-behavior: contain;
-  overflow-y: scroll;
   transition: width 0.5s ease-in-out;
   font-size: 1.3rem;
   scrollbar-width: thin;
@@ -212,8 +215,9 @@ const SkillsWrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 70vw;
   height: 100%;
+  margin: 5vh 0;
   &::-webkit-scrollbar {
     display: none;
   }

@@ -45,6 +45,8 @@ import { ServicesProvider } from "./components/projects/barbershop/components/co
 import { NotificationProvider } from "./components/projects/barbershop/components/contexts/NotficationContext";
 import { ClientsProvider } from "./components/projects/barbershop/components/contexts/ClientsContext";
 import Contact from "./components/Contact.js";
+import { ImageProvider } from "./components/projects/barbershop/components/contexts/ImageContext.js";
+import { IsMobileProvider } from "./components/projects/barbershop/components/contexts/IsMobileContext.js";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -330,15 +332,19 @@ const App = () => {
           path="/projects/hollywoodBarberShop/*"
           element={
             <UserProvider>
-              <ReservationProvider>
-                <ServicesProvider>
-                  <NotificationProvider>
-                    <ClientsProvider>
-                      <AppBarbershop></AppBarbershop>
-                    </ClientsProvider>
-                  </NotificationProvider>
-                </ServicesProvider>
-              </ReservationProvider>
+              <ImageProvider>
+                <IsMobileProvider>
+                  <ReservationProvider>
+                    <ServicesProvider>
+                      <NotificationProvider>
+                        <ClientsProvider>
+                          <AppBarbershop></AppBarbershop>
+                        </ClientsProvider>
+                      </NotificationProvider>
+                    </ServicesProvider>
+                  </ReservationProvider>
+                </IsMobileProvider>
+              </ImageProvider>
             </UserProvider>
           }
         />

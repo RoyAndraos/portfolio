@@ -2,22 +2,32 @@ import { useState, useEffect, useContext } from "react";
 import { LabelInfoWrapper, StyledLabel } from "./EditRsvp";
 import {
   getEndTimeEditRsvp,
-  filterSlotBeforeFor2Duration,
+  removeSlotsForOverLapping,
+  selectNextSlot,
 } from "../../.././helpers";
 import { UserContext } from "../../../contexts/UserContext";
 import styled from "styled-components";
 import moment from "moment";
 import { ReservationContext } from "../../../contexts/ReservationContext";
+import { ServicesContext } from "../../../contexts/ServicesContext";
 
-const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
+const TimeSlotEdit = ({
+  reservation,
+  handleChange,
+  formData,
+  timeEdit,
+  setTimeEdit,
+  setFormData,
+}) => {
   // useState/useContext: timeEdit for inner text of button, barberIsOff, availableSlots, reservations, userInfo(selectedBarber)
-  const [timeEdit, setTimeEdit] = useState("Edit");
   const [barberIsOff, setBarberIsOff] = useState(false);
   const [availableSlots, setAvailableSlots] = useState([]);
   const { reservations } = useContext(ReservationContext);
   const { userInfo } = useContext(UserContext);
+  const { services } = useContext(ServicesContext);
   const selectedService = reservation.service;
-
+  const startTime = formData.slot[0].split("-")[1];
+  const [endTime, setEndTime] = useState("");
   // function: format date to "Mon Jan 1"
   const formatDate = (date) => {
     const dateObj = new Date(date);
@@ -34,7 +44,6 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
   const selectedBarberForm = userInfo.filter((barber) => {
     return barber.given_name.toLowerCase() === reservation.barber.toLowerCase();
   })[0];
-
   useEffect(() => {
     //if theres no selected barber
     if (Object.keys(selectedBarberForm).length === 0) {
@@ -59,7 +68,7 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
           if (slot.available === true) {
             return slot.slot;
           } else {
-            return "";
+            return slot.slot;
           }
         });
 
@@ -74,32 +83,50 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
         return !todayReservations.some((reservation) => {
           if (reservation.slot.length === 1) {
             return reservation.slot[0] === slot;
-          } else {
+          } else if (reservation.slot.length === 2) {
             return reservation.slot[0] === slot || reservation.slot[1] === slot;
+          } else if (reservation.slot.length === 3) {
+            return (
+              reservation.slot[0] === slot ||
+              reservation.slot[1] === slot ||
+              reservation.slot[2] === slot
+            );
+          } else {
+            return (
+              reservation.slot[0] === slot ||
+              reservation.slot[1] === slot ||
+              reservation.slot[2] === slot ||
+              reservation.slot[3] === slot
+            );
           }
         });
       });
-      // if the selected service is 2 (2x15 minutes), filter out the slots that are before the first slot of the reservation
-      if (selectedService.duration === "2") {
-        const removedBeforeSlotsFor2Duration = todayReservations.map(
-          (reservation) => {
-            return filterSlotBeforeFor2Duration(reservation.slot[0]);
-          }
-        );
-        setAvailableSlots(
-          filteredSlots
-            .filter((slot) => {
-              return slot !== "";
-            })
-            .filter((item) => !removedBeforeSlotsFor2Duration.includes(item))
-        );
-      } else {
-        setAvailableSlots(
-          filteredSlots.filter((slot) => {
-            return slot !== "";
-          })
-        );
-      }
+      const todayReservationStartingSlots = todayReservations.map(
+        (reservation) => {
+          return reservation.slot[0].split("-")[1];
+        }
+      );
+
+      const newFormDataService = services.find((service) => {
+        return service._id === selectedService._id;
+      });
+
+      const slotsToRemoveForOverlapping = removeSlotsForOverLapping(
+        newFormDataService.duration,
+        todayReservationStartingSlots
+      );
+      const filteredForOverlappingSlots = filteredSlots.filter((slot) => {
+        // Extract the time portion of the slot (e.g., "2:30pm")
+        const time = slot.split("-")[1];
+        // Check if the time is not included in slotsToRemoveForOverlapping
+        return !slotsToRemoveForOverlapping.includes(time);
+      });
+
+      setAvailableSlots(
+        filteredForOverlappingSlots.filter((slot) => {
+          return slot !== "";
+        })
+      );
     }
   }, [
     selectedBarberForm,
@@ -107,25 +134,82 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
     selectedDate,
     selectedService,
     barberIsOff,
+    formData.service.duration,
+    services,
   ]);
   // function: edit inner html of button
   const handleEditClick = () => {
     if (timeEdit === "Edit") {
       setTimeEdit("Show more");
-      handleChange("slot", [reservation.slot[0]]);
+      if (formData.slot.length === 2) {
+        handleChange("slot", [reservation.slot[0]]);
+      } else if (formData.slot.length === 3) {
+        handleChange("slot", [reservation.slot[0], reservation.slot[1]]);
+      } else if (formData.slot.length === 4) {
+        handleChange("slot", [reservation.slot[0], reservation.slot[1]]);
+      }
     } else if (timeEdit === "Show more") {
       setTimeEdit("Cancel");
     } else {
-      handleChange("slot", reservation.slot);
+      setFormData({
+        ...formData,
+        slot: reservation.slot,
+      });
       setTimeEdit("Edit");
     }
   };
-  const startTime = formData.slot[0].split("-")[1];
-  let endTime = "";
-  if (formData.slot.length === 2) {
-    const endTimeStart = formData.slot[1].split("-")[1];
-    endTime = getEndTimeEditRsvp(endTimeStart);
-  }
+  const selectSlot = (slot) => {
+    switch (formData.service.duration) {
+      case "2":
+        setFormData({
+          ...formData,
+          slot: [slot, selectNextSlot(slot)],
+        });
+        break;
+      case "3":
+        setFormData({
+          ...formData,
+          slot: [
+            slot,
+            selectNextSlot(slot),
+            selectNextSlot(selectNextSlot(slot)),
+          ],
+        });
+        break;
+      case "4":
+        setFormData({
+          ...formData,
+          slot: [
+            slot,
+            selectNextSlot(slot),
+            selectNextSlot(selectNextSlot(slot)),
+            selectNextSlot(selectNextSlot(selectNextSlot(slot))),
+          ],
+        });
+        break;
+      default:
+        setFormData({
+          ...formData,
+          slot: [slot],
+        });
+        break;
+    }
+  };
+
+  useEffect(() => {
+    let endTimeValue = "";
+    if (formData.slot.length === 2) {
+      const endTimeStart = formData.slot[1].split("-")[1];
+      endTimeValue = getEndTimeEditRsvp(endTimeStart);
+    } else if (formData.slot.length === 3) {
+      const endTimeStart = formData.slot[2].split("-")[1];
+      endTimeValue = getEndTimeEditRsvp(endTimeStart);
+    } else if (formData.slot.length === 4) {
+      const endTimeStart = formData.slot[3].split("-")[1];
+      endTimeValue = getEndTimeEditRsvp(endTimeStart);
+    }
+    setEndTime(endTimeValue);
+  }, [formData.slot, endTime]);
 
   return (
     <LabelInfoWrapper>
@@ -145,9 +229,7 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
           </span>
         ) : (
           <span key={formData.slot[0]}>
-            {formData.slot[0].split("-")[1] +
-              " - " +
-              getEndTimeEditRsvp(startTime)}
+            {formData.slot[0].split("-")[1] + " - " + endTime}
           </span>
         ))}
       {timeEdit === "Cancel" && (
@@ -158,7 +240,7 @@ const TimeSlotEdit = ({ reservation, handleChange, formData }) => {
                 name="time"
                 key={slot}
                 onClick={() => {
-                  handleChange("slot", [slot]);
+                  selectSlot(slot);
                   setTimeEdit("Edit");
                 }}
               >
@@ -191,7 +273,7 @@ const EditButton = styled.button`
   font-weight: 600;
   position: relative;
   right: ${(props) => {
-    return props.props === "Cancel" ? "-20vw" : "";
+    return props.$props === "Cancel" ? "-20vw" : "";
   }};
   &:hover {
     cursor: pointer;

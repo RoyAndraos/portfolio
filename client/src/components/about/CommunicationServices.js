@@ -27,7 +27,7 @@ const CommunicationServices = () => {
       </Title>
       <Wrapper theme={theme} ref={(el) => (wrapper = el)}>
         <StyledListItem theme={theme} ref={(el) => (listItem.current[0] = el)}>
-          Brevo (Email and SMS)
+          Mailtrap (Email)
         </StyledListItem>
         <StyledListItem theme={theme} ref={(el) => (listItem.current[1] = el)}>
           Twilio (SMS)

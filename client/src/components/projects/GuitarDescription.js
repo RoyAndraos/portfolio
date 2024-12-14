@@ -1,321 +1,202 @@
-import { ProjectCard, Title } from "./Projects";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ThemeContext from "../contexts/ColorTheme";
-import {
-  BackButton,
-  DemoButton,
-  Container,
-  BgImage,
-  Wrapper,
-  CardTitle,
-} from "./ECommerceDescription";
-import gsap, { TimelineLite } from "gsap";
 import guitarBg from "../../assets/GuitarSheetWriterBg.png";
 import styled from "styled-components";
-const GuitarDescription = ({
-  eCommerceRef,
-  guitarRef,
-  hollywoodRef,
-  demoRef,
-  descriptionRef,
-  hoverEffect,
-  unHoverEffect,
-  isMobile,
-}) => {
-  const [showDemo, setShowDemo] = useState(false);
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
+import {
+  Collapse,
+  CollapseWrapper,
+  TitleImgWrap,
+} from "./BarberShopDescription";
+import { LinkToWebsite } from "./Vblack";
+import gsap from "gsap";
+import { AnimationWrap } from "./PixSnap";
+const GuitarDescription = ({ collapsed, setCollapsed }) => {
   const { theme } = useContext(ThemeContext);
-  const [animationStatus, setAnimationStatus] = useState("notInProgress");
-  const animateDescriptionMobile = (descriptionRef) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    descriptionRef.current &&
-      tl.fromTo(
-        descriptionRef.current,
-        {
-          opacity: "0",
-          position: "absolute",
-          top: "0",
-          left: "0",
-        },
-        {
-          opacity: "1",
-          duration: 1,
-          delay: 1,
-        }
-      );
-  };
-  const animateDescription = (descriptionRef) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    descriptionRef.current &&
-      tl.fromTo(
-        descriptionRef.current,
-        {
-          opacity: "0",
-          position: "absolute",
-          top: "60%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-        },
-        {
-          opacity: "1",
-          duration: 1,
-          delay: 1,
-        }
-      );
-  };
-  useEffect(() => {
-    isMobile
-      ? animateDescriptionMobile(descriptionRef)
-      : animateDescription(descriptionRef);
-  }, [showDemo, descriptionRef, isMobile]);
 
-  const animateShowDescription = (
-    refClicked,
-    secondProjCard,
-    thirdProjCard
-  ) => {
-    setAnimationStatus("inProgress");
+  const collapseRef = useRef(null);
+  const expandRef = useRef(null);
+  useEffect(() => {
+    if (collapsed.guitar) {
+      gsap.fromTo(
+        expandRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          duration: 1,
+          opacity: 1,
+        }
+      );
+    } else {
+      gsap.fromTo(
+        collapseRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          duration: 1,
+          opacity: 1,
+        }
+      );
+    }
+  }, [collapsed.guitar]);
+
+  //when collapse is pressed, animate the collapse
+  const animateCollapse = () => {
+    gsap.to(collapseRef.current, {
+      duration: 0.5,
+      maxHeight: "0",
+      minHeight: "8vh",
+      opacity: 0,
+    });
+    //wait 0.5 seconds before setting the collapse state to true
     setTimeout(() => {
-      setAnimationStatus("notInProgress");
-    }, 2000);
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      thirdProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      secondProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "1" },
-      {
-        opacity: "0",
-        zIndex: "-1",
-        scale: "3",
-        duration: 0.4,
-      }
-    );
+      setCollapsed({ ...collapsed, guitar: true });
+    }, 500);
   };
-  const unanimateShowDescription = (refClicked, otherRef, orhterOtherRef) => {
-    setAnimationStatus("inProgress");
-    setTimeout(() => {
-      setAnimationStatus("notInProgress");
-    }, 2000);
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "0" },
-      {
-        opacity: "1",
-        zIndex: "0",
-        scale: "1",
-        x: "0",
-        duration: 0.4,
-      }
-    );
-    tl.fromTo(
-      otherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
-    tl.fromTo(
-      orhterOtherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
+  const animateExpand = () => {
+    gsap.to(expandRef.current, {
+      duration: 0.5,
+      maxHeight: "70vh",
+      minHeight: "40vh",
+      opacity: 0,
+      onComplete: () => {
+        setCollapsed({ ...collapsed, guitar: false });
+      },
+    });
   };
 
   return (
-    <div>
-      {showDemo && (
-        <Container ref={descriptionRef}>
-          {isMobile ? (
-            <Title
-              style={{
-                width: "95%",
-                height: "10vh",
-                position: "fixed",
-              }}
-            ></Title>
-          ) : (
-            <Title
-              style={{
-                width: "100%",
-                height: "10%",
-                fontSize: "2rem",
-                color: "#a742bc",
-              }}
-            >
-              Guitar Sheet Writer
-            </Title>
-          )}
-
-          <Wrapper theme={theme}>
-            <InfoWrapper>
-              <InfoCard>
-                <CardTitle>Instructions</CardTitle>
-                <Text>
-                  Build a Full Stack application that makes use of a MongoDB
-                  database, and an API of your choice.
-                  <br />
-                  <br />
-                  The application should have a user interface, and allow the
-                  user to use it without signing up/in, as well as get benefits
-                  for doing so.
-                  <br />
-                  <br />
-                  <span
-                    style={{
-                      marginLeft: "20px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Time given:
-                    <span style={{ color: "yellow", opacity: "1" }}>
-                      {" "}
-                      5 weeks
-                    </span>
-                    .
-                  </span>
-                </Text>
-              </InfoCard>
-              <InfoCard>
-                <CardTitle>My Idea</CardTitle>
-                <Text>
-                  I wanted to create an application that would write the music
-                  sheets for me: <br />
-                  <br />
-                  User would play the guitar, application would listen to it
-                  then write the notes on the sheet music in real time.
-                </Text>
-              </InfoCard>
-              <InfoCard>
-                <CardTitle>Execution</CardTitle>
-                <Text>
-                  Used the Web Audio API to listen to the guitar, and wrote a
-                  pitch detection algorithm to detect and convert the
-                  frequencies to notes. <br />
-                  <br />
-                  Users would be able to use this feature without signing up,
-                  but would have to sign up to save/edit or share their music
-                  sheets with their friends.
-                </Text>
-              </InfoCard>
-            </InfoWrapper>
-          </Wrapper>
-          <BackButton
-            onClick={() => {
-              unanimateShowDescription(
-                guitarRef,
-                eCommerceRef,
-                hollywoodRef,
-                demoRef
-              );
-              setShowDemo(false);
-            }}
-          ></BackButton>
-          <DemoButton>
-            <a
-              style={{ textDecoration: "none", color: "#422800" }}
-              href="https://youtu.be/kmPUFGyACNc"
-            >
-              Demo
+    <Container
+      $theme={theme}
+      style={{
+        borderBottom:
+          theme === "dark" ? "3px solid #a742bc" : "3px solid #50196f",
+      }}
+    >
+      {collapsed.guitar ? (
+        <CollapseWrapper ref={expandRef}>
+          <Title $theme={theme}>
+            Guitar Sheet Writer{" "}
+            <Collapse $theme={theme} onClick={() => animateExpand()}>
+              <FaAngleDown />{" "}
+            </Collapse>
+          </Title>
+          <CardTitle $theme={theme}>March 2023 - May 2023</CardTitle>
+          <LinkToWebsite $theme={theme} href="https://youtu.be/kmPUFGyACNc">
+            Demo (video)
+          </LinkToWebsite>
+        </CollapseWrapper>
+      ) : (
+        <AnimationWrap ref={collapseRef}>
+          <TitleImgWrap>
+            <div>
+              <Title $theme={theme}>
+                Guitar Sheet Writer
+                <Collapse $theme={theme} onClick={() => animateCollapse()}>
+                  <FaAngleUp />{" "}
+                </Collapse>
+              </Title>
+              <div>
+                <CardTitle $theme={theme}>Project Overview</CardTitle>
+                <p>
+                  Guitar Sheet Writer is a full-stack web application that
+                  bridges technology and music, designed for guitar enthusiasts
+                  to effortlessly create, edit, and share their music sheets.
+                  With the help of MongoDB, a custom-built REST API, and the Web
+                  Audio API, this application provides a seamless experience for
+                  musicians, whether they are casual hobbyists or serious
+                  composers.
+                </p>
+              </div>
+            </div>
+            <a href="https://youtu.be/kmPUFGyACNc" style={{ width: "100%" }}>
+              <StyledImage
+                style={{ width: "100%" }}
+                src={guitarBg}
+                alt="guitar sheet writer Landing page"
+              />
             </a>
-          </DemoButton>
-        </Container>
+          </TitleImgWrap>
+
+          <div>
+            <div>
+              <CardTitle $theme={theme}>Key Features</CardTitle>
+              <ul>
+                <li>Real-Time Guitar-to-Sheet Conversion</li>
+                Leveraging a custom pitch detection algorithm, the application
+                listens to the guitar in real time and translates frequencies
+                into notes displayed directly on a digital music sheet.
+                <li>No Sign-Up? No Problem!</li>
+                Users can immediately start creating music sheets without
+                signing up. For those who want additional benefits—like saving,
+                editing, and sharing their sheets—signing up unlocks these
+                powerful features.
+                <li>User-Centric Design</li>
+                The intuitive user interface ensures that even non-technical
+                users can dive in and start creating with ease.
+              </ul>
+            </div>
+            <div>
+              <CardTitle $theme={theme}>Why This Project?</CardTitle>
+              <p>
+                Guitar Sheet Writer combines my passion for music and web
+                development into a practical solution that empowers guitarists
+                to express their creativity. It demonstrates my ability to
+                integrate cutting-edge technologies, such as audio processing
+                and real-time data handling, into a user-focused application.
+              </p>
+            </div>
+            <div>
+              Checkout my presentation of the project and see how it works{" "}
+              <a
+                style={{ textDecoration: "none", color: "#a742bc" }}
+                href="https://youtu.be/kmPUFGyACNc"
+              >
+                Guitar Sheet Writer Demo
+              </a>
+            </div>
+          </div>
+        </AnimationWrap>
       )}
-      <ProjectCard
-        key={"guitarProject"}
-        ref={guitarRef}
-        onMouseEnter={() => {
-          animationStatus === "notInProgress" && hoverEffect(guitarRef);
-        }}
-        onMouseLeave={() => {
-          animationStatus === "notInProgress" && unHoverEffect(guitarRef);
-        }}
-        onClick={() => {
-          animateShowDescription(
-            guitarRef,
-            eCommerceRef,
-            hollywoodRef,
-            demoRef
-          );
-          setShowDemo(true);
-        }}
-      >
-        <Title>Guitar Sheet Writer</Title>
-        <BgImage src={guitarBg} alt="screenshot of the project" />
-      </ProjectCard>
-    </div>
+    </Container>
   );
 };
 
-const InfoWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 90%;
-  height: 80%;
+export const Container = styled.div`
   position: relative;
-  left: 5%;
-  gap: 1%;
-  top: 30%;
-  @media (max-width: 800px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    gap: 2vh;
-    top: 12vh;
-    padding-bottom: 14vh;
-    height: unset;
-  }
-`;
-
-const InfoCard = styled.div`
-  width: 95%;
-  height: 70%;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
+  color: whitesmoke;
   font-family: "Roboto", sans-serif;
-  color: white;
-  padding: 10px 0;
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-  font-size: 1.2rem;
-
-  &:hover {
-    height: 80%;
-    position: relative;
-    transform: translateY(-5%);
-    box-shadow: 0 0 10px 0px #50196f;
-  }
-  @media (max-width: 800px) {
-    height: unset;
+  width: 90%;
+  display: flex;
+  gap: 5vw;
+  justify-content: center;
+  align-items: flex-start;
+  border-top: ${(props) =>
+    props.$theme === "dark" ? "3px solid #a742bc" : "3px solid #50196f"};
+  padding: 3% 0;
+  p,
+  li,
+  div {
+    color: ${(props) => (props.$theme === "dark" ? "whitesmoke" : "black")};
   }
 `;
-const Text = styled.p`
-  font-size: 1.3rem;
-  margin: 20% 20px;
-  @media (max-width: 800px) {
-    font-size: 18px;
+export const StyledImage = styled.img`
+  width: 35%;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  &:hover {
+    opacity: 0.7;
   }
+`;
+export const Title = styled.h1`
+  color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
+`;
+
+export const CardTitle = styled.h2`
+  color: ${(props) => (props.$theme === "dark" ? "#cc9849" : "#744600")};
 `;
 export default GuitarDescription;

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import BarberSelect from "./rsvpComponents/BarberSelect";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,15 +7,22 @@ import { ReservationContext } from "../contexts/ReservationContext";
 import ServiceSelector from "./rsvpComponents/ServiceSelector";
 import SlotSelector from "./rsvpComponents/SlotSelector";
 import { NotificationContext } from "../contexts/NotficationContext";
-import { v4 as uuidv4 } from "uuid";
+import { IsMobileContext } from "../contexts/IsMobileContext";
+import { getClientByNumber, getClientsByName, highlightText } from "../helpers";
 import { ClientsContext } from "../contexts/ClientsContext";
-const AddReservation = () => {
+import { v4 as uuidv4 } from "uuid";
+
+const AddReservation = ({
+  selectedDate,
+  setSelectedDate,
+  selectedSlot,
+  setSelectedSlot,
+  slotBeforeCheck,
+  setSlotBeforeCheck,
+}) => {
   const { reservations, setReservations } = useContext(ReservationContext);
-  const { clients, setClients } = useContext(ClientsContext);
   const { setNotification } = useContext(NotificationContext);
-  const [selectedSlot, setSelectedSlot] = useState("");
   const [selectedBarberForm, setBarber] = useState({});
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [clientNumber, setClientNumber] = useState("");
@@ -24,102 +31,90 @@ const AddReservation = () => {
   const [nameError, setNameError] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const [error, setError] = useState(true);
-  // when a service has a duration of 2 (meaning 2 slots), this function will select the next slot aka the slot that
-  //was clicked and the one that comes after it
-  const selectNextSlot = (slot) => {
-    const day = slot.split("-")[0];
-    const timeToEdit = slot.split("-")[1].split(":")[1].slice(0, -2);
-    const hour = slot.split("-")[1].split(":")[0];
-    let AMPM = slot.slice(-2);
-    let newTimeMinute = parseInt(timeToEdit) + 15;
-    if (newTimeMinute === 60) {
-      newTimeMinute = "00";
-      const newHour = parseInt(slot.split("-")[1].split(":")[0]) + 1;
-      if (newHour === 12) {
-        AMPM = "pm";
-        return `${day}-${newHour}:${newTimeMinute}${AMPM}`;
-      } else {
-        return `${day}-${newHour}:${newTimeMinute}${AMPM}`;
-      }
+  const [existingClient, setExistingClient] = useState([]);
+  const [barberError, setBarberError] = useState(false);
+  const [serviceError, setServiceError] = useState(false);
+  const [overLappingError, setOverLappingError] = useState(false);
+  const [sendSMS, setSendSMS] = useState(true);
+  const { isMobile } = useContext(IsMobileContext);
+  const { clients } = useContext(ClientsContext);
+
+  //check if barber is selected
+  useEffect(() => {
+    if (Object.keys(selectedBarberForm).length === 0) {
+      setBarberError(true);
     } else {
-      return `${day}-${hour}:${newTimeMinute}${AMPM}`;
+      setBarberError(false);
+    }
+    if (Object.keys(selectedService).length === 0) {
+      setServiceError(true);
+    } else {
+      setServiceError(false);
+    }
+  }, [selectedBarberForm, selectedService]);
+  //searches for client data (when admin enters name in the client name input)
+  const fetchClientData = async (name) => {
+    if (name.length <= 1) {
+      setExistingClient([]);
+      return;
+    }
+    const clientsData = getClientsByName(name, clients);
+    if (clientsData.length > 5) {
+      setExistingClient(clientsData.slice(0, 5));
+    } else if (clientsData.length > 0 && clientsData.length <= 5) {
+      setExistingClient(getClientsByName(name, clients));
+    }
+    if (clientsData.length === 0) {
+      setExistingClient([]);
+    }
+  };
+  const fetchClientNumber = async (number) => {
+    if (number.length <= 1) {
+      setExistingClient([]);
+      return;
+    }
+    const clientsData = getClientByNumber(number, clients);
+    if (clientsData.length > 5) {
+      setExistingClient(clientsData.slice(0, 5));
+    } else if (clientsData.length > 0 && clientsData.length <= 5) {
+      setExistingClient(getClientByNumber(number, clients));
+    }
+    if (clientsData.length === 0) {
+      setExistingClient([]);
     }
   };
 
   //submit reservation
   const handleSubmit = (e) => {
     e.preventDefault();
-    let reservation = {};
-    if (selectedService.duration === 1) {
-      reservation = {
-        barber: selectedBarberForm.given_name,
-        date: selectedDate.toDateString(),
-        slot: selectedSlot,
-        service: selectedService,
-        fname: clientName.split(" ")[0],
-        lname: clientName.split(" ")[1],
-        email: clientEmail,
-        number: clientNumber,
-      };
-    } else {
-      const newSlotArray = [...selectedSlot, selectNextSlot(selectedSlot[0])];
-      reservation = {
-        barber: selectedBarberForm.given_name,
-        date: selectedDate.toDateString(),
-        slot: newSlotArray,
-        service: selectedService,
-        fname: clientName.split(" ")[0],
-        lname: clientName.split(" ")[1] || "",
-        email: clientEmail,
-        number: clientNumber,
-      };
-    }
+    const formattedClientNumber = clientNumber.replace(/\D/g, "");
+    const reservation = {
+      barber: selectedBarberForm.given_name,
+      date: selectedDate.toDateString(),
+      slot: selectedSlot,
+      service: selectedService,
+      fname: clientName.split(" ")[0],
+      email: clientEmail,
+      number: formattedClientNumber,
+      sendSMS: sendSMS,
+      lname: clientName.split(" ").slice(1).join(" ") || "",
+    };
 
-    const resId = uuidv4();
-
-    reservation._id = resId;
-
-    const isClient = clients.some(
-      (client) => client.email === reservation.email
-    );
-
-    if (isClient) {
-      reservation.client_id = clients.find(
-        (client) => client.email === reservation.email
-      )._id;
-      const client = clients.find(
-        (client) => client.email === reservation.email
-      );
-      client.reservations.push(resId);
-      client.note = "hi";
-      setClients([...clients]);
-    } else {
-      const clientId = uuidv4();
-      reservation.client_id = clientId;
-      setClients([
-        ...clients,
-        {
-          _id: clientId,
-          email: reservation.email,
-          note: "hi",
-          fname: reservation.fname,
-          lname: reservation.lname,
-          number: reservation.number,
-          reservations: [resId],
-        },
-      ]);
-    }
-    console.log(reservation);
+    reservation._id = uuidv4();
+    reservation.client_id = uuidv4();
     setReservations([...reservations, reservation]);
     setNotification("Reservation added successfully");
+
     setSelectedSlot("");
+    setSlotBeforeCheck("");
     setBarber({});
     setClientName("");
     setClientEmail("");
     setClientNumber("");
     setSelectedService("");
+    setError(true);
+    document.getElementById("clientname").value = "";
   };
-
   //saves input data to state and checks for errors
   const handleChange = (e, name) => {
     e.preventDefault();
@@ -145,40 +140,41 @@ const AddReservation = () => {
         } else {
           if (!validEmail(e.target.value)) {
             setEmailError("invalid email");
-            setError(true);
           } else {
             setEmailError("");
-            if (nameError === "" && numberError === "") {
-              setError(false);
-            }
           }
         }
         break;
       case "number":
         setClientNumber(e.target.value);
-        //check number
+        if (e.target.value.length > 2) {
+          fetchClientNumber(e.target.value);
+        }
         if (e.target.value.length === 0) {
           setNumberError("");
-        } else {
-          if (isNaN(e.target.value) || e.target.value.length !== 10) {
-            setNumberError("invalid phone number");
-            setError(true);
-          } else {
-            setNumberError("");
-            if (emailError === "" && nameError === "") {
-              setError(false);
-            }
-          }
+        }
+        if (numberError === "" && nameError === "") {
+          setError(false);
         }
         break;
       case "name":
         setClientName(e.target.value);
-        if (e.target.value.length <= 2) {
-          setNameError("name is required");
+        if (e.target.value.length > 2) {
+          // If the entered name has more than 3 letters, fetch client data
+          fetchClientData(e.target.value);
+        }
+        if (e.target.value.length <= 2 && e.target.value.length !== 0) {
+          setNameError("Name is required");
           setError(true);
+          fetchClientData(e.target.value);
+        } else if (e.target.value.length === 0) {
+          setNameError("Name is required");
+          setTimeout(() => {
+            setNameError(" ");
+          }, 2000);
         } else {
           setNameError("");
-          if (emailError === "" && numberError === "") {
+          if (numberError === "" && nameError === "") {
             setError(false);
           }
         }
@@ -187,12 +183,13 @@ const AddReservation = () => {
         break;
     }
   };
+
   //saves date to state
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setSelectedSlot("");
+    setSlotBeforeCheck("");
   };
-
   return (
     <Wrapper>
       <Title>Make a reservation</Title>
@@ -200,6 +197,7 @@ const AddReservation = () => {
         onSubmit={(e) => {
           handleSubmit(e);
         }}
+        id="rsvp"
       >
         <div>
           <LabelInputWrapper>
@@ -209,12 +207,55 @@ const AddReservation = () => {
                 type="text"
                 placeholder="Name"
                 name="name"
+                id="clientname"
                 required
-                defaultValue={clientName}
                 onChange={(e) => {
                   handleChange(e, e.target.name);
                 }}
               ></StyledInput>
+              {existingClient.length && (
+                <ExistingClientSelect $isMobile={isMobile}>
+                  <StyledClose
+                    onClick={() => {
+                      setExistingClient([]);
+                    }}
+                  >
+                    X
+                  </StyledClose>
+                  {existingClient.map((client) => {
+                    return (
+                      <Client
+                        key={client.number}
+                        onClick={() => {
+                          setExistingClient([]);
+                          setClientEmail(client.email || "");
+                          setClientNumber(client.number);
+                          setClientName(client.fname + " " + client.lname);
+                          setNameError("");
+                          if (
+                            !barberError &&
+                            !serviceError &&
+                            !overLappingError
+                          ) {
+                            setError(false);
+                          }
+                          document.getElementById("clientname").value =
+                            client.fname + " " + client.lname;
+                        }}
+                      >
+                        {highlightText(
+                          `${client.fname} ${client.lname}`,
+                          clientName
+                        )}{" "}
+                        <br />
+                        {client.email}
+                        <br />
+                        {highlightText(`${client.number}`, clientNumber)}
+                      </Client>
+                    );
+                  })}
+                </ExistingClientSelect>
+              )}
             </SelectedSlotContainer>
             {nameError !== "" && <ErrorMessage>{nameError}</ErrorMessage>}
           </LabelInputWrapper>
@@ -225,7 +266,7 @@ const AddReservation = () => {
                 type="text"
                 placeholder="email@example.com (Optional)"
                 name="email"
-                defaultValue={clientEmail}
+                value={clientEmail}
                 onChange={(e) => {
                   handleChange(e, e.target.name);
                 }}
@@ -240,7 +281,7 @@ const AddReservation = () => {
                 type="text"
                 placeholder="5144304287 (Optional)"
                 name="number"
-                defaultValue={clientNumber}
+                value={clientNumber}
                 onChange={(e) => {
                   handleChange(e, e.target.name);
                 }}
@@ -264,7 +305,13 @@ const AddReservation = () => {
             setBarber={setBarber}
           />
         </div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <ServiceSelector
             selectedService={selectedService}
             setSelectedService={setSelectedService}
@@ -275,17 +322,50 @@ const AddReservation = () => {
             selectedService={selectedService}
             selectedDate={selectedDate}
             setSelectedSlot={setSelectedSlot}
+            setSlotBeforeCheck={setSlotBeforeCheck}
+            slotBeforeCheck={slotBeforeCheck}
+            overLappingError={overLappingError}
+            setOverLappingError={setOverLappingError}
+            setSelectedService={setSelectedService}
           />
+          <CheckboxWrapper>
+            <input
+              type="checkbox"
+              defaultChecked={sendSMS}
+              onClick={() => {
+                setSendSMS(!sendSMS);
+              }}
+            />
+            <label>Send SMS</label>
+          </CheckboxWrapper>
+          <Book
+            type="submit"
+            disabled={
+              error ||
+              barberError ||
+              serviceError ||
+              overLappingError ||
+              nameError === " " ||
+              selectedSlot === "" ||
+              selectedSlot.length === 0
+            }
+            key={"book"}
+          >
+            Book
+          </Book>
         </div>
-
-        <Book type="submit" disabled={error}>
-          Book
-        </Book>
       </StyledForm>
     </Wrapper>
   );
 };
-
+const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0;
+  color: whitesmoke;
+  width: 7vw;
+`;
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -298,10 +378,13 @@ const fadeIn = keyframes`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1.2rem;
   height: 100vh;
   background-color: #011c13;
   border-radius: 20px;
+  @media (max-width: 768px) {
+    height: unset;
+    margin-top: 5vh;
+  }
 `;
 
 const Title = styled.h1`
@@ -312,6 +395,9 @@ const Title = styled.h1`
   margin-top: 0;
   border-radius: 20px;
   padding: 20px 0 20px 0;
+  @media (max-width: 768px) {
+    font-size: clamp(20px, 22px, 26px);
+  }
 `;
 
 const StyledForm = styled.form`
@@ -323,6 +409,10 @@ const StyledForm = styled.form`
   align-items: flex-start;
   font-family: "Roboto", sans-serif;
   height: 100%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CustomDatePicker = styled(DatePicker)`
@@ -336,7 +426,7 @@ const CustomDatePicker = styled(DatePicker)`
   caret-color: transparent;
   text-align: center;
   transition: 0.3s ease-in-out;
-  font-size: 1.2rem;
+  font-size: clamp(16px, 18px, 22px);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 10px 0 10px 0;
   background-color: #035e3f;
@@ -345,7 +435,9 @@ const CustomDatePicker = styled(DatePicker)`
   &:hover {
     cursor: pointer;
     background-color: #ccc;
-    color: #035e3f;
+  }
+  @media (max-width: 768px) {
+    width: 80vw;
   }
 `;
 
@@ -357,10 +449,14 @@ const CalendarContainer = styled.div`
   top: -9vh;
   left: -7vw;
   animation: ${fadeIn} 0.2s ease-in-out;
-  transform: scale(1.3) translateX(70%) translateY(42%);
+  transform: scale(1.3) translateX(40%) translateY(40%);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  @media (max-width: 768px) {
+    left: -45vw;
+    top: -5vh;
+  }
 `;
 
 export const SelectedSlotContainer = styled.div`
@@ -379,6 +475,9 @@ export const StyledLabel = styled.label`
   border-bottom: 1px solid #035e3f;
   color: #049f6a;
   margin: 20px 0 10px 0;
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 
 export const LabelInputWrapper = styled.div`
@@ -400,7 +499,7 @@ const StyledInput = styled.input`
   margin: 5px 0 0 0;
   transition: 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  font-size: 1.2rem;
+  font-size: clamp(16px, 18px, 22px);
   width: 30vw;
   padding: 10px 0 10px 0;
   &:hover {
@@ -409,22 +508,24 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 
 const Book = styled.button`
   border-radius: 10px;
   border: 2px solid transparent;
-  position: absolute;
   width: 15vw;
-  bottom: 200px;
   background-color: #035e3f;
+  position: relative;
   color: white;
   padding: 10px 20px 10px 20px;
   text-align: center;
   transition: 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   font-size: 20px;
-
+  margin: 50px 0px;
   &:hover {
     background-color: whitesmoke;
     color: #035e3f;
@@ -442,13 +543,59 @@ const Book = styled.button`
       color: white;
     }
   }
+  @media (max-width: 768px) {
+    width: 60vw;
+    margin: 50px 0 100px 0;
+  }
 `;
 
 const ErrorMessage = styled.span`
   color: red;
   position: absolute;
+  width: 90vw;
   left: 0;
   bottom: -30%;
 `;
-
+const ExistingClientSelect = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: ${(props) =>
+    props.$isMobile ? "translateX(-31.5%)" : "translateY(0%)"};
+  width: ${(props) => (props.$isMobile ? "80.5vw" : "100%")};
+  background-color: #035e3f;
+  color: white;
+  padding: 10px 0;
+  z-index: 100;
+`;
+const Client = styled.div`
+  padding: 10px 0;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+  border-bottom: 1px solid #ccc;
+  margin: 0 10px;
+  &:hover {
+    background-color: #049f6a;
+    cursor: pointer;
+  }
+  &:last-of-type {
+    border-bottom: none;
+  }
+`;
+const StyledClose = styled.button`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  padding: 5px 8px;
+  transition: 0.3s ease-in-out;
+  border: 2px solid transparent;
+  background-color: #035e3f;
+  color: whitesmoke;
+  border-radius: 50%;
+  &:hover {
+    background-color: #049f6a;
+    border: 2px solid white;
+    cursor: pointer;
+  }
+`;
 export default AddReservation;

@@ -1,535 +1,347 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ThemeContext from "../contexts/ColorTheme";
-import {
-  BackButton,
-  DemoButton,
-  Container,
-  BgImage,
-  Wrapper,
-  CardTitle,
-  List,
-} from "./ECommerceDescription";
-import gsap, { TimelineLite } from "gsap";
-import { Title, ProjectCard } from "./Projects";
+import { CardTitle, StyledImage, Title } from "./GuitarDescription";
 import barberShopSrc from "../../assets/barbershopSS.png";
 import styled from "styled-components";
-const BarberShopDescription = ({
-  eCommerceRef,
-  guitarRef,
-  hollywoodRef,
-  descriptionRef,
-  hoverEffect,
-  unHoverEffect,
-  isMobile,
-}) => {
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
+import { LinkToWebsite } from "./Vblack";
+import { AnimationWrap } from "./PixSnap";
+import clientSS from "../../assets/clientSS.png";
+import gsap from "gsap";
+const BarberShopDescription = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
-  const [showDemo, setShowDemo] = useState(false);
   const { theme } = useContext(ThemeContext);
-  const [animationStatus, setAnimationStatus] = useState("notInProgress");
+  const collapseRef = useRef(null);
+  const expandRef = useRef(null);
 
-  //Animation funtion for the description, mobile version
-  const animateDescriptionMobile = (descriptionRef) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    descriptionRef.current &&
-      tl.fromTo(
-        descriptionRef.current,
-        {
-          opacity: "0",
-          position: "absolute",
-          top: "0",
-          left: "0",
-        },
-        {
-          opacity: "1",
-          duration: 1,
-          delay: 1,
-        }
-      );
-  };
-  // Animation funtion for the description, desktop version
-  const animateDescription = (descriptionRef) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    descriptionRef.current &&
-      tl.fromTo(
-        descriptionRef.current,
-        {
-          opacity: "0",
-          position: "absolute",
-          top: "60%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-        },
-        {
-          opacity: "1",
-          duration: 1,
-          delay: 1,
-        }
-      );
-  };
   useEffect(() => {
-    isMobile
-      ? animateDescriptionMobile(descriptionRef)
-      : animateDescription(descriptionRef);
-  }, [showDemo, descriptionRef, isMobile]);
+    if (collapsed.hollywood) {
+      gsap.fromTo(
+        expandRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          duration: 1,
+          opacity: 1,
+        }
+      );
+    } else {
+      gsap.fromTo(
+        collapseRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          duration: 1,
+          opacity: 1,
+        }
+      );
+    }
+  }, [collapsed.hollywood]);
 
-  //Animation funtion for the project Card, desktop version
-  const animateShowDescription = (
-    refClicked,
-    secondProjCard,
-    thirdProjCard
-  ) => {
-    setAnimationStatus("inProgress");
-    setTimeout(() => {
-      setAnimationStatus("notInProgress");
-    }, 2000);
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      thirdProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      secondProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "1" },
-      {
-        opacity: "0",
-        zIndex: "-1",
-        scale: "3",
-        duration: 0.4,
-        x: "-100%",
-      }
-    );
+  //when collapse is pressed, animate the collapse
+  const animateCollapse = () => {
+    gsap.to(collapseRef.current, {
+      duration: 0.5,
+      maxHeight: "0",
+      minHeight: "8vh",
+      opacity: 0,
+      onComplete: () => {
+        setCollapsed({ ...collapsed, hollywood: true });
+      },
+    });
   };
-
-  //Animation funtion for the closing of project Card, desktop version
-  const unanimateShowDescription = (refClicked, otherRef, orhterOtherRef) => {
-    setAnimationStatus("inProgress");
-    setTimeout(() => {
-      setAnimationStatus("notInProgress");
-    }, 2000);
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "0" },
-      {
-        opacity: "1",
-        zIndex: "0",
-        scale: "1",
-        x: "0",
-        duration: 0.4,
-      }
-    );
-    tl.fromTo(
-      otherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
-    tl.fromTo(
-      orhterOtherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
+  const animateExpand = () => {
+    gsap.to(expandRef.current, {
+      duration: 0.5,
+      maxHeight: "80vh",
+      minHeight: "40vh",
+      opacity: 0,
+      onComplete: () => {
+        setCollapsed({ ...collapsed, hollywood: false });
+      },
+    });
   };
-  // Animation funtion for the project Card, mobile version
-  const animateShowDescriptionMobile = (
-    refClicked,
-    secondProjCard,
-    thirdProjCard
-  ) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      thirdProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      secondProjCard.current,
-      { opacity: "1", y: "0" },
-      {
-        y: "100%",
-        opacity: "0",
-        zIndex: "-1",
-        duration: 0.2,
-      }
-    );
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "1" },
-      {
-        opacity: "0",
-        zIndex: "-1",
-        scale: "2",
-        duration: 0.4,
-        y: "-300%",
-      }
-    );
-  };
-
-  //Animation funtion for the closing of project Card, mobile version
-  const unanimateShowDescriptionMobile = (
-    refClicked,
-    otherRef,
-    orhterOtherRef
-  ) => {
-    gsap.registerPlugin(TimelineLite);
-    const tl = new TimelineLite();
-    tl.fromTo(
-      refClicked.current,
-      { opacity: "0" },
-      {
-        opacity: "1",
-        zIndex: "0",
-        scale: "1",
-        y: "0",
-        duration: 0.4,
-      }
-    );
-    tl.fromTo(
-      otherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
-    tl.fromTo(
-      orhterOtherRef.current,
-      { y: "100%", opacity: "0" },
-      { y: "0", opacity: "1", zIndex: "1", duration: 0.2 }
-    );
-  };
-
   return (
-    <div>
-      {showDemo && (
-        <Container ref={descriptionRef}>
-          {isMobile ? (
-            <Title
-              style={{
-                width: "95%",
-                height: "10vh",
-                position: "fixed",
-              }}
-            ></Title>
-          ) : (
-            <Title
-              style={{
-                width: "100%",
-                height: "10vh",
-                position: "fixed",
+    <Container $theme={theme}>
+      {collapsed.hollywood ? (
+        <CollapseWrapper ref={expandRef}>
+          {" "}
+          <Title $theme={theme}>
+            Hollywood Barber Shop{" "}
+            <Collapse $theme={theme} onClick={() => animateExpand()}>
+              <FaAngleDown />{" "}
+            </Collapse>
+          </Title>{" "}
+          <CardTitle $theme={theme}>May 2023 - April 2024</CardTitle>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              $theme={theme}
+              onClick={() => {
+                navigate("/projects/hollywoodBarberShop/schedule");
               }}
             >
-              Hollywood Barber Shop
-            </Title>
-          )}
+              Demo (admin)
+            </Button>
+            <LinkToWebsite
+              $theme={theme}
+              href="https://hollywoodfairmountbarbers.com"
+            >
+              Visit (client)
+            </LinkToWebsite>
+          </div>
+        </CollapseWrapper>
+      ) : (
+        <AnimationWrap ref={collapseRef}>
+          <TitleImgWrap>
+            <div>
+              <Title $theme={theme}>
+                Hollywood Barber Shop
+                <Collapse $theme={theme} onClick={() => animateCollapse()}>
+                  <FaAngleUp />{" "}
+                </Collapse>
+              </Title>
+              <CardTitle style={{ marginTop: "5vh" }} $theme={theme}>
+                Overview
+              </CardTitle>
+              <p>
+                Hollywood Barber Shop is a modern, full-stack application
+                designed to streamline the barber booking experience for both
+                clients and barbers. The platform features an intuitive user
+                interface and powerful admin tools, making it the perfect
+                solution for managing appointments, services, and client
+                interactions seamlessly.
+              </p>
+            </div>
+          </TitleImgWrap>
+          <CardTitle $theme={theme}>Requirements & Features</CardTitle>
+          <RequireWrapper>
+            <div>
+              <CardTitle style={{ fontSize: "1.2rem" }} $theme={theme}>
+                Client Side
+              </CardTitle>
+              <a
+                href="https://hollywoodfairmountbarbers.com"
+                style={{ width: "80%" }}
+              >
+                <StyledImage
+                  style={{ width: "80%" }}
+                  src={clientSS}
+                  alt="Hollywood Barber Shop"
+                  onClick={() => {
+                    navigate("/projects/hollywoodBarberShop/schedule");
+                  }}
+                />
+              </a>
+              <p>
+                <strong>Users can:</strong>
+              </p>
+              <ul>
+                <li>
+                  Access detailed information about the shop, including
+                  services, barbers’ profiles, and essential links such as
+                  social media, location, and contact details.
+                </li>
+                <li>
+                  Book appointments effortlessly and receive automated
+                  confirmation messages (or emails soon!).
+                </li>
+              </ul>
+              <p>
+                <strong>Booking Flow:</strong>
+              </p>
+              <ul>
+                <li>
+                  <strong>Navigation:</strong> A visually engaging featuring
+                  four key sections: services, about, barbers, and a booking
+                  form.
+                </li>
+                <li>
+                  <strong>Personal Information Form:</strong> Easy-to-complete
+                  forms with validation, guiding users step-by-step through the
+                  booking process.
+                </li>
+                <li>
+                  <strong>Booking Form & Confirmation:</strong> Users finalize
+                  their bookings and are presented with a summary confirmation
+                  page and a detailed SMS.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <CardTitle style={{ fontSize: "1.2rem" }} $theme={theme}>
+                Admin Side
+              </CardTitle>
+              <StyledImage
+                style={{ width: "80%" }}
+                src={barberShopSrc}
+                alt="Hollywood Barber Shop"
+                onClick={() => {
+                  navigate("/projects/hollywoodBarberShop/schedule");
+                }}
+              />
+              <p>
+                <strong>Barbers can:</strong>
+              </p>
+              <ul>
+                <li>
+                  Manage their schedules via an interactive{" "}
+                  <strong>calendar</strong>, allowing them to view, edit, or
+                  cancel reservations as needed.
+                </li>
+                <li>
+                  Create new reservations directly through a user-friendly form.
+                </li>
+                <li>
+                  Adjust their weekly availability by toggling specific time
+                  slots or taking time off using a date range selection.
+                </li>
+              </ul>
+              <p>
+                <strong>Tools for Management:</strong>
+              </p>
+              <ul>
+                <li>
+                  <strong>Profile Management:</strong> Add, edit, or delete
+                  personal profiles (name, picture, and description) displayed
+                  to clients.
+                </li>
+                <li>
+                  <strong>Service Customization:</strong> Manage services,
+                  including names, prices, and durations, directly from the
+                  admin panel.
+                </li>
+                <li>
+                  <strong>Text and Images Editor:</strong> Update the website's
+                  client-facing text and imagery to keep the content fresh and
+                  relevant.
+                </li>
+                <li>
+                  <strong>Client Database:</strong> Access and manage a database
+                  of clients with the ability to view, edit, or delete client
+                  details (name, email, phone number).
+                </li>
+              </ul>
+            </div>
+          </RequireWrapper>
 
-          <Wrapper theme={theme}>
-            <InfoWrapper>
-              <InfoCard>
-                <CardTitle>Requirements</CardTitle>
-                <p
-                  style={{
-                    marginLeft: "20px",
-                    fontWeight: "600",
-                    opacity: "0.7",
-                    color: "yellow",
-                  }}
-                >
-                  Client Side
-                </p>
-                <List>
-                  <p style={{ marginLeft: "20px", marginRight: "20px" }}>
-                    Users should be able to:
-                  </p>
-                  <li>
-                    Check all the relevant information, such as services
-                    offered, the barbers, the shop's story as well as all the
-                    links (socials, location and contact info).
-                  </li>
-                  <br />
-                  <li>Book an appointment and recieve a confirmation email.</li>
-                </List>
-                <p
-                  style={{
-                    marginLeft: "20px",
-                    fontWeight: "600",
-                    opacity: "0.7",
-                    color: "yellow",
-                  }}
-                >
-                  Admin Side
-                </p>
-
-                <List>
-                  <p style={{ marginLeft: "20px", marginRight: "20px" }}>
-                    Admins (barbers) should be able to:
-                  </p>
-                  <li>
-                    View their reservations on the calendar and edit/cancel them
-                    if needed.
-                  </li>
-                  <br />
-                  <li>Make a new reservation.</li>
-                  <br />
-                  <li>
-                    Change their weekly availability (make slots available to
-                    book or vice versa)
-                  </li>
-                  <br />
-                  <li>
-                    Take time off (make a specific day or more unavailable)
-                  </li>
-                  <br />
-                  <li>
-                    Edit their profile (which is shown on the client side)
-                  </li>
-                  <br />
-                  <li>Edit text or images that are shown on the client side</li>
-                  <br />
-                  <li>Edit their services (names, prices, duration etc...)</li>
-                </List>
-              </InfoCard>
-              <InfoCard style={{ overflowY: "scroll" }}>
-                <CardTitle>Admin Side</CardTitle>{" "}
-                <p
-                  style={{
-                    marginLeft: "20px",
-                    fontWeight: "600",
-                    opacity: "0.7",
-                    color: "yellow",
-                  }}
-                >
-                  Schedule
-                </p>
-                <List>
-                  <li>
-                    Calendar, <br />
-                    Display all the reservations made, and allow the barber to
-                    click on reservations to edit or delete them.
-                  </li>
-                  <br />
-                  <li>Reservation Form.</li>
-                </List>
-                <p
-                  style={{
-                    marginLeft: "20px",
-                    fontWeight: "600",
-                    opacity: "0.7",
-                    color: "yellow",
-                  }}
-                >
-                  Availability
-                </p>
-                <List>
-                  <li>
-                    Availability Grid, <br />
-                    Barbers can click on slots to toggle them from available to
-                    unavailable and vice versa.
-                  </li>
-                  <br />
-                  <li>
-                    Time Off, <br />
-                    Barbers will select start date and end date to make every
-                    slot in between unavailable to book.
-                  </li>
-                </List>
-                <p
-                  style={{
-                    marginLeft: "20px",
-                    fontWeight: "600",
-                    opacity: "0.7",
-                    color: "yellow",
-                  }}
-                >
-                  Tools
-                </p>
-                <List>
-                  <li>
-                    Profile, <br />
-                    Barbers can add, delete or edit their profile (name,
-                    picture, description).
-                  </li>
-                  <br />
-                  <li>
-                    Services, <br />
-                    Barbers can add, delete or edit their services (name, price,
-                    duration).
-                  </li>
-                  <br />
-                  <li>
-                    Text/Images, <br />
-                    Barbers can edit the text/images that is shown on the client
-                    side.
-                  </li>
-                  <br />
-                  <li>
-                    Clients, <br />
-                    Barbers can view/edit/delete all the clients that have
-                    previously booked with them. (name, email, phone number)
-                  </li>
-                </List>
-              </InfoCard>
-              <InfoCard>
-                <CardTitle>Client Side</CardTitle>
-                <List>
-                  <li>
-                    Built a single page showcasing all 3 sections (Menu, About,
-                    Barbers) with a slideshow as the landing page.
-                  </li>
-                  <br />
-                  <li>
-                    Any "Book" button will navigate the user to the first step
-                    of the booking, "Personal Information Form".
-                  </li>
-                  <br />
-                  <li>
-                    "Next Step" button will then validate the data and navigate
-                    the user to the "Booking Form".
-                  </li>
-                  <br />
-                  <li>
-                    "Submit" button will then validate the data and navigate the
-                    user to the "Confirmation" page, where all the information
-                    will be displayed .
-                  </li>
-                  <br />
-                  <li>
-                    Users will also recieve a confirmation email with all said
-                    information.
-                  </li>
-                </List>
-              </InfoCard>
-            </InfoWrapper>
-          </Wrapper>
-          <BackButton
-            onClick={() => {
-              isMobile
-                ? unanimateShowDescriptionMobile(
-                    hollywoodRef,
-                    guitarRef,
-                    eCommerceRef
-                  )
-                : unanimateShowDescription(
-                    hollywoodRef,
-                    guitarRef,
-                    eCommerceRef
-                  );
-              setShowDemo(false);
-            }}
-          ></BackButton>
-          <DemoButton
-            onClick={() => {
-              isMobile
-                ? window.alert("Available only on desktop")
-                : navigate("/projects/hollywoodBarberShop/schedule");
-            }}
-          >
-            Demo
-          </DemoButton>
-        </Container>
+          <div>
+            <p>
+              This project is a testament to creating a professional and
+              efficient online booking platform that caters to the needs of both
+              clients and administrators.
+            </p>
+            Checkout the demo I built for the admin side{" "}
+            <Link
+              $theme={theme}
+              onClick={() => {
+                navigate("/projects/hollywoodBarberShop/schedule");
+              }}
+            >
+              Barbershop Demo
+            </Link>
+            or visit the client side{" "}
+            <RealLink
+              href="https://hollywoodfairmountbarbers.com"
+              style={{ textDecoration: "none", color: "#a742bc" }}
+            >
+              here
+            </RealLink>
+          </div>
+        </AnimationWrap>
       )}
-
-      <ProjectCard
-        key={"hollywoodProject"}
-        ref={hollywoodRef}
-        onMouseEnter={() => {
-          animationStatus === "notInProgress" && hoverEffect(hollywoodRef);
-        }}
-        onMouseLeave={() => {
-          animationStatus === "notInProgress" && unHoverEffect(hollywoodRef);
-        }}
-        onClick={() => {
-          isMobile
-            ? animateShowDescriptionMobile(
-                hollywoodRef,
-                eCommerceRef,
-                guitarRef
-              )
-            : animateShowDescription(hollywoodRef, eCommerceRef, guitarRef);
-          setShowDemo(true);
-        }}
-      >
-        <Title>Hollywood Barber Shop</Title>
-        <BgImage src={barberShopSrc} alt="screenshot of the project" />
-      </ProjectCard>
-    </div>
+    </Container>
   );
 };
-
-const InfoWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  grid-template-rows: 80%;
-  position: relative;
-  top: 58%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-35%);
-  column-gap: 3%;
-  row-gap: 3%;
-  width: 90%;
-  height: 100%;
-  padding-left: 3%;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    top: 14vh;
-    left: 0;
-    width: 90%;
-    gap: 2vh;
-    transform: translateX(2.5%) translateY(0);
-  }
-`;
-const InfoCard = styled.div`
-  width: 100%;
-  height: 80%;
-  background-color: rgba(0, 0, 0, 0.8);
-  font-family: "Roboto", sans-serif;
-  color: white;
-  padding: 10px 0;
-  transition: 0.3s ease-in-out;
-  border-radius: 10px;
-  cursor: pointer;
+const RealLink = styled.a`
+  color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
+  background-color: transparent;
+  border: none;
   font-size: 1.2rem;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-size: 1.4rem;
   &:hover {
-    height: 105%;
-    position: relative;
-    transform: translateY(-11.5%);
-    box-shadow: 0 0 10px 0px #50196f;
+    color: ${(props) => (props.$theme === "dark" ? "#50196f" : "whitesmoke")};
   }
-  @media (max-width: 768px) {
-    font-size: 18px;
+`;
+const Link = styled.button`
+  color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-size: 1.4rem;
+  &:hover {
+    color: ${(props) => (props.$theme === "dark" ? "#50196f" : "whitesmoke")};
+  }
+`;
+export const Collapse = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
+  font-size: 2rem;
+  cursor: pointer;
+`;
+export const CollapseWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  width: 100%;
+  align-items: baseline;
+  min-height: 8vh;
+`;
+
+export const TitleImgWrap = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+const Container = styled.div`
+  position: relative;
+  color: whitesmoke;
+  font-family: "Roboto", sans-serif;
+  width: 90%;
+  display: flex;
+  gap: 5vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: ${(props) =>
+    props.$theme === "dark" ? "3px solid #a742bc" : "3px solid #50196f"};
+  padding: 3% 0;
+
+  p,
+  li,
+  div {
+    color: ${(props) => (props.$theme === "dark" ? "whitesmoke" : "black")};
   }
 `;
 
+const RequireWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 45% 45%;
+  gap: 5vw;
+  width: 100%;
+`;
+export const Button = styled.button`
+  color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "white")};
+  background-color: ${(props) =>
+    props.$theme === "dark" ? "transparent" : "#50196f"};
+  border: ${(props) =>
+    props.$theme === "dark" ? "1px solid #a742bc" : "1px solid #50196f"};
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  padding: 1vh 2vw;
+  &:hover {
+    background-color: white;
+    color: #50196f;
+  }
+`;
 export default BarberShopDescription;

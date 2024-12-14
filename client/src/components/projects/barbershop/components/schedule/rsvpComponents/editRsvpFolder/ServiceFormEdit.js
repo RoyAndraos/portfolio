@@ -32,7 +32,7 @@ const ServiceFormEdit = ({ reservation, handleChange }) => {
         $props={serviceEdit}
         onClick={() => {
           if (serviceEdit) {
-            handleChange("service", reservation.service);
+            handleChange("service", reservation.service.name);
             if (serviceEdit === "false") {
               setServiceEdit("true");
             } else {

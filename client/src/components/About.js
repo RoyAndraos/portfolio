@@ -50,8 +50,7 @@ const About = () => {
           </SpecialWord>
           where I found my passion for programming.
           <br />
-          <br />
-          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
+          <p>
             Armed with curiosity and determination, I delved into web
             development. Self-taught in{" "}
             <SpecialWord theme={theme} ref={(el) => (words.current[1] = el)}>
@@ -68,7 +67,6 @@ const About = () => {
             I soon discovered the power of bringing designs to life and creating
             interactive user experiences.
           </p>
-          <br />
           Eager to deepen my skills, I embarked on a transformative journey by
           enrolling in a{" "}
           <SpecialWord theme={theme} ref={(el) => (words.current[4] = el)}>
@@ -80,8 +78,7 @@ const About = () => {
           </SpecialWord>{" "}
           for front-end development.
           <br />
-          <br />
-          <p style={{ textAlign: "right", width: "100%", margin: "0" }}>
+          <p>
             With{" "}
             <SpecialWord theme={theme} ref={(el) => (words.current[6] = el)}>
               Node.js and Express.js
@@ -93,7 +90,6 @@ const About = () => {
             rounding out my skills and bringing a holistic approach to my
             projects.
           </p>
-          <br />
           Today, I am on a constant quest for innovation, from concept to code,
           I turn ideas into user-centric experiences.
         </div>
@@ -105,10 +101,9 @@ const About = () => {
 
 const FirstViewport = styled.div`
   display: flex;
-  height: 85vh;
-  top: 10vh;
+  top: 13vh;
   width: 100vw;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   position: relative;
@@ -124,20 +119,21 @@ const FirstViewport = styled.div`
 
 const Story = styled.div`
   color: ${(props) => (props.theme === "light" ? "black" : "white")};
-  background-color: ${(props) =>
-    props.theme === "light" ? "rgba(255,255,255,0.9)" : "transparent"};
-  width: 35%;
-  min-height: 85%;
+  /* background-color: ${(props) =>
+    props.theme === "light" ? "rgba(255,255,255,0.9)" : "transparent"}; */
+  width: 70%;
   display: flex;
+  min-height: 40vh;
   flex-direction: column;
   justify-content: space-evenly;
   font-weight: 600;
   border-radius: 20px;
-  padding: 10px 40px;
   font-size: clamp(1rem, 1.7vw, 1.3rem);
-  background-color: ${(props) =>
-    props.theme === "light" ? "rgba(255,255,255,0.9)" : "rgba(0, 0, 0, 0.4)"};
-  border: 2px solid #50196f;
+  /* background-color: ${(props) =>
+    props.theme === "light"
+      ? "rgba(255,255,255,0.9)"
+      : "rgba(0, 0, 0, 0.4)"}; */
+  /* border: 2px solid #50196f; */
   @media (max-width: 800px) {
     width: 80%;
     font-size: 1.2rem;
@@ -158,7 +154,6 @@ const SpecialWord = styled.span`
   color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};
 `;
 const Title = styled.div`
-  text-align: center;
   font-size: 2rem;
   width: 100%;
   color: ${(props) => (props.theme === "light" ? "#50196f" : "#a742bc")};

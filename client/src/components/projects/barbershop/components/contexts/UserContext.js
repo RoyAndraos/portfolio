@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { initialAvailability } from "../helpers";
+import { initialAvailability, dailyAvailability } from "../helpers";
 export const UserContext = createContext("");
 // handles the barber information
 export const UserProvider = ({ children }) => {
@@ -12,6 +12,7 @@ export const UserProvider = ({ children }) => {
       phone: "5554443333",
       description: "I am a barber, I cut hair, I am good at it. Hire me.",
       availability: initialAvailability,
+      dailyAvailability: dailyAvailability,
       time_off: [],
     },
   ]);

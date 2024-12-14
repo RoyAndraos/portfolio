@@ -89,7 +89,7 @@ const ECommerceDescription = ({
       }
     );
     tl.to(refClicked.current, {
-      x: "100%",
+      x: "0",
       opacity: "0",
       zIndex: "-1",
       scale: "3",

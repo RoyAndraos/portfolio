@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styled } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { getDailyHours } from "../helpers";
@@ -8,22 +8,55 @@ import { NotificationContext } from "../contexts/NotficationContext";
 import { ReservationContext } from "../contexts/ReservationContext";
 import { ServicesContext } from "../contexts/ServicesContext";
 import Loader from "../Loader";
+import { IsMobileContext } from "../contexts/IsMobileContext";
+import DailyAvailability from "./DailyAvailability";
+import { ClientsContext } from "../contexts/ClientsContext";
 const TimeSelect = () => {
   // useContext/useState: user, notification selectedBarber, switch selectedBarber, selectedCells (slot cells that are selected)
   const { setUserInfo, userInfo } = useContext(UserContext);
   const { setNotification } = useContext(NotificationContext);
-  const [selectedAdminInfo, setSelectedAdminInfo] = useState(
-    userInfo !== null ? userInfo[0] : null
-  );
-  const [showBarbers, setShowBarbers] = useState(false);
-  const [selectedCells, setSelectedCells] = useState(
-    selectedAdminInfo !== null ? selectedAdminInfo.availability : null
-  );
+  const [selectedAdminInfo, setSelectedAdminInfo] = useState(null);
+  const [dailyAvailabilityToggle, setDailyAvailabilityToggle] = useState(false);
+  const [selectedCells, setSelectedCells] = useState(null);
+  const [selectedDailyCells, setSelectedDailyCells] = useState(null);
   const { reservations } = useContext(ReservationContext);
   const { services } = useContext(ServicesContext);
+  const { isMobile } = useContext(IsMobileContext);
+  const { clients } = useContext(ClientsContext);
   const navigate = useNavigate();
 
-  if (!userInfo || !reservations || !services) return <Loader />;
+  useEffect(() => {
+    if (!selectedAdminInfo) {
+      setSelectedAdminInfo(userInfo[0]);
+      setSelectedCells(userInfo[0].availability);
+      setSelectedDailyCells(userInfo[0].dailyAvailability);
+    } else {
+      if (selectedAdminInfo === userInfo[0]) {
+        setSelectedAdminInfo(userInfo[0]);
+        setSelectedCells(userInfo[0].availability);
+        setSelectedDailyCells(userInfo[0].dailyAvailability);
+      } else {
+        setSelectedAdminInfo(selectedAdminInfo);
+        setSelectedCells(selectedAdminInfo.availability);
+        setSelectedDailyCells(selectedAdminInfo.dailyAvailability);
+      }
+    }
+  }, [selectedAdminInfo, userInfo]);
+  const handleSelectNextBarber = () => {
+    if (userInfo.length === 1) return;
+    const currentBarberIndex = userInfo.findIndex(
+      (barber) => barber.given_name === selectedAdminInfo.given_name
+    );
+    if (currentBarberIndex === userInfo.length - 1) {
+      setSelectedAdminInfo(userInfo[0]);
+      setSelectedDailyCells(userInfo[0].dailyAvailability);
+    } else {
+      setSelectedAdminInfo(userInfo[currentBarberIndex + 1]);
+      setSelectedDailyCells(userInfo[currentBarberIndex + 1].dailyAvailability);
+    }
+  };
+
+  if (!userInfo || !reservations || !services || !clients) return <Loader />;
 
   if (!selectedAdminInfo) {
     return (
@@ -42,25 +75,27 @@ const TimeSelect = () => {
   // daily hours for the table (from 9am to 8pm)
   const daily = getDailyHours();
 
-  // function: select/change barber
-  const selectBarber = (e, barber) => {
-    e.preventDefault();
-    setSelectedAdminInfo(barber);
-    setShowBarbers(!showBarbers);
-  };
-
   // function: save changes updates the availability of the selected barber in the database and the context
   const saveChanges = () => {
     setSelectedAdminInfo({ ...selectedAdminInfo, availability: selectedCells });
     const adminToBeUpdated = userInfo.findIndex(
       (user) => user.given_name === selectedAdminInfo.given_name
     );
-    const updatedUserInfo = [...userInfo];
+    let updatedUserInfo = [...userInfo];
+    if (dailyAvailabilityToggle) {
+      updatedUserInfo[adminToBeUpdated].dailyAvailability = selectedDailyCells;
+
+      setNotification("Availability updated successfully");
+    }
+    navigate("/projects/hollywoodBarberShop/schedule");
+
     updatedUserInfo[adminToBeUpdated].availability = selectedCells;
 
-    setUserInfo(updatedUserInfo);
     setNotification("Availability updated successfully");
+
     navigate("/projects/hollywoodBarberShop/schedule");
+
+    setUserInfo(updatedUserInfo);
   };
 
   // function: reset schedule resets the availability of the selected barber to the initial state (open all slots)
@@ -80,7 +115,6 @@ const TimeSelect = () => {
     "4pm",
     "5pm",
     "6pm",
-    "7pm",
   ];
 
   // function: handleCellClick toggles the availability of the selected cell
@@ -131,63 +165,106 @@ const TimeSelect = () => {
           <Reset key={"save"} onClick={saveChanges}>
             Save Changes
           </Reset>
-          <Reset key={"timeOff"} onClick={handleNavToTimeOff}>
-            Time Off
-          </Reset>
+          {!isMobile && (
+            <Reset key={"timeOff"} onClick={handleNavToTimeOff}>
+              Time Off
+            </Reset>
+          )}
+          {!isMobile && (
+            <Reset
+              key={"schedule"}
+              onClick={() => {
+                if (dailyAvailabilityToggle) {
+                  setSelectedDailyCells(selectedAdminInfo.dailyAvailability);
+                } else {
+                  setSelectedCells(selectedAdminInfo.availability);
+                }
+                setDailyAvailabilityToggle(!dailyAvailabilityToggle);
+              }}
+            >
+              {dailyAvailabilityToggle
+                ? "Today's blocked slots"
+                : "Weekly Availability"}
+            </Reset>
+          )}
         </AvailButtons>
-        <BarberContainer>
-          <AdminName onClick={() => setShowBarbers(!showBarbers)}>
-            {showBarbers ? "X" : selectedAdminInfo.given_name}
-          </AdminName>
-          {showBarbers ? (
-            <>
-              {userInfo.map((barber) => {
-                return (
-                  <AdminName
-                    key={barber.given_name}
-                    onClick={(e) => selectBarber(e, barber)}
-                  >
-                    {barber.given_name}
-                  </AdminName>
-                );
-              })}
-            </>
-          ) : null}
-        </BarberContainer>
+        {/* {isMobile ? ( */}
+        {
+          <BarberContainer>
+            <AdminName
+              key={"mobileAdminClick"}
+              onClick={() => {
+                handleSelectNextBarber();
+              }}
+            >
+              {selectedAdminInfo.given_name}
+            </AdminName>
+          </BarberContainer>
+          // ) : (
+          //   <BarberContainer>
+          //     <AdminName
+          //       key={"noMobileAdminClick"}
+          //       onClick={() => setShowBarbers(!showBarbers)}
+          //     >
+          //       {showBarbers ? "X" : selectedAdminInfo.given_name}
+          //     </AdminName>
+          //     {showBarbers ? (
+          //       <>
+          //         {userInfo.map((barber) => {
+          //           return (
+          //             <AdminName
+          //               key={barber.given_name}
+          //               onClick={(e) => selectBarber(e, barber)}
+          //             >
+          //               {barber.given_name}
+          //             </AdminName>
+          //           );
+          //         })}
+          //       </>
+          //     ) : null}
+          //   </BarberContainer>
+          // )
+        }
       </ControlPanel>
-
-      <TableWrapper>
-        <FirstRow>
-          {firstDaily.map((time, index) => (
-            <FirstRowDay key={index}>{time}</FirstRowDay>
-          ))}
-        </FirstRow>
-
-        <Table>
-          <tbody>
-            {days.map((day) => (
-              <tr key={day}>
-                <TH onClick={() => handleRowClick(day)}>{day}</TH>
-                {daily.map((_) => {
-                  const cellKey = `${day}-${_}`;
-                  const cell = selectedCells.find(
-                    (cell) => cell.slot === cellKey
-                  );
-                  const isSelected = cell && cell.available;
-                  return (
-                    <td
-                      value={_}
-                      key={cellKey}
-                      onClick={() => handleCellClick(day, _)}
-                      className={isSelected ? "" : "selected"}
-                    ></td>
-                  );
-                })}
-              </tr>
+      {!isMobile && !dailyAvailabilityToggle ? (
+        <TableWrapper>
+          <FirstRow>
+            {firstDaily.map((time, index) => (
+              <FirstRowDay key={index}>{time}</FirstRowDay>
             ))}
-          </tbody>
-        </Table>
-      </TableWrapper>
+          </FirstRow>
+
+          <Table>
+            <tbody>
+              {days.map((day) => (
+                <tr key={day}>
+                  <TH onClick={() => handleRowClick(day)}>{day}</TH>
+                  {daily.map((_) => {
+                    const cellKey = `${day}-${_}`;
+                    const cell = selectedCells.find(
+                      (cell) => cell.slot === cellKey
+                    );
+                    const isSelected = cell && cell.available;
+                    return (
+                      <td
+                        value={_}
+                        key={cellKey}
+                        onClick={() => handleCellClick(day, _)}
+                        className={isSelected ? "" : "selected"}
+                      ></td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </TableWrapper>
+      ) : (
+        <DailyAvailability
+          selectedDailyCells={selectedDailyCells}
+          setSelectedDailyCells={setSelectedDailyCells}
+        />
+      )}
     </Wrapper>
   );
 };
@@ -199,6 +276,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 90vh;
   z-index: 1;
+  overflow-x: hidden;
 `;
 
 const Table = styled.table`
@@ -227,6 +305,9 @@ const Table = styled.table`
       background-color: rgba(0, 0, 0, 0.6);
     }
   }
+  @media (max-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const TableWrapper = styled.div`
@@ -234,6 +315,11 @@ const TableWrapper = styled.div`
   height: 80vh;
   overflow: auto;
   border-radius: 30px;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
 `;
 
 const TH = styled.th`
@@ -262,6 +348,10 @@ const FirstRow = styled.div`
   top: 10%;
   left: 4.5%;
   max-width: 94.3%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: 50vh;
+  }
 `;
 const FirstRowDay = styled.div`
   background-color: #035e3f;
@@ -275,6 +365,14 @@ const FirstRowDay = styled.div`
   margin-right: 0.2%;
   &:last-of-type {
     margin-right: 0;
+  }
+  @media (max-width: 768px) {
+    height: 100%;
+    border-radius: 0;
+    margin-bottom: 1%;
+    &:first-of-type {
+      margin-top: 1%;
+    }
   }
 `;
 const Reset = styled.button`
@@ -303,6 +401,11 @@ const ControlPanel = styled.div`
   width: 80%;
   transform: translateX(10%) translateY(100%);
   z-index: 2;
+  @media (max-width: 768px) {
+    width: 90%;
+    transform: translateX(0) translateY(0);
+    margin: 20px 0;
+  }
 `;
 
 export const AdminName = styled.div`
@@ -344,4 +447,5 @@ const NoBarbers = styled.div`
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
 `;
+
 export default TimeSelect;

@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LabelInfoWrapper, StyledLabel, EditButton } from "./EditRsvp";
 import { StyledInput } from "./EmailFormEdit";
+import { ClientsContext } from "../../../contexts/ClientsContext";
 
-const NoteFormEdit = ({ note, handleChange, initialNote, setNote }) => {
+const NoteFormEdit = ({ note, handleChange, setNote }) => {
   const [noteEdit, setNoteEdit] = useState("false");
+  const { clients } = useContext(ClientsContext);
+  const initialNote = clients.find((client) => client.note === note)?.note;
   return (
     <LabelInfoWrapper>
       <StyledLabel>Note</StyledLabel>
       {noteEdit === "false" ? (
-        note !== "" ? (
-          <span>{note}</span>
+        initialNote !== "" ? (
+          <span>{initialNote}</span>
         ) : (
           <span>No Note</span>
         )

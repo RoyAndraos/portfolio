@@ -12,7 +12,7 @@ const NameFormEdit = ({ handleChange, reservation }) => {
           autoFocus
           id="lname"
           onChange={(e) => {
-            handleChange("lname", e.target.value);
+            handleChange(e.target.id, e.target.value);
           }}
         />
       ) : (
@@ -20,8 +20,8 @@ const NameFormEdit = ({ handleChange, reservation }) => {
       )}
       <EditButton
         $props={clientLNameEdit}
-        onClick={() => {
-          handleChange("lname", reservation.lname);
+        onClick={(e) => {
+          handleChange(e.target.id, reservation.lname);
           if (clientLNameEdit === "false") {
             setClientLNameEdit("true");
           } else {

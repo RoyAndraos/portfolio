@@ -25,7 +25,6 @@ const EmailFormEdit = ({ reservation, handleChange }) => {
             setClientEmailEdit("true");
           } else {
             setClientEmailEdit("false");
-            handleChange("email", reservation.email);
           }
         }}
       >

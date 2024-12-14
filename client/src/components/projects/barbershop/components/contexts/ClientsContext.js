@@ -13,6 +13,15 @@ export const ClientsProvider = ({ children }) => {
       number: "1212121212",
       reservations: ["1330505d-dbe8-4c94-b10b-30ffd21c07de"],
     },
+    {
+      _id: "b374f295-4c7a-43ee-8473-f2bae2cd1082",
+      email: "anotherEmail@example2.com",
+      note: "",
+      fname: "Jane",
+      lname: "Doe",
+      number: "1212121213",
+      reservations: ["1330505d-dbe8-4c94-b10b-30ffd21c07df"],
+    },
   ]);
   return (
     <ClientsContext.Provider value={{ clients, setClients }}>
