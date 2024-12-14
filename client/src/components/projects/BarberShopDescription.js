@@ -131,9 +131,6 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
                   style={{ width: "80%" }}
                   src={clientSS}
                   alt="Hollywood Barber Shop"
-                  onClick={() => {
-                    navigate("/projects/hollywoodBarberShop/schedule");
-                  }}
                 />
               </a>
               <p>
