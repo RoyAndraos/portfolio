@@ -12,7 +12,7 @@ import {
 import { LinkToWebsite } from "./Vblack";
 import gsap from "gsap";
 import { AnimationWrap } from "./PixSnap";
-const GuitarDescription = ({ collapsed, setCollapsed }) => {
+const GuitarDescription = ({ collapsed, setCollapsed, isMobile }) => {
   const { theme } = useContext(ThemeContext);
 
   const collapseRef = useRef(null);
@@ -84,7 +84,9 @@ const GuitarDescription = ({ collapsed, setCollapsed }) => {
               <FaAngleDown />{" "}
             </Collapse>
           </Title>
-          <CardTitle $theme={theme}>March 2023 - May 2023</CardTitle>
+          <CardTitle $theme={theme}>
+            {!isMobile ? "March 2023 - May 2023" : "Mar - May 2023"}
+          </CardTitle>
           <LinkToWebsite $theme={theme} href="https://youtu.be/kmPUFGyACNc">
             Demo (video)
           </LinkToWebsite>
@@ -99,6 +101,17 @@ const GuitarDescription = ({ collapsed, setCollapsed }) => {
                   <FaAngleUp />{" "}
                 </Collapse>
               </Title>
+              {isMobile && (
+                <a
+                  href="https://youtu.be/kmPUFGyACNc"
+                  style={{ width: "100%" }}
+                >
+                  <StyledImage
+                    src={guitarBg}
+                    alt="guitar sheet writer Landing page"
+                  />
+                </a>
+              )}
               <div>
                 <CardTitle $theme={theme}>Project Overview</CardTitle>
                 <p>
@@ -112,13 +125,15 @@ const GuitarDescription = ({ collapsed, setCollapsed }) => {
                 </p>
               </div>
             </div>
-            <a href="https://youtu.be/kmPUFGyACNc" style={{ width: "100%" }}>
-              <StyledImage
-                style={{ width: "100%" }}
-                src={guitarBg}
-                alt="guitar sheet writer Landing page"
-              />
-            </a>
+            {!isMobile && (
+              <a href="https://youtu.be/kmPUFGyACNc" style={{ width: "100%" }}>
+                <StyledImage
+                  style={{ width: "100%" }}
+                  src={guitarBg}
+                  alt="guitar sheet writer Landing page"
+                />
+              </a>
+            )}
           </TitleImgWrap>
 
           <div>
@@ -191,12 +206,23 @@ export const StyledImage = styled.img`
   &:hover {
     opacity: 0.7;
   }
+  @media (max-width: 1000px) {
+    width: 95%;
+  }
 `;
 export const Title = styled.h1`
   color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
+  font-size: 2rem;
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const CardTitle = styled.h2`
   color: ${(props) => (props.$theme === "dark" ? "#cc9849" : "#744600")};
+  font-size: 2rem;
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
 `;
 export default GuitarDescription;

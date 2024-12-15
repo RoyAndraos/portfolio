@@ -13,7 +13,7 @@ import {
 import gsap from "gsap";
 import styled from "styled-components";
 
-const PixSnap = ({ collapsed, setCollapsed }) => {
+const PixSnap = ({ collapsed, setCollapsed, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
     if (collapsed.pixsnap) {
@@ -72,12 +72,14 @@ const PixSnap = ({ collapsed, setCollapsed }) => {
       {collapsed.pixsnap ? (
         <CollapseWrapper ref={expandRef}>
           <Title $theme={theme}>
-            PixSnap Magnets
+            {!isMobile ? "PixSnap Magnets" : "PixSnap"}
             <Collapse $theme={theme} onClick={() => animateExpand()}>
               <FaAngleDown />{" "}
             </Collapse>
           </Title>
-          <CardTitle $theme={theme}>October 2024 - December 2024</CardTitle>
+          <CardTitle $theme={theme}>
+            {!isMobile ? "October 2024 - December 2024" : "Oct - Dec 2024"}
+          </CardTitle>
           <Button
             style={{
               width: "fit-content",
@@ -98,18 +100,19 @@ const PixSnap = ({ collapsed, setCollapsed }) => {
                   <FaAngleUp />{" "}
                 </Collapse>
               </Title>
+              {isMobile && <StyledImage src={pix} alt="PixSnap Landing Page" />}
               <div>
                 <CardTitle $theme={theme}>Project Overview</CardTitle>
-                <p style={{ width: "70%" }}>
+                <Info>
                   PixSnap is a sleek e-commerce platform designed to help users
                   create customizable photo magnets. Built with modern
                   technologies like Stripe for secure payments, ChitChats for
                   efficient shipping, and GSAP for stunning animations, the
                   website offers a seamless and engaging shopping experience.
-                </p>
+                </Info>
               </div>
             </div>
-            <StyledImage src={pix} alt="PixSnap Landing Page" />
+            {!isMobile && <StyledImage src={pix} alt="PixSnap Landing Page" />}
           </TitleImgWrap>
 
           <div>
@@ -173,6 +176,19 @@ export const AnimationWrap = styled.div`
   overflow-y: hidden;
   min-height: 40vh;
   max-height: 150vh;
+  @media (max-width: 768px) {
+    min-height: 40vh;
+    max-height: 500vh;
+  }
+`;
+export const Info = styled.p`
+  color: whitesmoke;
+  font-size: 1.2rem;
+  width: 70%;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    width: 100%;
+  }
 `;
 
 export default PixSnap;

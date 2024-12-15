@@ -548,6 +548,9 @@ export const CardTitle = styled.div`
   text-align: center;
   color: #a742bc;
   width: 100%;
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
 `;
 export const List = styled.ul`
   list-style: circle;

@@ -11,8 +11,8 @@ import {
 } from "./BarberShopDescription";
 import styled from "styled-components";
 import gsap from "gsap";
-import { AnimationWrap } from "./PixSnap";
-const Vblack = ({ collapsed, setCollapsed }) => {
+import { AnimationWrap, Info } from "./PixSnap";
+const Vblack = ({ collapsed, setCollapsed, isMobile }) => {
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
     if (collapsed.vblack) {
@@ -75,7 +75,9 @@ const Vblack = ({ collapsed, setCollapsed }) => {
               <FaAngleDown />{" "}
             </Collapse>
           </Title>
-          <CardTitle $theme={theme}>September 2024 - September 2024</CardTitle>
+          <CardTitle $theme={theme}>
+            {!isMobile ? "September 2024 - September 2024" : "Sept 2024"}
+          </CardTitle>
           <LinkToWebsite $theme={theme} href="https://vblacktattoos.com/">
             Visit
           </LinkToWebsite>
@@ -90,9 +92,18 @@ const Vblack = ({ collapsed, setCollapsed }) => {
                   <FaAngleUp />{" "}
                 </Collapse>
               </Title>
+              {isMobile && (
+                <a href="https://vblacktattoos.com" style={{ width: "100%" }}>
+                  <StyledImage
+                    style={{ width: "100%" }}
+                    src={vb}
+                    alt="vblack website screenshot"
+                  />
+                </a>
+              )}
               <div>
                 <CardTitle $theme={theme}>Project Overview</CardTitle>
-                <p style={{ width: "70%" }}>
+                <Info>
                   V. Black Tattoos is a modern, user-friendly platform tailored
                   for tattoo enthusiasts and clients to explore, book, and
                   interact with unique tattoo designs and flashes. Built with
@@ -100,16 +111,18 @@ const Vblack = ({ collapsed, setCollapsed }) => {
                   management, Mailtrap for secure email handling, and GSAP for
                   stunning animations, this website offers a smooth and
                   immersive experience.
-                </p>
+                </Info>
               </div>
             </div>
-            <a href="https://vblacktattoos.com" style={{ width: "100%" }}>
-              <StyledImage
-                style={{ width: "100%" }}
-                src={vb}
-                alt="vblack website screenshot"
-              />
-            </a>
+            {!isMobile && (
+              <a href="https://vblacktattoos.com" style={{ width: "100%" }}>
+                <StyledImage
+                  style={{ width: "100%" }}
+                  src={vb}
+                  alt="vblack website screenshot"
+                />
+              </a>
+            )}
           </TitleImgWrap>
 
           <div>
@@ -158,7 +171,6 @@ export const LinkToWebsite = styled.a`
     props.$theme === "dark" ? "transparent" : "#50196f"};
   border: ${(props) =>
     props.$theme === "dark" ? "1px solid #a742bc" : "1px solid #50196f"};
-  font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   border-radius: 5px;
@@ -170,6 +182,9 @@ export const LinkToWebsite = styled.a`
   &:hover {
     background-color: white;
     color: #50196f;
+  }
+  @media (max-width: 1000px) {
+    font-size: 1rem;
   }
 `;
 export default Vblack;

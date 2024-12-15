@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef } from "react";
 import ThemeContext from "../contexts/ColorTheme";
-import { CardTitle, StyledImage, Title } from "./GuitarDescription";
+import { CardTitle, Title } from "./GuitarDescription";
 import barberShopSrc from "../../assets/barbershopSS.png";
 import styled from "styled-components";
 import { FaAngleDown } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { LinkToWebsite } from "./Vblack";
 import { AnimationWrap } from "./PixSnap";
 import clientSS from "../../assets/clientSS.png";
 import gsap from "gsap";
-const BarberShopDescription = ({ collapsed, setCollapsed }) => {
+const BarberShopDescription = ({ collapsed, setCollapsed, isMobile }) => {
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const collapseRef = useRef(null);
@@ -57,7 +57,7 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
   const animateExpand = () => {
     gsap.to(expandRef.current, {
       duration: 0.5,
-      maxHeight: "80vh",
+      maxHeight: "300vh",
       minHeight: "40vh",
       opacity: 0,
       onComplete: () => {
@@ -76,8 +76,17 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
               <FaAngleDown />{" "}
             </Collapse>
           </Title>{" "}
-          <CardTitle $theme={theme}>May 2023 - April 2024</CardTitle>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <CardTitle $theme={theme}>
+            {!isMobile ? "May 2023 - April 2024" : " May 2023 - Apr 2024"}
+          </CardTitle>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              gap: "5vw",
+            }}
+          >
             <Button
               $theme={theme}
               onClick={() => {
@@ -123,15 +132,8 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
               <CardTitle style={{ fontSize: "1.2rem" }} $theme={theme}>
                 Client Side
               </CardTitle>
-              <a
-                href="https://hollywoodfairmountbarbers.com"
-                style={{ width: "80%" }}
-              >
-                <StyledImage
-                  style={{ width: "80%" }}
-                  src={clientSS}
-                  alt="Hollywood Barber Shop"
-                />
+              <a href="https://hollywoodfairmountbarbers.com">
+                <StyledImage src={clientSS} alt="Hollywood Barber Shop" />
               </a>
               <p>
                 <strong>Users can:</strong>
@@ -173,7 +175,6 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
                 Admin Side
               </CardTitle>
               <StyledImage
-                style={{ width: "80%" }}
                 src={barberShopSrc}
                 alt="Hollywood Barber Shop"
                 onClick={() => {
@@ -253,28 +254,44 @@ const BarberShopDescription = ({ collapsed, setCollapsed }) => {
     </Container>
   );
 };
+const StyledImage = styled.img`
+  width: 80%;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  &:hover {
+    opacity: 0.7;
+  }
+  @media (max-width: 1000px) {
+    width: 95%;
+  }
+`;
 const RealLink = styled.a`
   color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
   background-color: transparent;
   border: none;
-  font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   font-size: 1.4rem;
   &:hover {
     color: ${(props) => (props.$theme === "dark" ? "#50196f" : "whitesmoke")};
   }
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
 `;
 const Link = styled.button`
   color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
   background-color: transparent;
   border: none;
-  font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   font-size: 1.4rem;
   &:hover {
     color: ${(props) => (props.$theme === "dark" ? "#50196f" : "whitesmoke")};
+  }
+  @media (max-width: 1000px) {
+    font-size: 1rem;
   }
 `;
 export const Collapse = styled.button`
@@ -283,6 +300,9 @@ export const Collapse = styled.button`
   color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "#50196f")};
   font-size: 2rem;
   cursor: pointer;
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
 `;
 export const CollapseWrapper = styled.div`
   display: grid;
@@ -290,6 +310,12 @@ export const CollapseWrapper = styled.div`
   width: 100%;
   align-items: baseline;
   min-height: 8vh;
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    align-items: center;
+  }
 `;
 
 export const TitleImgWrap = styled.div`
@@ -323,6 +349,11 @@ const RequireWrapper = styled.div`
   grid-template-columns: 45% 45%;
   gap: 5vw;
   width: 100%;
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+  }
 `;
 export const Button = styled.button`
   color: ${(props) => (props.$theme === "dark" ? "#a742bc" : "white")};
@@ -330,7 +361,6 @@ export const Button = styled.button`
     props.$theme === "dark" ? "transparent" : "#50196f"};
   border: ${(props) =>
     props.$theme === "dark" ? "1px solid #a742bc" : "1px solid #50196f"};
-  font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   border-radius: 5px;
@@ -339,6 +369,9 @@ export const Button = styled.button`
   &:hover {
     background-color: white;
     color: #50196f;
+  }
+  @media (max-width: 1000px) {
+    font-size: 1rem;
   }
 `;
 export default BarberShopDescription;

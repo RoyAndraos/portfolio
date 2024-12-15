@@ -3,7 +3,7 @@ import GuitarDescription from "./GuitarDescription";
 import BarberShopDescription from "./BarberShopDescription";
 import Vblack from "./Vblack";
 import PixSnap from "./PixSnap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Projects = () => {
   const [collapsed, setCollapsed] = useState({
     hollywood: true,
@@ -11,15 +11,38 @@ const Projects = () => {
     pixsnap: true,
     vblack: true,
   });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (window.innerWidth < 1000) {
+      setIsMobile(true);
+    }
+  }, []);
   return (
     <Container>
-      <PixSnap collapsed={collapsed} setCollapsed={setCollapsed} />
-      <Vblack collapsed={collapsed} setCollapsed={setCollapsed} />
+      <PixSnap
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        isMobile={isMobile}
+        setIsMobile={setIsMobile}
+      />
+      <Vblack
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        isMobile={isMobile}
+        setIsMobile={setIsMobile}
+      />
       <BarberShopDescription
         collapsed={collapsed}
         setCollapsed={setCollapsed}
+        isMobile={isMobile}
+        setIsMobile={setIsMobile}
       />
-      <GuitarDescription collapsed={collapsed} setCollapsed={setCollapsed} />
+      <GuitarDescription
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        isMobile={isMobile}
+        setIsMobile={setIsMobile}
+      />
     </Container>
   );
 };
@@ -72,6 +95,7 @@ export const Title = styled.h1`
   position: absolute;
   @media (max-width: 768px) {
     width: 80vw;
+    font-size: 1rem;
   }
 `;
 
